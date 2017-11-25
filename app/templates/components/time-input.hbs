@@ -1,0 +1,11 @@
+{{paper-input
+  placeholder=(t placeholder)
+  type=text
+  value=editBuffer
+  onChange=(action 'updateTime')
+  required=true
+  errors=errors
+  errorMessages=(hash
+    required=missing
+  )
+}}
