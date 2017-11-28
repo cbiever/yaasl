@@ -1,2 +1,2 @@
 # yaasl
-Yet another automatic start list
+Yet another automatic sortie logbook

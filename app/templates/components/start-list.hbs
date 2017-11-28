@@ -1,46 +1,6 @@
-{{#paper-toolbar}}
-  {{#paper-toolbar-tools}}
-    <h2>
-      Yaasl
-    </h2>
-    <span class="flex"/>
-    {{#paper-menu as |menu|}}
-      {{#menu.trigger}}
-        {{#paper-button}}
-          {{i18n.locale}}
-        {{/paper-button}}
-      {{/menu.trigger}}
-      {{#menu.content as |content|}}
-        {{#each i18n.locales as |locale|}}
-        {{#content.menu-item onClick=(action 'setLocale' locale)}}
-          {{locale}}
-        {{/content.menu-item}}
-        {{/each}}
-      {{/menu.content}}
-    {{/paper-menu}}
-    {{#paper-menu as |menu|}}
-      {{#menu.trigger}}
-        {{#paper-button iconButton=true}}
-          {{paper-icon "menu"}}
-        {{/paper-button}}
-      {{/menu.trigger}}
-      {{#menu.content width=3 as |content|}}
-        {{#content.menu-item onClick=(action 'setLocale' 'nl')}}
-          {{paper-icon "airplanemode active"}}
-          <span>{{t 'menu.aircraft'}}</span>
-        {{/content.menu-item}}
-        {{#content.menu-item onClick=(action 'setLocale' 'en')}}
-          {{paper-icon "perm identity"}}
-          <span>{{t 'menu.pilots'}}</span>
-        {{/content.menu-item}}
-      {{/menu.content}}
-    {{/paper-menu}}
-  {{/paper-toolbar-tools}}
-{{/paper-toolbar}}
-
 {{#each sortedFlights as |flight|}}
 <div class="layout-row">
-  <div class="layout-column flex-10">
+  <div class="layout-column layout-align-center-end flex-5">
     {{time-input
       time=flight.startTime
       onValid=(action 'updateFlight' 'startTime' flight)
@@ -49,7 +9,7 @@
       invalid=(t 'flight.start.time.invalid')
     }}
   </div>
-  <div class="layout-column flex-10">
+  <div class="layout-column layout-align-center-end flex-5">
     {{time-input
       time=flight.landingTime
       onValid=(action 'updateFlight' 'landingTime' flight)
@@ -58,7 +18,7 @@
       invalid=(t 'flight.landing.time.invalid')
     }}
   </div>
-  <div class="layout-column flex-20">
+  <div class="layout-column layout-align-center-end flex-5">
     {{#paper-select
       placeholder=(t 'flight.call.sign')
       options=aircraft
@@ -68,7 +28,7 @@
       {{aircraft.callSign}}
     {{/paper-select}}
   </div>
-  <div class="layout-column flex-20">
+  <div class="layout-column layout-align-center-end flex-10">
     {{#paper-select
       placeholder=(t 'flight.pilot.1')
       options=pilots
@@ -81,7 +41,7 @@
     {{/paper-select}}
   </div>
   {{#if (is-twinseater flight.aircraft)}}
-  <div class="layout-column flex-20">
+  <div class="layout-column layout-align-center-end flex-10">
     {{#paper-select
       placeholder=(t 'flight.pilot.2')
       options=pilots
