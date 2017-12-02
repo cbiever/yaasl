@@ -1,0 +1,10 @@
+{{#each model as |aircraft|}}
+<div class="layout-row">
+  <div class="layout-column layout-align-center-end flex-10">
+    {{aircraft.callSign}}
+  </div>
+  <div class="layout-column layout-align-center-end flex-5">
+    {{aircraft.numberOfSeats}}
+  </div>
+</div>
+{{/each}}
