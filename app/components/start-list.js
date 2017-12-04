@@ -2,6 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
+  towplanes: Ember.computed(function() {
+    return this.get('aircraft').filterBy('canTow', true);
+  }),
   flights: Ember.computed(function() {
     return this.get('store').peekAll('flight');
   }),

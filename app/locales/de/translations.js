@@ -10,6 +10,7 @@ export default {
   'flight.landing.time': 'Landezeit',
   'flight.landing.time.missing': 'Landezeit ist benötigt',
   'flight.landing.time.invalid': 'Landezeit ist ungültig',
+  'flight.call.sign.tow.plane': 'Schleppflugzeug',
 
   'menu': {
     'language': 'Sprache',

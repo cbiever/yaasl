@@ -18,7 +18,7 @@
       invalid=(t 'flight.landing.time.invalid')
     }}
   </div>
-  <div class="layout-column layout-align-center-end flex-5">
+  <div class="layout-column layout-align-center-end flex-10">
     {{#paper-select
       placeholder=(t 'flight.call.sign')
       options=aircraft
@@ -28,6 +28,18 @@
       {{aircraft.callSign}}
     {{/paper-select}}
   </div>
+  {{#if (not flight.aircraft.canTow)}}
+  <div class="layout-column layout-align-center-end flex-10">
+    {{#paper-select
+      placeholder=(t 'flight.call.sign.tow.plane')
+      options=towplanes
+      selected=flight.towplane
+      onChange=(action 'updateFlight' 'towplane' flight)
+      as |aircraft|}}
+      {{aircraft.callSign}}
+    {{/paper-select}}
+  </div>
+  {{/if}}
   <div class="layout-column layout-align-center-end flex-10">
     {{#paper-select
       placeholder=(t 'flight.pilot.1')
