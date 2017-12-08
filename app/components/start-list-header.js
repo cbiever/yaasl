@@ -13,9 +13,18 @@ export default Component.extend({
     setDate(date) {
       this.set('showDatepicker', false);
       this.navigate(this.get('location'), date);
+    },
+    showStartList() {
+      this.navigate(this.get('location'), this.get('date'), 'start-list');
+    },
+    showKtrax() {
+      this.navigate(this.get('location'), this.get('date'), 'ktrax');
     }
   },
-  navigate: function(location, date) {
-    this.get('router').replaceWith('start-list', location.get('name').toLowerCase(), date.getFullYear() + '-' + (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1) + '-' + (date.getDate() < 10 ? '0' : '') + date.getDate());
+  navigate: function(location, date, route) {
+    if (!route) {
+      route = this.get('router').get('currentRouteName');
+    }
+    this.get('router').replaceWith(route, location.get('name').toLowerCase(), date.getFullYear() + '-' + (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1) + '-' + (date.getDate() < 10 ? '0' : '') + date.getDate());
   }
 });

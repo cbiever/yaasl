@@ -1,0 +1,23 @@
+<h3 style="margin-left:10px">Ktrax</h3>
+{{#each model.ktrax.sorties as | sortie |}}
+  <div class="layout-row flex-40" style="margin-left:10px">
+    <div class="flex">
+      {{sortie.tkof.time}}
+    </div>
+    <div class="flex">
+      {{sortie.tkof.loc}}
+    </div>
+    <div class="flex">
+      {{sortie.ldg.time}}
+    </div>
+    <div class="flex">
+      {{sortie.ldg.loc}}
+    </div>
+    <div class="flex">
+      {{sortie.cs}}
+    </div>
+    <div class="flex">
+      {{sortie.actype}}
+    </div>
+  </div>
+{{/each}}

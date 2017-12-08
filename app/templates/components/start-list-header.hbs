@@ -1,5 +1,34 @@
 {{#paper-toolbar}}
   {{#paper-toolbar-tools}}
+    {{#paper-menu as |menu|}}
+      {{#menu.trigger}}
+        {{#paper-button iconButton=true}}
+          {{paper-icon "menu"}}
+        {{/paper-button}}
+      {{/menu.trigger}}
+      {{#menu.content width=3 as |content|}}
+        {{#content.menu-item onClick=(transition-to 'aircraft')}}
+          {{paper-icon "airplanemode active"}}
+          <span>{{t 'menu.aircraft'}}</span>
+        {{/content.menu-item}}
+        {{#content.menu-item onClick=(transition-to 'pilots')}}
+          {{paper-icon "perm identity"}}
+          <span>{{t 'menu.pilots'}}</span>
+        {{/content.menu-item}}
+        {{#if (eq router.currentRouteName 'start-list')}}
+          {{#content.menu-item onClick=(action 'showKtrax')}}
+            {{paper-icon "flight takeoff"}}
+            <span>{{t 'menu.ktrax'}}</span>
+          {{/content.menu-item}}
+        {{/if}}
+        {{#if (eq router.currentRouteName 'ktrax')}}
+          {{#content.menu-item onClick=(action 'showStartList')}}
+            {{paper-icon "flight takeoff"}}
+            <span>{{t 'menu.logbook'}}</span>
+          {{/content.menu-item}}
+        {{/if}}
+      {{/menu.content}}
+    {{/paper-menu}}
     <h2>
       Yaasl
     </h2>
@@ -34,23 +63,6 @@
           {{locale}}
         {{/content.menu-item}}
         {{/each}}
-      {{/menu.content}}
-    {{/paper-menu}}
-    {{#paper-menu as |menu|}}
-      {{#menu.trigger}}
-        {{#paper-button iconButton=true}}
-          {{paper-icon "menu"}}
-        {{/paper-button}}
-      {{/menu.trigger}}
-      {{#menu.content width=3 as |content|}}
-        {{#content.menu-item onClick=(transition-to 'aircraft')}}
-          {{paper-icon "airplanemode active"}}
-          <span>{{t 'menu.aircraft'}}</span>
-        {{/content.menu-item}}
-        {{#content.menu-item onClick=(transition-to 'pilots')}}
-          {{paper-icon "perm identity"}}
-          <span>{{t 'menu.pilots'}}</span>
-        {{/content.menu-item}}
       {{/menu.content}}
     {{/paper-menu}}
   {{/paper-toolbar-tools}}

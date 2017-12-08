@@ -15,6 +15,8 @@ export default {
   'menu': {
     'language': 'Sprache',
     'aircraft': 'Flugzeuge',
-    'pilots': 'Piloten'
+    'pilots': 'Piloten',
+    'ktrax': 'Ktrax',
+    'logbook': 'Logbook'
   }
 };
