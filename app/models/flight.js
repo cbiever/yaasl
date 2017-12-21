@@ -3,11 +3,14 @@ import attr from 'ember-data/attr';
 import { hasMany, belongsTo } from 'ember-data/relationships';
 
 export default Model.extend({
-  location: belongsTo('location'),
+  startTime: attr('date'),
+  startLocation: belongsTo('location'),
+  landingTime: attr('date'),
+  landingLocation: belongsTo('location'),
   aircraft: belongsTo('aircraft'),
   towplane: belongsTo('aircraft'),
   pilot1: belongsTo('pilot'),
+  pilot1Role: belongsTo('pilotRole'),
   pilot2: belongsTo('pilot'),
-  startTime: attr('date'),
-  landingTime: attr('date')
+  pilot2Role: belongsTo('pilotRole')
 });

@@ -1,5 +1,13 @@
 @import 'ember-paper';
 
+figure {
+  justify-content: right !important;
+}
+
+input {
+  text-align: right;
+}
+
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;

@@ -5,24 +5,7 @@ export default Ember.Component.extend({
   towplanes: Ember.computed(function() {
     return this.get('aircraft').filterBy('canTow', true);
   }),
-  flights: Ember.computed(function() {
-    return this.get('store').peekAll('flight');
-  }),
-  filteredFlights: function() {
-    let locationName = this.get('location').get('name');
-    let date = this.get('date');
-    let today = new Date();
-    return this.get('flights').filterBy('location.name', locationName).filter(function(flight) {
-      let startTime = flight.get('startTime');
-      if (!startTime) {
-        return date.getFullYear() == today.getFullYear() && date.getMonth() == today.getMonth() && date.getDay() == today.getDay();
-      }
-      else {
-        return startTime.getFullYear() == date.getFullYear() && startTime.getMonth() == date.getMonth() && startTime.getDay() == date.getDay();
-      }
-    });
-  }.property('flights.@each'),
-  sortedFlights: Ember.computed.sort('filteredFlights', function(flight1, flight2) {
+  sortedFlights: Ember.computed.sort('flights', function(flight1, flight2) {
     let startTime1 = flight1.get('startTime');
     let startTime2 = flight2.get('startTime');
     if (startTime1 && !startTime2) {
@@ -43,19 +26,40 @@ export default Ember.Component.extend({
       }
     }
   }),
+  didUpdateAttrs() {
+    this._super(...arguments);
+    this.redraw(this);
+  },
   actions: {
     updateFlight(propertyName, flight, propertyValue) {
+      let self = this;
       flight.set(propertyName, propertyValue);
-      flight.save();
-      this.notifyPropertyChange('flights');
+      flight.save().then(function() {
+        self.notifyPropertyChange('flights');
+        self.redraw(self);
+      });
     },
     addFlight() {
+      let self = this;
       let flight = this.get('store').createRecord('flight', {});
-      flight.set('location', this.get('location'));
-      flight.save();
+      flight.set('startLocation', this.get('location'));
+      flight.save().then(function() {
+        self.set('flights', self.get('store').peekAll('flight'));
+        self.redraw(self);
+      });
     },
     deleteFlight(flight) {
-      flight.destroyRecord();
-    },
+      let self = this;
+      flight.destroyRecord().then(function(flight) {
+        self.redraw(self);
+      });
+    }
+  },
+  rowHeight: '50px',
+  redraw(self) {
+    Ember.run.later(function() {
+      self.set('rowHeight', '51px');
+      self.set('rowHeight', '50px');
+    });
   }
 });

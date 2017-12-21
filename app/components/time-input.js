@@ -5,7 +5,7 @@ export default Ember.Component.extend({
   placeholder: undefined,
   missing: undefined,
   invalid: undefined,
-  timeRegexp: /(\d{1,2}):(\d\d)/,
+  timeRegexp: /(\d{1,2}):{0,1}(\d{2})/,
   editBuffer: undefined,
   init() {
     this._super(...arguments);
@@ -21,9 +21,8 @@ export default Ember.Component.extend({
     }
   },
   actions: {
-    updateTime(time) {
-      this.set('editBuffer', time);
-      let hoursAndMinutes = this.timeRegexp.exec(time);
+    updateTime() {
+      let hoursAndMinutes = this.timeRegexp.exec(this.get('editBuffer'));
       if (hoursAndMinutes) {
         let hours = hoursAndMinutes[1];
         let minutes = hoursAndMinutes[2];

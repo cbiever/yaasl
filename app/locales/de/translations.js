@@ -1,16 +1,40 @@
 export default {
 
-  'flight.call.sign': 'Rufzeichen',
-  'flight.call.sign.error': 'Rufzeichen ist benötigt',
-  'flight.pilot.1': 'Pilot 1',
-  'flight.pilot.2': 'Pilot 2',
-  'flight.start.time': 'Startzeit',
-  'flight.start.time.missing': 'Startzeit ist benötigt',
-  'flight.start.time.invalid': 'Startzeit ist ungültig',
-  'flight.landing.time': 'Landezeit',
-  'flight.landing.time.missing': 'Landezeit ist benötigt',
-  'flight.landing.time.invalid': 'Landezeit ist ungültig',
-  'flight.call.sign.tow.plane': 'Schleppflugzeug',
+  'flight': {
+
+    'start': {
+      'time': {
+        'placeholder': 'Startzeit',
+        'missing': 'Startzeit ist benötigt',
+        'invalid': 'Startzeit ist ungültig'
+      },
+      'location': {
+        'placeholder': 'Startort'
+      }
+    },
+
+    'landing': {
+      'time': {
+        'placeholder': 'Landezeit',
+        'missing': 'Landezeit ist benötigt',
+        'invalid': 'Landezeit ist ungültig'
+      },
+      'location': {
+        'placeholder': 'Landeort'
+      }
+    },
+
+    'call.sign': {
+      'placeholder': 'Rufzeichen',
+      'error': 'Rufzeichen ist benötigt'
+    },
+
+    'pilot.1': 'Pilot 1',
+    'pilot.2': 'Pilot 2',
+    'pilot.role': 'Rolle',
+
+    'call.sign.tow.plane': 'Schleppflugzeug'
+  },
 
   'menu': {
     'language': 'Sprache',
@@ -18,5 +42,13 @@ export default {
     'pilots': 'Piloten',
     'ktrax': 'Ktrax',
     'logbook': 'Logbook'
+  },
+
+  'pilot.role': {
+    'fi': 'Fluglehrer',
+    'pilot': 'Pilot',
+    'student': 'Schüler',
+    'passenger': 'Passagier'
   }
+  
 };

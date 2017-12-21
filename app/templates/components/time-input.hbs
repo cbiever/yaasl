@@ -2,7 +2,8 @@
   placeholder=(t placeholder)
   type=text
   value=editBuffer
-  onChange=(action 'updateTime')
+  onChange=(action (mut editBuffer))
+  onBlur=(action 'updateTime')
   required=true
   errors=errors
   errorMessages=(hash

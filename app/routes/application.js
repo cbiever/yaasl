@@ -9,6 +9,7 @@ export default Ember.Route.extend({
       locations: this.get('store').findAll('location'),
       aircraft: this.get('store').findAll('aircraft'),
       pilots: this.get('store').findAll('pilot'),
+      pilotRoles: this.get('store').findAll('pilotRole'),
       session: this.get('store').peekRecord('session', 42)
     });
   },

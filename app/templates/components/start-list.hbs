@@ -1,81 +1,139 @@
-{{#each sortedFlights as |flight|}}
-<div class="layout-row">
-  <div class="layout-column layout-align-center-end flex-5">
-    {{time-input
-      time=flight.startTime
-      onValid=(action 'updateFlight' 'startTime' flight)
-      placeholder='flight.start.time'
-      missing=(t 'flight.start.time.missing')
-      invalid=(t 'flight.start.time.invalid')
-    }}
-  </div>
-  <div class="layout-column layout-align-center-end flex-5">
-    {{time-input
-      time=flight.landingTime
-      onValid=(action 'updateFlight' 'landingTime' flight)
-      placeholder='flight.landing.time'
-      missing=(t 'flight.landing.time.missing')
-      invalid=(t 'flight.landing.time.invalid')
-    }}
-  </div>
-  <div class="layout-column layout-align-center-end flex-10">
-    {{#paper-select
-      placeholder=(t 'flight.call.sign')
-      options=aircraft
-      selected=flight.aircraft
-      onChange=(action 'updateFlight' 'aircraft' flight)
-      as |aircraft|}}
-      {{aircraft.callSign}}
-    {{/paper-select}}
-  </div>
-  {{#if (not flight.aircraft.canTow)}}
-  <div class="layout-column layout-align-center-end flex-10">
-    {{#paper-select
-      placeholder=(t 'flight.call.sign.tow.plane')
-      options=towplanes
-      selected=flight.towplane
-      onChange=(action 'updateFlight' 'towplane' flight)
-      as |aircraft|}}
-      {{aircraft.callSign}}
-    {{/paper-select}}
-  </div>
-  {{/if}}
-  <div class="layout-column layout-align-center-end flex-10">
-    {{#paper-select
-      placeholder=(t 'flight.pilot.1')
-      options=pilots
-      selected=flight.pilot1
-      searchEnabled=true
-      searchField='name'
-      onChange=(action 'updateFlight' 'pilot1' flight)
-      as |pilot|}}
-      {{pilot.name}}
-    {{/paper-select}}
-  </div>
-  {{#if (is-twinseater flight.aircraft)}}
-  <div class="layout-column layout-align-center-end flex-10">
-    {{#paper-select
-      placeholder=(t 'flight.pilot.2')
-      options=pilots
-      selected=flight.pilot2
-      searchEnabled=true
-      searchField='name'
-      onChange=(action 'updateFlight' 'pilot2' flight)
-      as |pilot|}}
-      {{pilot.name}}
-    {{/paper-select}}
-  </div>
-  {{/if}}
-  <div class="layout-column flex-5" style="margin-top:14px">
-    {{#paper-button iconButton=true onClick=(action 'deleteFlight' flight)}}
-      {{paper-icon "delete"}}
+{{#paper-content class="md-padding"}}
+  {{#paper-grid-list cols="105 gt-md-105" rowHeight=rowHeight as |grid|}}
+
+    {{#each sortedFlights as |flight|}}
+
+    {{#grid.tile colspan="5" as |tile|}}
+      {{time-input
+        time=flight.startTime
+        onValid=(action 'updateFlight' 'startTime' flight)
+        placeholder='flight.start.time.placeholder'
+        missing=(t 'flight.start.time.missing')
+        invalid=(t 'flight.start.time.invalid')
+      }}
+    {{/grid.tile}}
+
+    {{#grid.tile colspan="10" as |tile|}}
+      {{#paper-select
+        placeholder=(t 'flight.start.location.placeholder')
+        options=locations
+        selected=flight.startLocation
+        onChange=(action 'updateFlight' 'startLocation' flight)
+        as |location|}}
+       {{location.name}}
+      {{/paper-select}}
+    {{/grid.tile}}
+
+    {{#grid.tile colspan="5" as |tile|}}
+      {{time-input
+        time=flight.landingTime
+        onValid=(action 'updateFlight' 'landingTime' flight)
+        placeholder='flight.landing.time.placeholder'
+        missing=(t 'flight.landing.time.missing')
+        invalid=(t 'flight.landing.time.invalid')
+      }}
+    {{/grid.tile}}
+
+    {{#grid.tile colspan="10" as |tile|}}
+      {{#paper-select
+        placeholder=(t 'flight.landing.location.placeholder')
+        options=locations
+        selected=flight.landingLocation
+        onChange=(action 'updateFlight' 'landingLocation' flight)
+        as |location|}}
+        {{location.name}}
+      {{/paper-select}}
+    {{/grid.tile}}
+
+    {{#grid.tile colspan="10" as |tile|}}
+      {{#paper-select
+        placeholder=(t 'flight.call.sign.placeholder')
+        options=aircraft
+        selected=flight.aircraft
+        onChange=(action 'updateFlight' 'aircraft' flight)
+        as |aircraft|}}
+        {{aircraft.callSign}}
+      {{/paper-select}}
+    {{/grid.tile}}
+
+    {{#grid.tile colspan="10" as |tile|}}
+      {{#if (not flight.aircraft.canTow)}}
+      {{#paper-select
+        placeholder=(t 'flight.call.sign.tow.plane')
+        options=towplanes
+        selected=flight.towplane
+        onChange=(action 'updateFlight' 'towplane' flight)
+        as |aircraft|}}
+        {{aircraft.callSign}}
+      {{/paper-select}}
+      {{/if}}
+    {{/grid.tile}}
+
+    {{#grid.tile colspan="15" as |tile|}}
+      {{#paper-select
+        placeholder=(t 'flight.pilot.1')
+        options=pilots
+        selected=flight.pilot1
+        searchEnabled=true
+        searchField='name'
+        onChange=(action 'updateFlight' 'pilot1' flight)
+        as |pilot|}}
+        {{pilot.name}}
+      {{/paper-select}}
+    {{/grid.tile}}
+
+    {{#grid.tile colspan="10" as |tile|}}
+      {{#paper-select
+        placeholder=(t 'flight.pilot.role')
+        options=pilotRoles
+        selected=flight.pilot1Role
+        onChange=(action 'updateFlight' 'pilot1Role' flight)
+        as |pilotRole|}}
+       {{t pilotRole.i18n}}
+      {{/paper-select}}
+    {{/grid.tile}}
+
+    {{#grid.tile colspan="15" as |tile|}}
+      {{#if (is-twinseater flight.aircraft)}}
+      {{#paper-select
+        placeholder=(t 'flight.pilot.2')
+        options=pilots
+        selected=flight.pilot2
+        searchEnabled=true
+        searchField='name'
+        onChange=(action 'updateFlight' 'pilot2' flight)
+        as |pilot|}}
+        {{pilot.name}}
+      {{/paper-select}}
+      {{/if}}
+    {{/grid.tile}}
+
+    {{#grid.tile colspan="10" as |tile|}}
+      {{#paper-select
+        placeholder=(t 'flight.pilot.role')
+        options=pilotRoles
+        selected=flight.pilot2Role
+        onChange=(action 'updateFlight' 'pilot2Role' flight)
+        as |pilotRole|}}
+       {{t pilotRole.i18n}}
+      {{/paper-select}}
+    {{/grid.tile}}
+
+    {{#grid.tile colspan="5" as |tile|}}
+      {{#paper-button iconButton=true onClick=(action 'deleteFlight' flight)}}
+        {{paper-icon "delete"}}
+      {{/paper-button}}
+    {{/grid.tile}}
+
+    {{/each}}
+
+  {{/paper-grid-list}}
+
+  <div class="layout-row">
+    <div class="flex"/>
+    {{#paper-button iconButton=true raised=true fab=true primary=true mini=true onClick=(action 'addFlight')}}
+      {{paper-icon "add"}}
     {{/paper-button}}
   </div>
-</div>
-{{/each}}
-<div class="layout-column">
-  <span class="flex"/>
-  {{#paper-button iconButton=true onClick=(action 'addFlight')}}
-    {{paper-icon "add"}}
-  {{/paper-button}}
-</div>
+
+{{/paper-content}}

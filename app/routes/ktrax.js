@@ -7,14 +7,14 @@ export default Route.extend({
     return RSVP.hash({
       location: this.get('store').query('location', {
         filter: {
-          location: parameters.location_id
+          location: parameters.location
         }
       }).then(function(locations) {
         return locations.get('firstObject');
       }),
-      date: new Date(parameters.date_id),
+      date: new Date(parameters.date),
       ktrax: new RSVP.Promise(function(resolve, reject) {
-        Ember.$.get('/api/v1/rs/flights/ktrax', 'location=' + parameters.location_id + '&date=' + parameters.date_id )
+        Ember.$.get('/api/v1/rs/flights/ktrax', 'location=' + parameters.location + '&date=' + parameters.date )
           .then((response) => { console.log('response: ', response); resolve(response) })
           .catch((msg) => { console.log('error: ', msg); reject(msg) });
       })
