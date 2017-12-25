@@ -1,10 +1,24 @@
-{{#each model as |aircraft|}}
-<div class="layout-row">
-  <div class="layout-column layout-align-center-end flex-10">
-    {{aircraft.callSign}}
-  </div>
-  <div class="layout-column layout-align-center-end flex-5">
-    {{aircraft.numberOfSeats}}
-  </div>
+{{#paper-content class="md-padding"}}
+  <div class="layout-row flex align-left">
+    <div class="flex-gt-sm"/>
+    <div class="flex">
+      {{#paper-grid-list cols="2" rowHeight="20px" as |grid|}}
+      {{#grid.tile as |tile|}}
+        <strong>{{t 'aircraft.overview.title.call.sign'}}</strong>
+      {{/grid.tile}}
+      {{#grid.tile as |tile|}}
+        <strong>{{t 'aircraft.overview.title.number.of.seats'}}</strong>
+      {{/grid.tile}}
+      {{#each model as |aircraft|}}
+        {{#grid.tile as |tile|}}
+          {{aircraft.callSign}}
+        {{/grid.tile}}
+        {{#grid.tile as |tile|}}
+          {{aircraft.numberOfSeats}}
+        {{/grid.tile}}
+      {{/each}}
+      {{/paper-grid-list}}
+   </div>
+   <div class="flex-gt-sm"/>
 </div>
-{{/each}}
+{{/paper-content}}

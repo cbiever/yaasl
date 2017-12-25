@@ -21,7 +21,7 @@
             <span>{{t 'menu.ktrax'}}</span>
           {{/content.menu-item}}
         {{/if}}
-        {{#if (eq router.currentRouteName 'ktrax')}}
+        {{#if (not-eq router.currentRouteName 'start-list')}}
           {{#content.menu-item onClick=(action 'showStartList')}}
             {{paper-icon "flight takeoff"}}
             <span>{{t 'menu.logbook'}}</span>

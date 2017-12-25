@@ -34,6 +34,16 @@ export default Ember.Component.extend({
     updateFlight(propertyName, flight, propertyValue) {
       let self = this;
       flight.set(propertyName, propertyValue);
+      if (propertyName == 'pilot1') {
+        if (!flight.belongsTo('pilot1Role').value() && propertyValue.belongsTo('standardRole').value()) {
+          flight.set('pilot1Role', propertyValue.get('standardRole'));
+        }
+      }
+      else if (propertyName == 'pilot2') {
+        if (!flight.belongsTo('pilot2Role').value() && propertyValue.belongsTo('standardRole').value()) {
+          flight.set('pilot2Role', propertyValue.get('standardRole'));
+        }
+      }
       flight.save().then(function() {
         self.notifyPropertyChange('flights');
         self.redraw(self);
@@ -50,7 +60,7 @@ export default Ember.Component.extend({
     },
     deleteFlight(flight) {
       let self = this;
-      flight.destroyRecord().then(function(flight) {
+      flight.destroyRecord().then(function() {
         self.redraw(self);
       });
     }

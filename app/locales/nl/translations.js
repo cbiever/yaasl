@@ -49,6 +49,20 @@ export default {
     'pilot': 'Piloot',
     'student': 'Leerling',
     'passenger': 'Passagier'
+  },
+
+  'aircraft.overview': {
+    'title': {
+      'call.sign': 'Registratie',
+      'number.of.seats': 'Aantal plaatsen'
+    }
+  },
+
+  'pilots.overview': {
+    'title': {
+      'name': 'Naam',
+      'standard.role': 'Standaard rol'
+    }
   }
 
 };

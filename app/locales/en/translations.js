@@ -49,6 +49,20 @@ export default {
     'pilot': 'Pilot',
     'student': 'Studen',
     'passenger': 'Passager'
+  },
+
+  'aircraft.overview': {
+    'title': {
+      'call.sign': 'Call sign',
+      'number.of.seats': 'Number of seats'
+    }
+  },
+
+  'pilots.overview': {
+    'title': {
+      'name': 'Name',
+      'standard.role': 'Standard role'
+    }
   }
 
 };

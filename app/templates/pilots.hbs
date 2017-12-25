@@ -1,8 +1,24 @@
-{{#each model as |pilot|}}
-  <div class="layout-row">
-    <div class="layout-column flex-5"/>
-    <div class="layout-column flex-20">
-      {{pilot.name}}
-    </div>
-  </div>
-{{/each}}
+{{#paper-content class="md-padding"}}
+  <div class="layout-row flex align-left">
+    <div class="flex-gt-sm"/>
+    <div class="flex">
+      {{#paper-grid-list cols="2" rowHeight="20px" as |grid|}}
+      {{#grid.tile as |tile|}}
+        <strong>{{t 'pilots.overview.title.name'}}</strong>
+      {{/grid.tile}}
+      {{#grid.tile as |tile|}}
+        <strong>{{t 'pilots.overview.title.standard.role'}}</strong>
+      {{/grid.tile}}
+      {{#each model as |pilot|}}
+        {{#grid.tile as |tile|}}
+          {{pilot.name}}
+        {{/grid.tile}}
+        {{#grid.tile as |tile|}}
+          {{pilot.standardRole.description}}
+        {{/grid.tile}}
+      {{/each}}
+      {{/paper-grid-list}}
+   </div>
+   <div class="flex-gt-sm"/>
+</div>
+{{/paper-content}}

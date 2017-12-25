@@ -1,5 +1,5 @@
 {{#paper-content class="md-padding"}}
-  {{#paper-grid-list cols="105 gt-md-105" rowHeight=rowHeight as |grid|}}
+  {{#paper-grid-list cols="105" rowHeight=rowHeight as |grid|}}
 
     {{#each sortedFlights as |flight|}}
 
@@ -109,6 +109,7 @@
     {{/grid.tile}}
 
     {{#grid.tile colspan="10" as |tile|}}
+      {{#if (is-twinseater flight.aircraft)}}
       {{#paper-select
         placeholder=(t 'flight.pilot.role')
         options=pilotRoles
@@ -117,6 +118,7 @@
         as |pilotRole|}}
        {{t pilotRole.i18n}}
       {{/paper-select}}
+      {{/if}}
     {{/grid.tile}}
 
     {{#grid.tile colspan="5" as |tile|}}
