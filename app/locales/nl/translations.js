@@ -45,7 +45,7 @@ export default {
   },
 
   'pilot.role': {
-    'fi': 'Vliegleraat',
+    'fi': 'Vliegleraar',
     'pilot': 'Piloot',
     'student': 'Leerling',
     'passenger': 'Passagier'
