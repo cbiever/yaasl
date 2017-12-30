@@ -1,5 +1,13 @@
 @import 'ember-paper';
 
+.cell {
+  margin-bottom: 20px;
+}
+
+.align-right {
+  text-align: right;
+}
+
 figure {
   justify-content: right !important;
 }

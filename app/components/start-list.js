@@ -5,33 +5,44 @@ export default Ember.Component.extend({
   towplanes: Ember.computed(function() {
     return this.get('aircraft').filterBy('canTow', true);
   }),
-  sortedFlights: Ember.computed.sort('flights', function(flight1, flight2) {
-    let startTime1 = flight1.get('startTime');
-    let startTime2 = flight2.get('startTime');
-    if (startTime1 && !startTime2) {
-      return -1;
-    }
-    else if (startTime2 && !startTime1) {
-      return 1;
-    }
-    else {
-      if (startTime1 < startTime2) {
+  sortedFlights: Ember.computed('flights.@each.startTime', function() {
+    return this.get('flights').sort(function(flight1, flight2) {
+      let startTime1 = flight1.get('startTime');
+      let startTime2 = flight2.get('startTime');
+      if (startTime1 && !startTime2) {
         return -1;
       }
-      else if (startTime1 > startTime2) {
+      else if (startTime2 && !startTime1) {
         return 1;
       }
       else {
-        return 0;
+        if (startTime1 < startTime2) {
+          return -1;
+        }
+        else if (startTime1 > startTime2) {
+          return 1;
+        }
+        else {
+          return 0;
+        }
       }
-    }
+    });
   }),
-  didUpdateAttrs() {
+  didReceiveAttrs() {
     this._super(...arguments);
-    this.redraw(this);
+    let date = this.get('date');
+    let now = new Date();
+    this.set('today', date.getDate() == now.getDate() && date.getMonth() == now.getMonth() && date.getFullYear() == now.getFullYear());
   },
   actions: {
-    updateFlight(propertyName, flight, propertyValue) {
+    addFlight() {
+      let self = this;
+      let flight = this.get('store').createRecord('flight', { 'startLocation': this.get('location') });
+      flight.save().then(function(flight) {
+        self.get('flights').addObject(flight);
+      });
+    },
+    updateFlight(flight, propertyName, propertyValue) {
       let self = this;
       flight.set(propertyName, propertyValue);
       if (propertyName == 'pilot1') {
@@ -44,32 +55,13 @@ export default Ember.Component.extend({
           flight.set('pilot2Role', propertyValue.get('standardRole'));
         }
       }
-      flight.save().then(function() {
-        self.notifyPropertyChange('flights');
-        self.redraw(self);
-      });
-    },
-    addFlight() {
-      let self = this;
-      let flight = this.get('store').createRecord('flight', {});
-      flight.set('startLocation', this.get('location'));
-      flight.save().then(function() {
-        self.set('flights', self.get('store').peekAll('flight'));
-        self.redraw(self);
-      });
+      flight.save();
     },
     deleteFlight(flight) {
       let self = this;
       flight.destroyRecord().then(function() {
-        self.redraw(self);
+        self.get('flights').removeObject(flight);
       });
     }
-  },
-  rowHeight: '50px',
-  redraw(self) {
-    Ember.run.later(function() {
-      self.set('rowHeight', '51px');
-      self.set('rowHeight', '50px');
-    });
   }
 });

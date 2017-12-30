@@ -29,6 +29,8 @@ export default Route.extend({
             location: parameters.location,
             date: parameters.date
           }
+        }).then(function(flights) {
+          return flights.toArray();
         })
       });
   },
