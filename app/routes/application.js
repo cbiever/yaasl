@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 export default Ember.Route.extend({
   store: Ember.inject.service(),
   websockets: Ember.inject.service(),
+  messageBus: Ember.inject.service(),
   model() {
     return RSVP.hash({
       locations: this.get('store').findAll('location'),
@@ -41,6 +42,10 @@ export default Ember.Route.extend({
     }
     else if (update.action == 'add' || update.action == 'update') {
       this.get('store').pushPayload(update.payload);
+      if (update.action == 'add') {
+        let object = this.get('store').peekRecord(update.payload.data.type, update.payload.data.id);
+        this.get('messageBus').publish('add', object);
+      }
     }
     else if (update.action == 'delete') {
       let object = this.get('store').peekRecord(update.payload.data.type, update.payload.data.id);
@@ -48,6 +53,7 @@ export default Ember.Route.extend({
         if (!object.get('isDeleted')) {
           object.unloadRecord();
           console.log('unloaded object of type: ' + update.payload.data.type + ' with id: ' + update.payload.data.id);
+          this.get('messageBus').publish('delete', object);
         }
         else {
           console.log('object of type: ' + update.payload.data.type + ' with id: ' + update.payload.data.id + ' already deleted');

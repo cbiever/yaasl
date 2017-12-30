@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
+  messageBus: Ember.inject.service(),
   towplanes: Ember.computed(function() {
     return this.get('aircraft').filterBy('canTow', true);
   }),
@@ -28,22 +29,40 @@ export default Ember.Component.extend({
       }
     });
   }),
+  init() {
+    this._super(...arguments);
+    this.get('messageBus').subscribe('add', this, this.addFlight);
+    this.get('messageBus').subscribe('delete', this, this.deleteFlight);
+  },
   didReceiveAttrs() {
     this._super(...arguments);
     let date = this.get('date');
     let now = new Date();
     this.set('today', date.getDate() == now.getDate() && date.getMonth() == now.getMonth() && date.getFullYear() == now.getFullYear());
   },
+  processExternalUpdate(update) {
+    console.log('external update: ', update);
+  },
+  addFlight(flight) {
+    if (flight.belongsTo('startLocation').value() == this.get('location')) {
+      this.get('flights').addObject(flight);
+    }
+    else {
+      console.log('flight of different location ignored: ', flight.belongsTo('startLocation').value().get('name'), this.get('location').get('name'));
+    }
+  },
+  deleteFlight(flight) {
+    this.get('flights').removeObject(flight);
+  },
   actions: {
     addFlight() {
       let self = this;
       let flight = this.get('store').createRecord('flight', { 'startLocation': this.get('location') });
       flight.save().then(function(flight) {
-        self.get('flights').addObject(flight);
+        self.addFlight(flight);
       });
     },
     updateFlight(flight, propertyName, propertyValue) {
-      let self = this;
       flight.set(propertyName, propertyValue);
       if (propertyName == 'pilot1') {
         if (!flight.belongsTo('pilot1Role').value() && propertyValue.belongsTo('standardRole').value()) {
@@ -60,7 +79,7 @@ export default Ember.Component.extend({
     deleteFlight(flight) {
       let self = this;
       flight.destroyRecord().then(function() {
-        self.get('flights').removeObject(flight);
+        self.deleteFlight(flight);
       });
     }
   }
