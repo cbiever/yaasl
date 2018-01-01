@@ -9,9 +9,10 @@ const Router = EmberRouter.extend({
 Router.map(function() {
   this.route('start-list', { path: '/:location/:date'});
   this.route('ktrax', { path: '/ktrax/:location/:date'});
-  this.route('checkin', { path: '/checkin/:call_sign'});
+  this.route('check-in', { path: '/check-in/:call_sign'});
   this.route('pilots');
   this.route('aircraft');
+  this.route('loading');
   this.route('invalid-url', { path: '/*path'});
 });
 

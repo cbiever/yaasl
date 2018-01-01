@@ -1,21 +1,23 @@
-{{#paper-content class="md-padding"}}
-  <div class="layout-row">
-    <div class="layout-column flex-grow">
-      <div class="">
-        {{#each sortedFlights as |flight|}}
-          {{flight-l flight=flight location=location locations=locations aircraft=aircraft pilots=pilots pilotRoles=pilotRoles towplanes=towplanes
-                     onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
-        {{/each}}
+<div class="layout-row">
+  <div class="layout-column flex">
+    {{#each sortedFlights as |flight|}}
+      <div class="hide-gt-sm layout-padding">
+        {{flight-sm flight=flight location=location locations=locations aircraft=aircraft pilots=pilots pilotRoles=pilotRoles towplanes=towplanes
+                    onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
       </div>
+      <div class="hide-xs hide-sm layout-padding">
+        {{flight-lg flight=flight location=location locations=locations aircraft=aircraft pilots=pilots pilotRoles=pilotRoles towplanes=towplanes
+                    onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
+      </div>
+    {{/each}}
 
-      {{#if today}}
-        <div class="layout-row layout-align-end-center">
-          {{#paper-button iconButton=true raised=true fab=true primary=true mini=true onClick=(action 'addFlight')}}
-            {{paper-icon "add"}}
-          {{/paper-button}}
-          <div class="flex-5"/>
-        </div>
-      {{/if}}
-    </div>
+    {{#if today}}
+      <div class="layout-row layout-align-end-center">
+        {{#paper-button iconButton=true raised=true fab=true primary=true mini=true onClick=(action 'addFlight')}}
+          {{paper-icon "add"}}
+        {{/paper-button}}
+        <div class="flex-5 hide-xs hide-sm"/>
+      </div>
+    {{/if}}
   </div>
-{{/paper-content}}
+</div>

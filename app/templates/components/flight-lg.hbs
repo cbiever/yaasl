@@ -1,0 +1,156 @@
+<div class="layout-row layout-align-center-center" style="height: 30px">
+
+  <div class="flex-5"/>
+
+  <div class="flex-5 cell">
+    {{time-input
+      time=flight.startTime
+      onValid=(action 'updateFlight' 'startTime')
+      placeholder='flight.start.time.placeholder'
+      missing=(t 'flight.start.time.missing')
+      invalid=(t 'flight.start.time.invalid')
+    }}
+  </div>
+
+  <div class="flex-5 cell align-right">
+    {{#paper-select
+      placeholder=(t 'flight.start.location.placeholder')
+      options=locations
+      selected=flight.startLocation
+      onChange=(action 'updateFlight' 'startLocation')
+      as |location|}}
+     {{location.name}}
+    {{/paper-select}}
+  </div>
+
+  <div class="flex-5 cell">
+    {{time-input
+      time=flight.landingTime
+      onValid=(action 'updateFlight' 'landingTime')
+      placeholder='flight.landing.time.placeholder'
+      missing=(t 'flight.landing.time.missing')
+      invalid=(t 'flight.landing.time.invalid')
+    }}
+  </div>
+
+  <div class="flex-5 cell align-right">
+    {{#paper-select
+      placeholder=(t 'flight.landing.location.placeholder')
+      options=locations
+      selected=flight.landingLocation
+      onChange=(action 'updateFlight' 'landingLocation')
+      as |location|}}
+      {{location.name}}
+    {{/paper-select}}
+  </div>
+
+  <div class="flex-10 cell align-right">
+    {{#paper-select
+      placeholder=(t 'flight.call.sign.placeholder')
+      options=aircraft
+      selected=flight.aircraft
+      onChange=(action 'updateFlight' 'aircraft')
+      as |aircraft|}}
+      {{aircraft.callSign}}
+    {{/paper-select}}
+  </div>
+
+  <div class="flex-10 cell align-right">
+    {{#if (not flight.aircraft.canTow)}}
+      {{#paper-select
+        placeholder=(t 'flight.call.sign.tow.plane')
+        options=towplanes
+        selected=flight.towplane
+        onChange=(action 'updateFlight' 'towplane')
+        as |aircraft|}}
+        {{aircraft.callSign}}
+      {{/paper-select}}
+    {{/if}}
+  </div>
+
+  <div class="flex-10 cell align-right">
+    {{#paper-select
+      placeholder=(t 'flight.pilot.1')
+      options=pilots
+      selected=flight.pilot1
+      searchEnabled=true
+      searchField='name'
+      onChange=(action 'updateFlight' 'pilot1')
+      as |pilot|}}
+      {{pilot.name}}
+    {{/paper-select}}
+  </div>
+
+  <div class="flex-10 cell align-right">
+    {{#paper-select
+      placeholder=(t 'flight.pilot.role')
+      options=pilotRoles
+      selected=flight.pilot1Role
+      onChange=(action 'updateFlight' 'pilot1Role')
+      as |pilotRole|}}
+     {{t pilotRole.i18n}}
+    {{/paper-select}}
+  </div>
+
+  <div class="flex-10 cell align-right">
+    {{#if (is-twinseater flight.aircraft)}}
+      {{#paper-select
+        placeholder=(t 'flight.pilot.2')
+        options=pilots
+        selected=flight.pilot2
+        searchEnabled=true
+        searchField='name'
+        onChange=(action 'updateFlight' 'pilot2')
+        as |pilot|}}
+        {{pilot.name}}
+      {{/paper-select}}
+    {{/if}}
+  </div>
+
+  <div class="flex-10 cell align-right">
+    {{#if (is-twinseater flight.aircraft)}}
+      {{#paper-select
+        placeholder=(t 'flight.pilot.role')
+        options=pilotRoles
+        selected=flight.pilot2Role
+        onChange=(action 'updateFlight' 'pilot2Role')
+        as |pilotRole|}}
+       {{t pilotRole.i18n}}
+      {{/paper-select}}
+    {{/if}}
+  </div>
+
+  <div class="flex-5"/>
+
+  <div class="flex-5">
+    <div class="layout-row">
+      {{#if expanded}}
+        {{#paper-button iconButton=true onClick=(action 'setExpanded' false)}}
+          {{paper-icon "expand less"}}
+        {{/paper-button}}
+      {{else}}
+        {{#paper-button iconButton=true onClick=(action 'setExpanded' true)}}
+          {{paper-icon "expand more"}}
+        {{/paper-button}}
+      {{/if}}
+      {{#paper-button iconButton=true onClick=(action 'deleteFlight')}}
+        {{paper-icon "delete"}}
+      {{/paper-button}}
+    </div>
+  </div>
+
+  <div class="flex-5"/>
+
+</div>
+
+{{#if expanded}}
+<div class="layout-row layout-align-space-around-center" style="height: 50px">
+  <div class="flex-5"/>
+  <div class="flex-5">
+    Verteilung
+  </div>
+  <div class="flex-90">
+    Comment
+  </div>
+</div>
+{{/if}}

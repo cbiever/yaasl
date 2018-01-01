@@ -18,14 +18,13 @@ export default Route.extend({
               resolve(position);
             },
             function(error) {
-console.log('no position:', error);
+              console.log('no position: ', error);
               resolve(null);
             },
             { timeout:10000, enableHighAccuracy: true }
           );
         }
         else {
-console.log('no position');
           resolve(null);
         }
       })

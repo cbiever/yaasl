@@ -1,8 +1,5 @@
 <div class="layout-row layout-align-center-center" style="height: 50px">
-
-  <div class="flex-5"/>
-
-  <div class="flex-5 cell">
+  <div class="flex cell">
     {{time-input
       time=flight.startTime
       onValid=(action 'updateFlight' 'startTime')
@@ -11,8 +8,7 @@
       invalid=(t 'flight.start.time.invalid')
     }}
   </div>
-
-  <div class="flex-5 cell align-right">
+  <div class="flex cell align-right">
     {{#paper-select
       placeholder=(t 'flight.start.location.placeholder')
       options=locations
@@ -22,8 +18,7 @@
      {{location.name}}
     {{/paper-select}}
   </div>
-
-  <div class="flex-5 cell">
+  <div class="flex cell">
     {{time-input
       time=flight.landingTime
       onValid=(action 'updateFlight' 'landingTime')
@@ -32,8 +27,7 @@
       invalid=(t 'flight.landing.time.invalid')
     }}
   </div>
-
-  <div class="flex-5 cell align-right">
+  <div class="flex cell align-right">
     {{#paper-select
       placeholder=(t 'flight.landing.location.placeholder')
       options=locations
@@ -43,8 +37,10 @@
       {{location.name}}
     {{/paper-select}}
   </div>
+</div>
 
-  <div class="flex-10 cell align-right">
+<div class="layout-row layout-align-center-center" style="height: 50px">
+  <div class="flex cell align-right">
     {{#paper-select
       placeholder=(t 'flight.call.sign.placeholder')
       options=aircraft
@@ -54,8 +50,7 @@
       {{aircraft.callSign}}
     {{/paper-select}}
   </div>
-
-  <div class="flex-10 cell align-right">
+  <div class="flex cell align-right">
     {{#if (not flight.aircraft.canTow)}}
       {{#paper-select
         placeholder=(t 'flight.call.sign.tow.plane')
@@ -67,8 +62,12 @@
       {{/paper-select}}
     {{/if}}
   </div>
+  <div class="flex"/>
+  <div class="flex"/>
+</div>
 
-  <div class="flex-10 cell align-right">
+<div class="layout-row layout-align-center-center" style="height: 50px">
+  <div class="flex cell align-right">
     {{#paper-select
       placeholder=(t 'flight.pilot.1')
       options=pilots
@@ -80,8 +79,7 @@
       {{pilot.name}}
     {{/paper-select}}
   </div>
-
-  <div class="flex-10 cell align-right">
+  <div class="flex cell align-right">
     {{#paper-select
       placeholder=(t 'flight.pilot.role')
       options=pilotRoles
@@ -91,8 +89,7 @@
      {{t pilotRole.i18n}}
     {{/paper-select}}
   </div>
-
-  <div class="flex-10 cell align-right">
+  <div class="flex cell align-right">
     {{#if (is-twinseater flight.aircraft)}}
       {{#paper-select
         placeholder=(t 'flight.pilot.2')
@@ -106,8 +103,7 @@
       {{/paper-select}}
     {{/if}}
   </div>
-
-  <div class="flex-10 cell align-right">
+  <div class="flex cell align-right">
     {{#if (is-twinseater flight.aircraft)}}
       {{#paper-select
         placeholder=(t 'flight.pilot.role')
@@ -119,11 +115,11 @@
       {{/paper-select}}
     {{/if}}
   </div>
+</div>
 
-  <div class="flex-5"/>
-
-  <div class="flex-5">
-    <div class="layout-row">
+<div class="layout-row" style="height: 50px">
+  <div class="flex">
+    <div class="layout-row layout-align-end-center">
       {{#if expanded}}
         {{#paper-button iconButton=true onClick=(action 'setExpanded' false)}}
           {{paper-icon "expand less"}}
@@ -139,14 +135,11 @@
     </div>
   </div>
 
-  <div class="flex-5"/>
-
 </div>
 
 {{#if expanded}}
 <div class="layout-row layout-align-space-around-center" style="height: 50px">
-  <div class="flex-5"/>
-  <div class="flex-5">
+  <div class="flex-10">
     Verteilung
   </div>
   <div class="flex-90">
@@ -154,3 +147,5 @@
   </div>
 </div>
 {{/if}}
+
+{{paper-divider}}
