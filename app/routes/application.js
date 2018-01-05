@@ -11,6 +11,7 @@ export default Ember.Route.extend({
       aircraft: this.get('store').findAll('aircraft'),
       pilots: this.get('store').findAll('pilot'),
       pilotRoles: this.get('store').findAll('pilotRole'),
+      costSharings: this.get('store').findAll('costSharing'),
       session: this.get('store').peekRecord('session', 42)
     });
   },

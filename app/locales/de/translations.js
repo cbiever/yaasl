@@ -33,7 +33,14 @@ export default {
     'pilot.2': 'Pilot 2',
     'pilot.role': 'Rolle',
 
-    'call.sign.tow.plane': 'Schleppflugzeug'
+    'call.sign.tow.plane': 'Schleppflugzeug',
+    'tow.pilot': 'Schlepppilot',
+
+    'cost.sharing': {
+      'placeholder': 'Kostenverteilung'
+    },
+
+    'comment.placeholder': 'Kommentar'
   },
 
   'menu': {
@@ -63,6 +70,11 @@ export default {
       'name': 'Name',
       'standard.role': 'Standard Rolle'
     }
+  },
+
+  'cost.sharing': {
+    'student': 'Schüler',
+    'fifty.fifty': '50/50'
   }
 
 };

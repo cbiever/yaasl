@@ -4,5 +4,6 @@ import { hasMany, belongsTo } from 'ember-data/relationships';
 
 export default DS.Model.extend({
   name: attr(),
-  standardRole: belongsTo('pilotRole')
+  standardRole: belongsTo('pilotRole'),
+  canTow: attr()
 });

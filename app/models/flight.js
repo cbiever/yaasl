@@ -8,9 +8,13 @@ export default Model.extend({
   landingTime: attr('date'),
   landingLocation: belongsTo('location'),
   aircraft: belongsTo('aircraft'),
-  towplane: belongsTo('aircraft'),
   pilot1: belongsTo('pilot'),
   pilot1Role: belongsTo('pilotRole'),
   pilot2: belongsTo('pilot'),
-  pilot2Role: belongsTo('pilotRole')
+  pilot2Role: belongsTo('pilotRole'),
+  towPlane: belongsTo('aircraft'),
+  towPilot: belongsTo('pilot'),
+  towPlaneLandingTime: attr('date'),
+  costSharing: belongsTo('costSharing'),
+  comment: attr('string')
 });

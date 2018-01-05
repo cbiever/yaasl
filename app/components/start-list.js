@@ -3,8 +3,11 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   store: Ember.inject.service(),
   messageBus: Ember.inject.service(),
-  towplanes: Ember.computed(function() {
+  towPlanes: Ember.computed(function() {
     return this.get('aircraft').filterBy('canTow', true);
+  }),
+  towPilots: Ember.computed(function() {
+    return this.get('pilots').filterBy('canTow', true);
   }),
   sortedFlights: Ember.computed('flights.@each.startTime', function() {
     return this.get('flights').sort(function(flight1, flight2) {
@@ -39,9 +42,6 @@ export default Ember.Component.extend({
     let date = this.get('date');
     let now = new Date();
     this.set('today', date.getDate() == now.getDate() && date.getMonth() == now.getMonth() && date.getFullYear() == now.getFullYear());
-  },
-  processExternalUpdate(update) {
-    console.log('external update: ', update);
   },
   addFlight(flight) {
     if (flight.belongsTo('startLocation').value() == this.get('location')) {

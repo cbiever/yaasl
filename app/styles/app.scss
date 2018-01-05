@@ -1,22 +1,7 @@
 @import 'ember-paper';
 
-.cell {
-  margin-bottom: 20px;
-}
-
-.align-right {
-  text-align: right;
-}
-
-figure {
-  justify-content: right !important;
-}
-
-.align-left figure {
-  justify-content: left !important;
-}
-input {
-  text-align: right;
+.row {
+  height: 30px;
 }
 
 @font-face {

@@ -31,8 +31,9 @@ export default Route.extend({
           }
         }).then(function(flights) {
           return flights.toArray();
-        })
-      });
+        }),
+        costSharings: this.get('store').peekAll('costSharing')
+    });
   },
   afterModel(model) {
     let session = this.get('store').peekRecord('session', 42);
