@@ -1,7 +1,48 @@
 @import 'ember-paper';
 
 .row {
-  height: 30px;
+  @media all and (max-width: 969px) {
+    height: 30px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  @media all and (min-width: 966px) {
+    height: 60px;
+    padding: 8px;
+  }
+}
+
+.expandable-row {
+  @media all and (max-width: 969px) {
+    min-height: 30px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  @media all and (min-width: 960px) {
+    min-height: 60px;
+    padding: 8px;
+  }
+}
+
+.divider-row {
+  @media all and (max-width: 959px) {
+    height: 15px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  @media all and (min-width: 960px) {
+    min-height: 30px;
+    padding: 8px;
+  }
+}
+
+.cell {
+  margin: 0px !important;
+}
+
+div.flex md-divider {
+  border-top-width: 2px;
+  margin-top: 10px;
 }
 
 @font-face {

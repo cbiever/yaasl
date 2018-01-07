@@ -1,11 +1,11 @@
-<div class="layout-row layout-align-end-center row">
+<div class="layout-row row">
   <div class="flex">
     {{#paper-select
       placeholder=(t 'flight.call.sign.placeholder')
       options=aircraft
       selected=flight.aircraft
       onChange=(action 'updateFlight' 'aircraft')
-      class="flex"
+      class="cell"
       as |aircraft|}}
       {{aircraft.callSign}}
     {{/paper-select}}
@@ -13,7 +13,7 @@
   <div class="flex"/>
 </div>
 
-<div class="layout-row layout-align-end-center row">
+<div class="layout-row row">
   <div class="flex">
     {{#paper-select
       placeholder=(t 'flight.pilot.1')
@@ -22,6 +22,7 @@
       searchEnabled=true
       searchField='name'
       onChange=(action 'updateFlight' 'pilot1')
+      class="cell"
       as |pilot|}}
       {{pilot.name}}
     {{/paper-select}}
@@ -32,6 +33,7 @@
       options=pilotRoles
       selected=flight.pilot1Role
       onChange=(action 'updateFlight' 'pilot1Role')
+      class="cell"
       as |pilotRole|}}
      {{t pilotRole.i18n}}
     {{/paper-select}}
@@ -39,7 +41,7 @@
 </div>
 
 {{#if (is-twinseater flight.aircraft)}}
-<div class="layout-row layout-align-end-center row">
+<div class="layout-row row">
   <div class="flex">
     {{#paper-select
       placeholder=(t 'flight.pilot.2')
@@ -48,6 +50,7 @@
       searchEnabled=true
       searchField='name'
       onChange=(action 'updateFlight' 'pilot2')
+      class="cell"
       as |pilot|}}
       {{pilot.name}}
     {{/paper-select}}
@@ -58,6 +61,7 @@
       options=pilotRoles
       selected=flight.pilot2Role
       onChange=(action 'updateFlight' 'pilot2Role')
+      class="cell"
       as |pilotRole|}}
      {{t pilotRole.i18n}}
     {{/paper-select}}
@@ -65,7 +69,7 @@
 </div>
 {{/if}}
 
-<div class="layout-row layout-align-end-center row">
+<div class="layout-row row">
   <div class="flex">
     {{time-input
       time=flight.startTime
@@ -73,7 +77,7 @@
       placeholder='flight.start.time.placeholder'
       missing=(t 'flight.start.time.missing')
       invalid=(t 'flight.start.time.invalid')
-      class="padding-right"
+      class="cell"
     }}
   </div>
   <div class="flex">
@@ -82,13 +86,14 @@
       options=locations
       selected=flight.startLocation
       onChange=(action 'updateFlight' 'startLocation')
+      class="cell"
       as |location|}}
       {{location.name}}
     {{/paper-select}}
   </div>
 </div>
 
-<div class="layout-row layout-align-end-center row">
+<div class="layout-row row">
   <div class="flex">
     {{time-input
       time=flight.landingTime
@@ -96,7 +101,7 @@
       placeholder='flight.landing.time.placeholder'
       missing=(t 'flight.landing.time.missing')
       invalid=(t 'flight.landing.time.invalid')
-      class="padding-right"
+      class="cell"
     }}
   </div>
   <div class="flex">
@@ -105,6 +110,7 @@
       options=locations
       selected=flight.landingLocation
       onChange=(action 'updateFlight' 'landingLocation')
+      class="cell"
       as |location|}}
       {{location.name}}
     {{/paper-select}}
@@ -112,13 +118,14 @@
 </div>
 
 {{#if flight.aircraft.needsTowing}}
-<div class="layout-row layout-align-end-center row">
+<div class="layout-row row">
   <div class="flex">
     {{#paper-select
       placeholder=(t 'flight.call.sign.tow.plane')
       options=towPlanes
       selected=flight.towPlane
       onChange=(action 'updateFlight' 'towPlane')
+      class="cell"
       as |aircraft|}}
       {{aircraft.callSign}}
     {{/paper-select}}
@@ -131,12 +138,13 @@
       searchEnabled=true
       searchField='name'
       onChange=(action 'updateFlight' 'towPilot')
+      class="cell"
       as |towPilot|}}
       {{towPilot.name}}
     {{/paper-select}}
   </div>
 </div>
-<div class="layout-row layout-align-end-center row">
+<div class="layout-row row">
   <div class="flex">
     {{time-input
       time=flight.towPlaneLandingTime
@@ -144,40 +152,21 @@
       placeholder='flight.landing.time.placeholder'
       missing=(t 'flight.landing.time.missing')
       invalid=(t 'flight.landing.time.invalid')
-      class="padding-right"
+      class="cell"
     }}
   </div>
-  <div class="flex"/>
-</div>
-{{/if}}
-
-<div class="layout-row layout-align-end-center">
-  <div class="flex">
-    <div class="layout-row layout-align-end-center row">
-      {{#if expanded}}
-        {{#paper-button iconButton=true onClick=(action 'setExpanded' false)}}
-          {{paper-icon "expand less"}}
-        {{/paper-button}}
-      {{else}}
-        {{#paper-button iconButton=true onClick=(action 'setExpanded' true)}}
-          {{paper-icon "expand more"}}
-        {{/paper-button}}
-      {{/if}}
-      {{#if (not locked)}}
-        {{#paper-button iconButton=true onClick=(action 'setLocked' true)}}
-          {{paper-icon "lock open"}}
-        {{/paper-button}}
-      {{else}}
-        {{#paper-button iconButton=true onClick=(action 'setLocked' false)}}
-          {{paper-icon "lock outline"}}
-        {{/paper-button}}
-      {{/if}}
-      {{#paper-button iconButton=true onClick=(action 'deleteFlight')}}
-        {{paper-icon "delete"}}
-      {{/paper-button}}
-    </div>
+  <div class="flex" style="text-align:right">
+    {{flight-button-bar onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
   </div>
 </div>
+{{else}}
+<div class="layout-row row">
+  <div class="flex"/>
+  <div class="flex" style="text-align:right">
+    {{flight-button-bar onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
+  </div>
+</div>
+{{/if}}
 
 {{#if expanded}}
 <div class="layout-row row">
@@ -186,16 +175,21 @@
     options=costSharings
     selected=flight.costSharing
     onChange=(action 'updateFlight' 'costSharing')
+    class="cell"
     as |costSharing|}}
     {{t costSharing.i18n}}
   {{/paper-select}}
 </div>
-<div class="layout-row">
+<div class="layout-row expandable-row">
   <div class="flex">
     {{paper-input textarea=true block=true placeholder=(t 'flight.comment.placeholder') maxlength=300
-                  value=comment onChange=(action (mut comment)) onBlur=(action 'updateComment')}}
+                  value=comment class="cell" onChange=(action (mut comment)) onBlur=(action 'updateComment')}}
   </div>
 </div>
 {{/if}}
 
-{{paper-divider}}
+<div class="layout-row divider-row">
+  <div class="flex">
+    {{paper-divider}}
+  </div>
+</div>

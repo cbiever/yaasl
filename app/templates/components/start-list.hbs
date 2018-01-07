@@ -1,13 +1,13 @@
 {{#each sortedFlights as |flight|}}
-  <div class="hide-gt-sm layout-padding">
+  <div class="hide-gt-sm">
     {{flight-sm flight=flight location=location locations=locations aircraft=aircraft pilots=pilots pilotRoles=pilotRoles towPlanes=towPlanes towPilots=towPilots costSharings=costSharings
                 onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
   </div>
-  <div class="hide-xs hide-sm hide-gt-md layout-padding">
+  <div class="hide-xs hide-sm hide-gt-md">
     {{flight-md flight=flight location=location locations=locations aircraft=aircraft pilots=pilots pilotRoles=pilotRoles towPlanes=towPlanes towPilots=towPilots costSharings=costSharings
                 onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
   </div>
-  <div class="hide-xs hide-sm hide-md layout-padding">
+  <div class="hide-xs hide-sm hide-md">
     {{flight-lg flight=flight location=location locations=locations aircraft=aircraft pilots=pilots pilotRoles=pilotRoles towPlanes=towPlanes towPilots=towPilots costSharings=costSharings
                 onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
   </div>

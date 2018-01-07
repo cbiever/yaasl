@@ -12,7 +12,7 @@ export default Ember.Mixin.create({
     updateFlight(propertyName, propertyValue) {
       this.get('onFlightChanged')(this.get('flight'), propertyName, propertyValue);
     },
-    deleteFlight(flight) {
+    deleteFlight() {
       this.get('onDeleteFlight')(this.get('flight'));
     },
     setExpanded(expanded) {
