@@ -1,24 +1,32 @@
 @import 'ember-paper';
 
 .row {
-  @media all and (max-width: 969px) {
+  @media all and (max-width: 959px) {
     height: 30px;
     padding-left: 8px;
     padding-right: 8px;
   }
-  @media all and (min-width: 966px) {
+  @media all and (min-width: 960px) and (max-width: 1279px) {
+    height: 40px;
+    padding: 8px;
+  }
+  @media all and (min-width: 1280px) {
     height: 60px;
     padding: 8px;
   }
 }
 
 .expandable-row {
-  @media all and (max-width: 969px) {
+  @media all and (max-width: 959px) {
     min-height: 30px;
     padding-left: 8px;
     padding-right: 8px;
   }
-  @media all and (min-width: 960px) {
+  @media all and (min-width: 960px) and (max-width: 1279px) {
+    min-height: 40px;
+    padding: 8px;
+  }
+  @media all and (min-width: 1280px) {
     min-height: 60px;
     padding: 8px;
   }
@@ -29,6 +37,10 @@
     height: 15px;
     padding-left: 8px;
     padding-right: 8px;
+  }
+  @media all and (min-width: 960px) and (max-width: 1279px) {
+    height: 20px;
+    padding: 8px;
   }
   @media all and (min-width: 960px) {
     min-height: 30px;
@@ -42,7 +54,23 @@
 
 div.flex md-divider {
   border-top-width: 2px;
-  margin-top: 10px;
+  @media all and (max-width: 959px) {
+    margin-top: 10px;
+  }
+  @media all and (min-width: 960px) and (max-width: 1279px) {
+    margin-top: 15px;
+  }
+}
+
+.add-flight {
+  height: 60px;
+  @media all and (max-width: 1279px) {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  @media all and (min-width: 1280px) {
+    padding: 0px;
+  }
 }
 
 @font-face {

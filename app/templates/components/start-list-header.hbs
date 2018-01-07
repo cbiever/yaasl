@@ -27,6 +27,15 @@
             <span>{{t 'menu.logbook'}}</span>
           {{/content.menu-item}}
         {{/if}}
+        {{paper-divider}}
+        {{#content.menu-item onClick="(action 'downloadPDF')" disabled=true}}
+          {{paper-icon "get app"}}
+          <span>PDF</span>
+        {{/content.menu-item}}
+        {{#content.menu-item onClick="(actin 'downloadCSV')" disabled=true}}
+          {{paper-icon "get app"}}
+          <span>CSV</span>
+        {{/content.menu-item}}
       {{/menu.content}}
     {{/paper-menu}}
     <h2>

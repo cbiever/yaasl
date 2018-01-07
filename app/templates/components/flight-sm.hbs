@@ -145,7 +145,7 @@
   </div>
 </div>
 <div class="layout-row row">
-  <div class="flex">
+  <div class="flex-50">
     {{time-input
       time=flight.towPlaneLandingTime
       onValid=(action 'updateFlight' 'towPlaneLandingTime')
@@ -155,14 +155,15 @@
       class="cell"
     }}
   </div>
-  <div class="flex" style="text-align:right">
+  <div class="flex-25"/>
+  <div class="flex-25">
     {{flight-button-bar onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
   </div>
 </div>
 {{else}}
 <div class="layout-row row">
-  <div class="flex"/>
-  <div class="flex" style="text-align:right">
+  <div class="flex-75"/>
+  <div class="flex-25">
     {{flight-button-bar onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
   </div>
 </div>

@@ -166,6 +166,13 @@
 
   {{/if}}
 
+  <div class="flex-5">
+    {{flight-button-bar onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
+  </div>
+</div>
+
+{{#if expanded}}
+<div class="layout-row row">
   <div class="flex-10">
     {{#paper-select
       placeholder=(t 'flight.cost.sharing.placeholder')
@@ -177,27 +184,7 @@
       {{t costSharing.i18n}}
     {{/paper-select}}
   </div>
-
-  <div class="flex-5">
-    <div class="layout-row layout-align-end-center">
-      {{#if expanded}}
-        {{#paper-button iconButton=true onClick=(action 'setExpanded' false)}}
-          {{paper-icon "expand less"}}
-        {{/paper-button}}
-      {{else}}
-        {{#paper-button iconButton=true onClick=(action 'setExpanded' true)}}
-          {{paper-icon "expand more"}}
-        {{/paper-button}}
-      {{/if}}
-      {{#paper-button iconButton=true onClick=(action 'deleteFlight')}}
-        {{paper-icon "delete"}}
-      {{/paper-button}}
-    </div>
-  </div>
-
 </div>
-
-{{#if expanded}}
 <div class="layout-row expandable-row">
   <div class="flex">
     {{paper-input textarea=true block=true placeholder=(t 'flight.comment.placeholder') maxlength=300

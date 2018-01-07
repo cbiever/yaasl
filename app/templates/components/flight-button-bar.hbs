@@ -1,21 +1,29 @@
-{{#if expanded}}
-  {{#paper-button iconButton=true onClick=(action 'setExpanded' false)}}
-    {{paper-icon "expand less"}}
-  {{/paper-button}}
-{{else}}
-  {{#paper-button iconButton=true onClick=(action 'setExpanded' true)}}
-    {{paper-icon "expand more"}}
-  {{/paper-button}}
-{{/if}}
-{{#if (not locked)}}
-  {{#paper-button iconButton=true onClick=(action 'setLocked' true)}}
-    {{paper-icon "lock open"}}
-  {{/paper-button}}
-{{else}}
-  {{#paper-button iconButton=true onClick=(action 'setLocked' false)}}
-    {{paper-icon "lock outline"}}
-  {{/paper-button}}
-{{/if}}
-{{#paper-button iconButton=true onClick=(action 'deleteFlight')}}
-  {{paper-icon "delete"}}
-{{/paper-button}}
+<div class="layout-row" style="text-align:right">
+  <div class="flex-33">
+    {{#if expanded}}
+      {{#paper-button iconButton=true onClick=(action 'setExpanded' false)}}
+        {{paper-icon "expand less"}}
+      {{/paper-button}}
+    {{else}}
+      {{#paper-button iconButton=true onClick=(action 'setExpanded' true)}}
+        {{paper-icon "expand more"}}
+      {{/paper-button}}
+    {{/if}}
+  </div>
+  <div class="flex-33">
+    {{#if (not locked)}}
+      {{#paper-button iconButton=true onClick=(action 'setLocked' true)}}
+        {{paper-icon "lock open"}}
+      {{/paper-button}}
+    {{else}}
+      {{#paper-button iconButton=true onClick=(action 'setLocked' false)}}
+        {{paper-icon "lock outline"}}
+      {{/paper-button}}
+    {{/if}}
+  </div>
+  <div class="flex-33">
+    {{#paper-button iconButton=true onClick=(action 'deleteFlight')}}
+      {{paper-icon "delete"}}
+    {{/paper-button}}
+  </div>
+</div>

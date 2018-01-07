@@ -19,6 +19,12 @@ export default Component.extend({
     },
     showKtrax() {
       this.navigate(this.get('location'), this.get('date'), 'ktrax');
+    },
+    downloadPDF() {
+
+    },
+    downloadCSV() {
+
     }
   },
   navigate: function(location, date, route) {
