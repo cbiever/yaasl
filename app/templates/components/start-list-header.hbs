@@ -28,11 +28,11 @@
           {{/content.menu-item}}
         {{/if}}
         {{paper-divider}}
-        {{#content.menu-item onClick="(action 'downloadPDF')" disabled=true}}
+        {{#content.menu-item onClick=(action 'downloadPDF')}}
           {{paper-icon "get app"}}
           <span>PDF</span>
         {{/content.menu-item}}
-        {{#content.menu-item onClick="(actin 'downloadCSV')" disabled=true}}
+        {{#content.menu-item onClick=(action 'downloadCSV')}}
           {{paper-icon "get app"}}
           <span>CSV</span>
         {{/content.menu-item}}
