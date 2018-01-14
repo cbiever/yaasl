@@ -44,7 +44,10 @@ export default Component.extend({
       url += '&filter[date]=' + this.formatDate(this.get('date'));
     }
     Ember.$.get(url).then(function(data) {
-      window.saveAs(new Blob([data], {type: mimeType}), filename);
+      if (mimeType == 'application/pdf') {
+        data = base64js.toByteArray(data);
+      }
+      window.saveAs(new Blob([data], { type: mimeType }), filename);
     });
   },
   formatDate(date, separator = '-') {
