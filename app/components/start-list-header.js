@@ -31,7 +31,7 @@ export default Component.extend({
     if (!route) {
       route = this.get('router').get('currentRouteName');
     }
-    this.get('router').transitionTo(route, location.get('name'), this.formatDate(date));
+    this.get('router').transitionTo(route, location ? location.get('name') : 'LSZB', this.formatDate(date));
   },
   download: function(mimeType) {
     let filenameExtension = mimeType.split('/')[1];

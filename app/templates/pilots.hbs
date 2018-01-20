@@ -1,24 +1,70 @@
-{{#paper-content class="md-padding"}}
-  <div class="layout-row flex align-left">
-    <div class="flex-gt-sm"/>
-    <div class="flex">
-      {{#paper-grid-list cols="2" rowHeight="20px" as |grid|}}
-      {{#grid.tile as |tile|}}
-        <strong>{{t 'pilots.overview.title.name'}}</strong>
-      {{/grid.tile}}
-      {{#grid.tile as |tile|}}
-        <strong>{{t 'pilots.overview.title.standard.role'}}</strong>
-      {{/grid.tile}}
-      {{#each model as |pilot|}}
-        {{#grid.tile as |tile|}}
-          {{pilot.name}}
-        {{/grid.tile}}
-        {{#grid.tile as |tile|}}
-          {{t pilot.standardRole.i18n}}
-        {{/grid.tile}}
-      {{/each}}
-      {{/paper-grid-list}}
-   </div>
-   <div class="flex-gt-sm"/>
+<div class="hide-gt-sm" style="margin-top: 20px">
+  <div class="layout-row row">
+    <div class="flex cell">
+      <strong>{{t 'pilots.overview.title.name'}}</strong>
+    </div>
+    <div class="flex cell">
+      <strong>{{t 'pilots.overview.title.standard.role'}}</strong>
+    </div>
+  </div>
+  {{#each model as |pilot|}}
+  <div class="layout-row row">
+    <div class="flex cell">
+      {{pilot.name}}
+    </div>
+    <div class="flex cell">
+      {{t pilot.standardRole.i18n}}
+    </div>
+  </div>
+  {{/each}}
 </div>
-{{/paper-content}}
+
+<div class="hide-xs hide-sm hide-gt-md" style="margin-top: 20px">
+  <div class="layout-row row">
+    <div class="flex"/>
+    <div class="flex-20 cell">
+      <strong>{{t 'pilots.overview.title.name'}}</strong>
+    </div>
+    <div class="flex-20 cell">
+      <strong>{{t 'pilots.overview.title.standard.role'}}</strong>
+    </div>
+    <div class="flex"/>
+  </div>
+  {{#each model as |pilot|}}
+  <div class="layout-row row">
+    <div class="flex"/>
+    <div class="flex-20 cell">
+      {{pilot.name}}
+    </div>
+    <div class="flex-20 cell">
+      {{t pilot.standardRole.i18n}}
+    </div>
+    <div class="flex"/>
+  </div>
+  {{/each}}
+</div>
+
+<div class="hide-xs hide-sm hide-md" style="margin-top: 20px">
+  <div class="layout-row row">
+    <div class="flex"/>
+    <div class="flex-10 cell">
+      <strong>{{t 'pilots.overview.title.name'}}</strong>
+    </div>
+    <div class="flex-10 cell">
+      <strong>{{t 'pilots.overview.title.standard.role'}}</strong>
+    </div>
+    <div class="flex"/>
+  </div>
+  {{#each model as |pilot|}}
+  <div class="layout-row row">
+    <div class="flex"/>
+    <div class="flex-10 cell">
+      {{pilot.name}}
+    </div>
+    <div class="flex-10 cell">
+      {{t pilot.standardRole.i18n}}
+    </div>
+    <div class="flex"/>
+  </div>
+  {{/each}}
+</div>

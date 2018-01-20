@@ -17,11 +17,10 @@
         {{/content.menu-item}}
         {{#if (eq router.currentRouteName 'start-list')}}
           {{#content.menu-item onClick=(action 'showKtrax')}}
-            {{paper-icon "flight landing"}}
+            {{paper-icon "flight takeoff"}}
             <span>{{t 'menu.ktrax'}}</span>
           {{/content.menu-item}}
-        {{/if}}
-        {{#if (not-eq router.currentRouteName 'start-list')}}
+        {{else}}
           {{#content.menu-item onClick=(action 'showStartList')}}
             {{paper-icon "flight takeoff"}}
             <span>{{t 'menu.logbook'}}</span>

@@ -1,24 +1,70 @@
-{{#paper-content class="md-padding"}}
-  <div class="layout-row flex align-left">
-    <div class="flex-gt-sm"/>
-    <div class="flex">
-      {{#paper-grid-list cols="2" rowHeight="20px" as |grid|}}
-      {{#grid.tile as |tile|}}
-        <strong>{{t 'aircraft.overview.title.call.sign'}}</strong>
-      {{/grid.tile}}
-      {{#grid.tile as |tile|}}
-        <strong>{{t 'aircraft.overview.title.number.of.seats'}}</strong>
-      {{/grid.tile}}
-      {{#each model as |aircraft|}}
-        {{#grid.tile as |tile|}}
-          {{aircraft.callSign}}
-        {{/grid.tile}}
-        {{#grid.tile as |tile|}}
-          {{aircraft.numberOfSeats}}
-        {{/grid.tile}}
-      {{/each}}
-      {{/paper-grid-list}}
-   </div>
-   <div class="flex-gt-sm"/>
+<div class="hide-gt-sm" style="margin-top: 20px">
+  <div class="layout-row row">
+    <div class="flex cell">
+      <strong>{{t 'aircraft.overview.title.call.sign'}}</strong>
+    </div>
+    <div class="flex cell">
+      <strong>{{t 'aircraft.overview.title.number.of.seats'}}</strong>
+    </div>
+  </div>
+  {{#each model as |aircraft|}}
+  <div class="layout-row row">
+    <div class="flex cell">
+      {{aircraft.callSign}}
+    </div>
+    <div class="flex cell">
+      {{aircraft.numberOfSeats}}
+    </div>
+  </div>
+  {{/each}}
 </div>
-{{/paper-content}}
+
+<div class="hide-xs hide-sm hide-gt-md" style="margin-top: 20px">
+  <div class="layout-row row">
+    <div class="flex"/>
+    <div class="flex-20 cell">
+      <strong>{{t 'aircraft.overview.title.call.sign'}}</strong>
+    </div>
+    <div class="flex-20 cell">
+      <strong>{{t 'aircraft.overview.title.number.of.seats'}}</strong>
+    </div>
+    <div class="flex"/>
+  </div>
+  {{#each model as |aircraft|}}
+  <div class="layout-row row">
+    <div class="flex"/>
+    <div class="flex-20 cell">
+      {{aircraft.callSign}}
+    </div>
+    <div class="flex-20 cell">
+      {{aircraft.numberOfSeats}}
+    </div>
+    <div class="flex"/>
+  </div>
+  {{/each}}
+</div>
+
+<div class="hide-xs hide-sm hide-md" style="margin-top: 20px">
+  <div class="layout-row row">
+    <div class="flex"/>
+    <div class="flex-10 cell">
+      <strong>{{t 'aircraft.overview.title.call.sign'}}</strong>
+    </div>
+    <div class="flex-10 cell">
+      <strong>{{t 'aircraft.overview.title.number.of.seats'}}</strong>
+    </div>
+    <div class="flex"/>
+  </div>
+  {{#each model as |aircraft|}}
+  <div class="layout-row row">
+    <div class="flex"/>
+    <div class="flex-10 cell">
+      {{aircraft.callSign}}
+    </div>
+    <div class="flex-10 cell">
+      {{aircraft.numberOfSeats}}
+    </div>
+    <div class="flex"/>
+  </div>
+  {{/each}}
+</div>
