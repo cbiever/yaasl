@@ -1,23 +1,113 @@
-<h3 style="margin-left:10px">Ktrax</h3>
-{{#each model.ktrax.sorties as | sortie |}}
-  <div class="layout-row flex-40" style="margin-left:10px">
-    <div class="flex">
-      {{sortie.tkof.time}}
-    </div>
-    <div class="flex">
-      {{sortie.tkof.loc}}
-    </div>
-    <div class="flex">
-      {{sortie.ldg.time}}
-    </div>
-    <div class="flex">
-      {{sortie.ldg.loc}}
-    </div>
-    <div class="flex">
+<div class="hide-gt-sm" style="margin-top: 20px">
+  {{#each  model.ktrax.sorties as |sortie|}}
+  <div class="layout-row row">
+    <div class="flex cell">
       {{sortie.cs}}
     </div>
-    <div class="flex">
-      {{sortie.actype}}
+    <div class="flex cell"/>
+  </div>
+  <div class="layout-row row">
+    <div class="flex cell">
+      {{sortie.tkof.time}}
+    </div>
+    <div class="flex cell">
+      {{sortie.tkof.loc}}
     </div>
   </div>
-{{/each}}
+  <div class="layout-row row">
+    <div class="flex cell">
+      {{sortie.ldg.time}}
+    </div>
+    <div class="flex cell">
+      {{sortie.ldg.loc}}
+    </div>
+  </div>
+  <div class="layout-row divider-row">
+    <div class="flex">
+      {{paper-divider}}
+    </div>
+  </div>
+  {{/each}}
+</div>
+
+<div class="hide-xs hide-sm hide-gt-md" style="margin-top: 20px">
+  <div class="layout-row row">
+    <div class="flex cell">
+      <strong>{{t 'flight.call.sign.placeholder'}}</strong>
+    </div>
+    <div class="flex cell">
+      <strong>{{t 'flight.start.time.placeholder'}}</strong>
+    </div>
+    <div class="flex cell">
+      <strong>{{t 'flight.start.location.placeholder'}}</strong>
+    </div>
+    <div class="flex cell">
+      <strong>{{t 'flight.landing.time.placeholder'}}</strong>
+    </div>
+    <div class="flex cell">
+      <strong>{{t 'flight.landing.location.placeholder'}}</strong>
+    </div>
+  </div>
+  {{#each  model.ktrax.sorties as |sortie|}}
+  <div class="layout-row row">
+    <div class="flex cell">
+      {{sortie.cs}}
+    </div>
+    <div class="flex cell">
+      {{sortie.tkof.time}}
+    </div>
+    <div class="flex cell">
+      {{sortie.tkof.loc}}
+    </div>
+    <div class="flex cell">
+      {{sortie.ldg.time}}
+    </div>
+    <div class="flex cell">
+      {{sortie.ldg.loc}}
+    </div>
+  </div>
+  {{/each}}
+</div>
+
+<div class="hide-xs hide-sm hide-md" style="margin-top: 20px">
+  <div class="layout-row row">
+    <div class="flex"/>
+    <div class="flex-10 cell">
+      <strong>{{t 'flight.call.sign.placeholder'}}</strong>
+    </div>
+    <div class="flex-10 cell">
+      <strong>{{t 'flight.start.time.placeholder'}}</strong>
+    </div>
+    <div class="flex-10 cell">
+      <strong>{{t 'flight.start.location.placeholder'}}</strong>
+    </div>
+    <div class="flex-10 cell">
+      <strong>{{t 'flight.landing.time.placeholder'}}</strong>
+    </div>
+    <div class="flex-10 cell">
+      <strong>{{t 'flight.landing.location.placeholder'}}</strong>
+    </div>
+    <div class="flex"/>
+  </div>
+  {{#each  model.ktrax.sorties as |sortie|}}
+  <div class="layout-row row">
+    <div class="flex"/>
+    <div class="flex-10 cell">
+      {{sortie.cs}}
+    </div>
+    <div class="flex-10 cell">
+      {{sortie.tkof.time}}
+    </div>
+    <div class="flex-10 cell">
+      {{sortie.tkof.loc}}
+    </div>
+    <div class="flex-10 cell">
+      {{sortie.ldg.time}}
+    </div>
+    <div class="flex-10 cell">
+      {{sortie.ldg.loc}}
+    </div>
+    <div class="flex"/>
+  </div>
+  {{/each}}
+</div>
