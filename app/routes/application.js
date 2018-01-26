@@ -32,7 +32,7 @@ export default Ember.Route.extend({
       this.replaceWith('start-list', 'lszb', today.getFullYear() + '-' + (today.getMonth() < 9 ? '0' : '') + (today.getMonth() + 1) + '-' + (today.getDate() < 10 ? '0' : '') + today.getDate());
     }
   },
-  updateChannelOpened(event) {
+  updateChannelOpened() {
     console.log(`Infochannel opened at: ${new Date().toJSON()}`);
   },
   updateMessage: function(message) {
@@ -65,7 +65,7 @@ export default Ember.Route.extend({
       }
     }
   },
-  updateChannelClosed(event) {
+  updateChannelClosed() {
     this.set('socket', null);
     console.log(`Infochannel closed at: ${new Date().toJSON()}`);
   }

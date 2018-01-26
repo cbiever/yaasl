@@ -5,7 +5,6 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
-    // Add options here
   });
 
   // Use `app.import` to add additional libraries to the generated
@@ -25,5 +24,4 @@ module.exports = function(defaults) {
   app.import('node_modules/base64-js/base64js.min.js');
 
   return app.toTree();
-
 };
