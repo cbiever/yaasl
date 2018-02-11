@@ -3,7 +3,29 @@ import Component from '@ember/component';
 
 export default Component.extend({
   i18n: Ember.inject.service(),
+  store: Ember.inject.service(),
   router: Ember.inject.service(),
+  messageBus: Ember.inject.service(),
+  init() {
+    this._super(...arguments);
+    this.get('messageBus').subscribe('storeInitialized', this, this.update);
+    this.get('messageBus').subscribe('location', this, this.updateLocation);
+    this.get('messageBus').subscribe('date', this, this.updateDate);
+    this.get('messageBus').subscribe('loggedOut', this, this.loggedOut);
+  },
+  update() {
+    let locations = this.get('store').peekAll('location');
+    this.set('locations', locations);
+  },
+  updateLocation(location) {
+    this.set('location', location);
+  },
+  updateDate(date) {
+    this.set('date', date);
+  },
+  loggedOut() {
+console.log('logged out');
+  },
   actions: {
     setLocale(locale) {
       this.set('i18n.locale', locale);

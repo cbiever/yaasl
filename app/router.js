@@ -7,6 +7,7 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('login');
   this.route('start-list', { path: '/:location/:date'});
   this.route('ktrax', { path: '/ktrax/:location/:date'});
   this.route('check-in', { path: '/check-in/:call_sign'});

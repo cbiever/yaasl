@@ -56,10 +56,9 @@ export default Ember.Component.extend({
   },
   actions: {
     addFlight() {
-      let self = this;
       let flight = this.get('store').createRecord('flight', { 'startLocation': this.get('location') });
-      flight.save().then(function(flight) {
-        self.addFlight(flight);
+      flight.save().then(flight => {
+        this.addFlight(flight);
       });
     },
     updateFlight(flight, propertyName, propertyValue) {
@@ -77,9 +76,8 @@ export default Ember.Component.extend({
       flight.save();
     },
     deleteFlight(flight) {
-      let self = this;
-      flight.destroyRecord().then(function() {
-        self.deleteFlight(flight);
+      flight.destroyRecord().then(() => {
+        this.deleteFlight(flight);
       });
     }
   }

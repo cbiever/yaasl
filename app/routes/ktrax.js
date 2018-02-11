@@ -3,7 +3,9 @@ import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 
 export default Route.extend({
+  session: Ember.inject.service(),
   store: Ember.inject.service(),
+  messageBus: Ember.inject.service(),
   model(parameters) {
     return RSVP.hash({
       location: this.get('store').query('location', {
@@ -14,16 +16,21 @@ export default Route.extend({
         return locations.get('firstObject');
       }),
       date: new Date(parameters.date),
-      ktrax: new RSVP.Promise(function(resolve, reject) {
-        Ember.$.get('/api/v1/rs/flights/ktrax', 'location=' + parameters.location + '&date=' + parameters.date )
-          .then((response) => { console.log('response: ', response); resolve(response) })
-          .catch((msg) => { console.log('error: ', msg); reject(msg) });
+      ktrax: new RSVP.Promise((resolve, reject) => {
+        Ember.$.get({
+          url: '/api/v1/rs/flights/ktrax',
+          data: 'location=' + parameters.location + '&date=' + parameters.date,
+          beforeSend: (xhr) => {
+            xhr.setRequestHeader('Authorization', this.get('session').get('authorization'));
+          }
+        })
+        .then((response) => resolve(response))
+        .catch((msg) => { console.log('error: ', msg); reject(msg) });
       })
     });
   },
   afterModel(model) {
-    let session = this.get('store').peekRecord('session', 42);
-    session.set('location', model.location);
-    session.set('date', model.date);
+    this.get('messageBus').publish('location', model.location);
+    this.get('messageBus').publish('date', model.date);
   }
 });

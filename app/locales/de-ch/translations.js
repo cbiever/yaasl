@@ -1,5 +1,11 @@
 export default {
 
+  'login': {
+      'username': 'Benutzername',
+      'password': 'Passwort',
+      'login': 'Ilogge'
+  },
+
   'flight': {
 
     'start': {

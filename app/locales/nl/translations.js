@@ -1,5 +1,11 @@
 export default {
 
+  'login': {
+      'username': 'Gebruikersnaam',
+      'password': 'Wachwoord',
+      'login': 'Aanmelden'
+  },
+
   'flight': {
 
     'start': {

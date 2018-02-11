@@ -2,34 +2,47 @@ import Ember from 'ember';
 import RSVP from 'rsvp';
 
 export default Ember.Route.extend({
+  session: Ember.inject.service(),
   store: Ember.inject.service(),
   websockets: Ember.inject.service(),
   messageBus: Ember.inject.service(),
-  model() {
-    return RSVP.hash({
+  init() {
+    this._super(...arguments);
+    this.get('messageBus').subscribe('loggedIn', this, this.loggedIn);
+    this.get('messageBus').subscribe('loggedOut', this, this.loggedOut);
+  },
+  loggedIn() {
+    RSVP.hash({
       locations: this.get('store').findAll('location'),
       aircraft: this.get('store').findAll('aircraft'),
       pilots: this.get('store').findAll('pilot'),
       pilotRoles: this.get('store').findAll('pilotRole'),
-      costSharings: this.get('store').findAll('costSharing'),
-      session: this.get('store').peekRecord('session', 42)
-    });
-  },
-  beforeModel(transition) {
-    if (!this.get('store').peekRecord('session', 42)) {
-      let json = '{ "data": { "id": 42, "type": "session", "attributes": { "originator-id": -1 } } }';
-      this.get('store').pushPayload(JSON.parse(json));
-    }
+      costSharings: this.get('store').findAll('costSharing')
+    }).then(() => this.get('messageBus').publish('storeInitialized'));
     if (!this.get('socket')) {
-      let socket = this.get('websockets').socketFor('ws://' + location.host + '/api/v1/ws/updates');
+      let socket = this.get('websockets').socketFor('ws://' + location.host + '/api/v1/ws/updates', this.get('session').get('authorization').substring(6));
+//      let socket = this.get('websockets').socketFor('ws://' + location.host + '/api/v1/ws/updates');
       socket.on('open', this.updateChannelOpened, this);
       socket.on('message', this.updateMessage, this);
       socket.on('close', this.updateChannelClosed, this);
       this.set('socket', socket);
     }
-    if (transition.intent.url == '/') {
-      let today = new Date();
-      this.replaceWith('start-list', 'lszb', today.getFullYear() + '-' + (today.getMonth() < 9 ? '0' : '') + (today.getMonth() + 1) + '-' + (today.getDate() < 10 ? '0' : '') + today.getDate());
+  },
+  loggedOut() {
+console.log('logged out');
+  },
+  beforeModel(transition) {
+    if (this.get('session').get('transition')) {
+      this.get('session').set('transition', transition);
+    }
+    if ( this.get('session').get('authorization')) {
+      if (transition.intent.url == '/') {
+        let today = new Date();
+        this.replaceWith('start-list', 'lszb', today.getFullYear() + '-' + (today.getMonth() < 9 ? '0' : '') + (today.getMonth() + 1) + '-' + (today.getDate() < 10 ? '0' : '') + today.getDate());
+      }
+    }
+    else {
+      this.transitionTo('login');
     }
   },
   updateChannelOpened() {
@@ -38,8 +51,7 @@ export default Ember.Route.extend({
   updateMessage: function(message) {
     let update = JSON.parse(message.data);
     if (update.action == "set session id") {
-      let session = this.get('store').peekRecord('session', 42);
-      session.set('originatorID', update.payload.data.attributes.originatorID);
+      this.get('session').set('originatorID', update.payload.data.attributes.originatorID);
     }
     else if (update.action == 'add' || update.action == 'update') {
       this.get('store').pushPayload(update.payload);

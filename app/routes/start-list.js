@@ -3,7 +3,9 @@ import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 
 export default Route.extend({
+  session: Ember.inject.service(),
   store: Ember.inject.service(),
+  messageBus: Ember.inject.service(),
   beforeModel() {
     // remove all flights, unloadAll('flight') is asynchronous and can unfortunately not be used here
     let flights = this.get('store').peekAll('flight').toArray();
@@ -37,8 +39,7 @@ export default Route.extend({
     });
   },
   afterModel(model) {
-    let session = this.get('store').peekRecord('session', 42);
-    session.set('location', model.location);
-    session.set('date', model.date);
+    this.get('messageBus').publish('location', model.location);
+    this.get('messageBus').publish('date', model.date);
   }
 });

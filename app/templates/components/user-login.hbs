@@ -1,0 +1,11 @@
+<div class="layout-column layout-align-center-center">
+    <div class="layout-column">
+      <div>
+        {{paper-input value=username label=(t 'login.username') onChange=(action (mut username))}}
+      </div>
+      <div>
+        {{paper-input value=password label=(t 'login.password') type="password" onChange=(action (mut password))}}
+      </div>
+      {{#paper-button primary=true onClick=(action "login")}}{{t 'login.login'}}{{/paper-button}}
+    </div>
+</div>
