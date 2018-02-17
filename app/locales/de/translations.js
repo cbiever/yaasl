@@ -3,9 +3,10 @@ export default {
   'login': {
       'username': 'Benutzername',
       'password': 'Passwort',
-      'login': 'Einloggen'
+      'login': 'Einloggen',
+      'error': 'Schade, Einloggen hat nicht geklappt'
   },
-  
+
   'flight': {
 
     'start': {

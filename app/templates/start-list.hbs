@@ -1,9 +1,25 @@
-{{start-list
-  location=model.location
-  locations=model.locations
-  aircraft=model.aircraft
-  pilots=model.pilots
-  pilotRoles=model.pilotRoles
-  costSharings=model.costSharings
-  flights=model.flights
-  date=model.date}}
+{{#each sortedFlights as |flight|}}
+  <div class="hide-gt-sm">
+    {{flight-sm flight=flight location=model.location locations=model.locations aircraft=model.aircraft pilots=model.pilots pilotRoles=model.pilotRoles
+                towPlanes=towPlanes towPilots=towPilots costSharings=model.costSharings
+                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
+  </div>
+  <div class="hide-xs hide-sm hide-gt-md">
+    {{flight-md flight=flight location=model.location locations=model.locations aircraft=model.aircraft pilots=model.pilots pilotRoles=model.pilotRoles
+                towPlanes=towPlanes towPilots=towPilots costSharings=model.costSharings
+                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
+  </div>
+  <div class="hide-xs hide-sm hide-md">
+    {{flight-lg flight=flight location=model.location locations=model.locations aircraft=model.aircraft pilots=model.pilots pilotRoles=model.pilotRoles
+                towPlanes=towPlanes towPilots=towPilots costSharings=model.costSharings
+                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
+  </div>
+{{/each}}
+
+{{#if today}}
+  <div class="layout-row add-flight layout-align-end-center">
+    {{#paper-button iconButton=true raised=true fab=true primary=true mini=true onClick=(action 'addFlight')}}
+      {{paper-icon "add"}}
+    {{/paper-button}}
+  </div>
+{{/if}}

@@ -1,11 +1,18 @@
-import Component from '@ember/component';
+import Controller from '@ember/controller';
+import RSVP from 'rsvp';
 
-export default Component.extend({
+export default Controller.extend({
   session: Ember.inject.service(),
   store: Ember.inject.service(),
   router: Ember.inject.service(),
   messageBus: Ember.inject.service(),
+  canLogin: false,
+  error: false,
   actions: {
+    update() {
+      this.set('canLogin', this.get('username') && this.get('password'));
+      this.set('error', false);
+    },
     login() {
       Ember.$.post({
           url: '/api/v1/login',
@@ -13,20 +20,24 @@ export default Component.extend({
           mimeType: "text"
         })
         .then((response, status, xhr) => {
+          this.set('password', undefined);
           let session = this.get('session');
           session.set('authorization', xhr.getResponseHeader('Authorization'));
           this.get('messageBus').publish('loggedIn');
           let transition = session.get('transition');
-          if (!transition || transition.name == 'login' || transition.intent.url == '/login') {
+          if (!transition || transition.name == 'login' || transition.intent.url == '/' || transition.intent.url == '/login') {
             let today = new Date();
             this.get('router').replaceWith('start-list', 'lszb', today.getFullYear() + '-' + (today.getMonth() < 9 ? '0' : '') + (today.getMonth() + 1) + '-' + (today.getDate() < 10 ? '0' : '') + today.getDate());
           }
           else {
             transition.retry();
           }
-          session.set('transition', null);
+          session.set('transition', undefined);
         })
-        .catch((message) => { console.log('error: ', message); });
+        .catch((message) => {
+           console.log('error: ', message);
+           this.set('error', true);
+        });
     }
   }
 });

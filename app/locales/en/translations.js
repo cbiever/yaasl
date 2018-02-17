@@ -3,7 +3,8 @@ export default {
   'login': {
       'username': 'Username',
       'password': 'Password',
-      'login': 'Login'
+      'login': 'Login',
+      'error': 'Unfortunately, login was unsuccessful'
   },
 
   'flight': {

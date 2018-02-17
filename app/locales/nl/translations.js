@@ -3,7 +3,8 @@ export default {
   'login': {
       'username': 'Gebruikersnaam',
       'password': 'Wachwoord',
-      'login': 'Aanmelden'
+      'login': 'Aanmelden',
+      'error': 'Aanmelden is helaas niet gelukt'
   },
 
   'flight': {

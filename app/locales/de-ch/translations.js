@@ -3,7 +3,8 @@ export default {
   'login': {
       'username': 'Benutzername',
       'password': 'Passwort',
-      'login': 'Ilogge'
+      'login': 'Ilogge',
+      'error': 'Schade, Iloggen hat nicht geklappt'
   },
 
   'flight': {

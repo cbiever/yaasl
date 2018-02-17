@@ -1,1 +1,16 @@
-{{user-login}}
+<div class="layout-column layout-align-center-center" style="margin-top:30px">
+    <div class="layout-column">
+      <div class="flex">
+        {{paper-input value=username label=(t 'login.username') onChange=(action (pipe (action (mut username)) (action 'update')))}}
+      </div>
+      <div class="flex">
+        {{paper-input value=password label=(t 'login.password') type="password" onChange=(action (pipe (action (mut password)) (action 'update')))}}
+      </div>
+      {{#paper-button primary=true disabled=(not canLogin) onClick=(action "login")}}{{t 'login.login'}}{{/paper-button}}
+      {{#if error}}
+        <div class="layout-row layout-align-center-end" style="margin-top:30px">
+          <div style="color:#d50000">{{t 'login.error'}}</div>
+        </div>
+      {{/if}}
+    </div>
+</div>
