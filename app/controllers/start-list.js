@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import Controller from '@ember/controller';
 
 export default Controller.extend({
@@ -32,15 +33,15 @@ export default Controller.extend({
       }
     });
   }),
-  today: Ember.computed(function() {
-    let date = this.get('model').date;
-    let now = new Date();
-    return date.getDate() == now.getDate() && date.getMonth() == now.getMonth() && date.getFullYear() == now.getFullYear();
-  }),
   init() {
     this._super(...arguments);
+    this.get('messageBus').subscribe('date', this, this.updateDate);
     this.get('messageBus').subscribe('add', this, this.addFlight);
     this.get('messageBus').subscribe('delete', this, this.deleteFlight);
+  },
+  updateDate(date) {
+    let now = new Date();
+    this.set('today', date.getDate() == now.getDate() && date.getMonth() == now.getMonth() && date.getFullYear() == now.getFullYear());
   },
   addFlight(flight) {
     if (flight.belongsTo('startLocation').value() == this.get('model').location) {

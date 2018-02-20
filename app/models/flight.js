@@ -16,5 +16,6 @@ export default Model.extend({
   towPilot: belongsTo('pilot'),
   towPlaneLandingTime: attr('date'),
   costSharing: belongsTo('costSharing'),
-  comment: attr('string')
+  comment: attr('string'),
+  locked: attr('boolean')
 });

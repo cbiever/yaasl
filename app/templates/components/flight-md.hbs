@@ -152,12 +152,12 @@
   </div>
 
   <div class="flex">
-    {{flight-button-bar onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
+    {{flight-button-bar locked=flight.locked onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
   </div>
   {{else}}
   <div class="flex-75"/>
   <div class="flex-25">
-    {{flight-button-bar onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
+    {{flight-button-bar locked=flight.locked onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
   </div>
   {{/if}}
 </div>

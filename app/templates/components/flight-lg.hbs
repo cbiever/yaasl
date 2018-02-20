@@ -167,7 +167,7 @@
   {{/if}}
 
   <div class="flex-5">
-    {{flight-button-bar onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
+    {{flight-button-bar locked=flight.locked onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
   </div>
 </div>
 

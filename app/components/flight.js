@@ -3,9 +3,10 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
   expanded: false,
   locked: false,
-  didReceiveAttrs() {
+  init() {
     this._super(...arguments);
     this.set('comment', this.get('flight').get('comment'));
+    this.set('locked', this.get('flight').get('locked'));
   },
   actions: {
     updateComment() {

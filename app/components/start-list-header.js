@@ -2,6 +2,7 @@ import Ember from 'ember';
 import Component from '@ember/component';
 
 export default Component.extend({
+  session: Ember.inject.service(),
   i18n: Ember.inject.service(),
   store: Ember.inject.service(),
   router: Ember.inject.service(),
@@ -66,7 +67,13 @@ console.log('logged out');
     if (this.get('date')) {
       url += '&filter[date]=' + this.formatDate(this.get('date'));
     }
-    Ember.$.get(url).then(function(data) {
+    Ember.$.get({
+      url: url,
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader('Authorization', this.get('session').get('authorization'));
+      }
+    })
+    .then(function(data) {
       if (mimeType == 'application/pdf') {
         data = base64js.toByteArray(data);
       }
