@@ -10,7 +10,7 @@ export default Component.extend({
     },
     setLocked(locked) {
       this.set('locked', locked);
-      this.set('onLock', locked);
+      this.get('onLock')(locked);
     },
     deleteFlight() {
       this.get('onDeleteFlight')();

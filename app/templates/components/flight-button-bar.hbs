@@ -16,7 +16,7 @@
         {{paper-icon "lock open"}}
       {{/paper-button}}
     {{else}}
-      {{#paper-button iconButton=true disabled=locked onClick=(action 'setLocked' false)}}
+      {{#paper-button iconButton=true disabled=(not today) onClick=(action 'setLocked' false)}}
         {{paper-icon "lock outline"}}
       {{/paper-button}}
     {{/if}}

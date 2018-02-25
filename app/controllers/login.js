@@ -34,8 +34,11 @@ export default Controller.extend({
             transition.retry();
           }
           session.set('transition', undefined);
-console.log('token: ', session.get('authorization'));
-console.log('jwt: ', jwtDecode(session.get('authorization')));
+          session.set('roles', jwtDecode(session.get('authorization')).roles);
+          if (session.get('rememberMe')) {
+            window.localStorage.setItem('yaasl_token', session.get('authorization'));
+          }
+console.log('token: ', jwtDecode(session.get('authorization')));
         })
         .catch((message) => {
            console.log('error: ', message);

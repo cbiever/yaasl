@@ -3,7 +3,9 @@ export default {
   'login': {
       'username': 'Gebruikersnaam',
       'password': 'Wachwoord',
+      'remember.me': 'onthoud mij',
       'login': 'Aanmelden',
+      'logoff': 'Afmelden',
       'error': 'Aanmelden is helaas niet gelukt'
   },
 

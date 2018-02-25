@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import RSVP from 'rsvp';
+import AuthenticationChecker from '../mixins/authentication-checker'
 
-export default Ember.Route.extend({
-  session: Ember.inject.service(),
+export default Ember.Route.extend(AuthenticationChecker, {
   store: Ember.inject.service(),
   websockets: Ember.inject.service(),
   messageBus: Ember.inject.service(),
@@ -34,17 +34,11 @@ export default Ember.Route.extend({
 console.log('logged out');
   },
   beforeModel(transition) {
-    if (!this.get('session').get('transition')) {
-      this.get('session').set('transition', transition);
-    }
-    if (this.get('session').get('authorization')) {
+    if (this.isAuthenticated(transition)) {
       if (transition.intent.url == '/') {
         let today = new Date();
         this.replaceWith('start-list', 'lszb', today.getFullYear() + '-' + (today.getMonth() < 9 ? '0' : '') + (today.getMonth() + 1) + '-' + (today.getDate() < 10 ? '0' : '') + today.getDate());
       }
-    }
-    else {
-      this.transitionTo('login');
     }
   },
   updateChannelOpened() {

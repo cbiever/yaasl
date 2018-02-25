@@ -3,7 +3,9 @@ export default {
   'login': {
       'username': 'Benutzername',
       'password': 'Passwort',
+      'remember.me': 'erinnere mich',
       'login': 'Einloggen',
+      'logoff': 'Ausloggen',
       'error': 'Schade, Einloggen hat nicht geklappt'
   },
 

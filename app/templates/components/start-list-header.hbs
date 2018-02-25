@@ -7,33 +7,38 @@
         {{/paper-button}}
       {{/menu.trigger}}
       {{#menu.content width=3 as |content|}}
-        {{#content.menu-item onClick=(transition-to 'aircraft')}}
+        {{#content.menu-item disabled=(not session.authorization) onClick=(transition-to 'aircraft')}}
           {{paper-icon "airplanemode active"}}
           <span>{{t 'menu.aircraft'}}</span>
         {{/content.menu-item}}
-        {{#content.menu-item onClick=(transition-to 'pilots')}}
+        {{#content.menu-item disabled=(not session.authorization) onClick=(transition-to 'pilots')}}
           {{paper-icon "perm identity"}}
           <span>{{t 'menu.pilots'}}</span>
         {{/content.menu-item}}
         {{#if (eq router.currentRouteName 'start-list')}}
-          {{#content.menu-item onClick=(action 'showKtrax')}}
+          {{#content.menu-item disabled=(not session.authorization) onClick=(action 'showKtrax')}}
             {{paper-icon "flight takeoff"}}
             <span>{{t 'menu.ktrax'}}</span>
           {{/content.menu-item}}
         {{else}}
-          {{#content.menu-item onClick=(action 'showStartList')}}
+          {{#content.menu-item disabled=(not session.authorization) onClick=(action 'showStartList')}}
             {{paper-icon "flight takeoff"}}
             <span>{{t 'menu.logbook'}}</span>
           {{/content.menu-item}}
         {{/if}}
         {{paper-divider}}
-        {{#content.menu-item onClick=(action 'downloadPDF')}}
+        {{#content.menu-item disabled=(not session.authorization) onClick=(action 'downloadPDF')}}
           {{paper-icon "get app"}}
           <span>PDF</span>
         {{/content.menu-item}}
-        {{#content.menu-item onClick=(action 'downloadCSV')}}
+        {{#content.menu-item disabled=(not session.authorization) onClick=(action 'downloadCSV')}}
           {{paper-icon "get app"}}
           <span>CSV</span>
+        {{/content.menu-item}}
+        {{paper-divider}}
+        {{#content.menu-item disabled=(not session.authorization) onClick=(action 'logoff')}}
+          {{paper-icon "get app"}}
+          <span>{{t 'login.logoff'}}</span>
         {{/content.menu-item}}
       {{/menu.content}}
     {{/paper-menu}}
@@ -43,7 +48,7 @@
     <span class="flex"/>
     {{#paper-menu as |menu|}}
       {{#menu.trigger}}
-        {{#paper-button}}
+        {{#paper-button disabled=(not session.authorization)}}
           {{location.name}}
         {{/paper-button}}
       {{/menu.trigger}}
@@ -55,7 +60,7 @@
         {{/each}}
       {{/menu.content}}
     {{/paper-menu}}
-    {{#paper-button onClick=(action (mut showDatepicker))}}{{moment-format date 'DD-MM-YYYY'}}{{/paper-button}}
+    {{#paper-button disabled=(not session.authorization) onClick=(action (mut showDatepicker))}}{{moment-format date 'DD-MM-YYYY'}}{{/paper-button}}
     {{#if showDatepicker}}
       {{pikaday-inputless value=date options=(hash postion='bottom' reposition=false) onSelection=(action 'setDate')}}
     {{/if}}

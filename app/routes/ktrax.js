@@ -1,11 +1,15 @@
 import Ember from 'ember';
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
+import AuthenticationChecker from '../mixins/authentication-checker'
 
-export default Route.extend({
+export default Route.extend(AuthenticationChecker, {
   session: Ember.inject.service(),
   store: Ember.inject.service(),
   messageBus: Ember.inject.service(),
+  beforeModel(transition) {
+    this.isAuthenticated(transition);
+  },
   model(parameters) {
     return RSVP.hash({
       location: this.get('store').query('location', {

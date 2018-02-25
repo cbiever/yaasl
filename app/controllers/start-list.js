@@ -33,6 +33,9 @@ export default Controller.extend({
       }
     });
   }),
+  locked: Ember.computed(function() {
+    return this.get('today');
+  }),
   init() {
     this._super(...arguments);
     this.get('messageBus').subscribe('date', this, this.updateDate);

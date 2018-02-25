@@ -1,16 +1,19 @@
 import Ember from 'ember';
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
+import AuthenticationChecker from '../mixins/authentication-checker'
 
-export default Route.extend({
+export default Route.extend(AuthenticationChecker, {
   session: Ember.inject.service(),
   store: Ember.inject.service(),
   messageBus: Ember.inject.service(),
-  beforeModel() {
-    // remove all flights, unloadAll('flight') is asynchronous and can unfortunately not be used here
-    let flights = this.get('store').peekAll('flight').toArray();
-    for (let i = 0; i < flights.length; i++) {
-      flights.get(i).unloadRecord();
+  beforeModel(transition) {
+    if (this.isAuthenticated(transition)) {
+      // remove all flights, unloadAll('flight') is asynchronous and can unfortunately not be used here
+      let flights = this.get('store').peekAll('flight').toArray();
+      for (let i = 0; i < flights.length; i++) {
+        flights.get(i).unloadRecord();
+      }
     }
   },
   model(parameters) {

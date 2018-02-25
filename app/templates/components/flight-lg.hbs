@@ -6,6 +6,7 @@
       options=aircraft
       selected=flight.aircraft
       onChange=(action 'updateFlight' 'aircraft')
+      disabled=locked
       class="cell"
       as |aircraft|}}
       {{aircraft.callSign}}
@@ -19,6 +20,7 @@
       placeholder='flight.start.time.placeholder'
       missing=(t 'flight.start.time.missing')
       invalid=(t 'flight.start.time.invalid')
+      disabled=locked
       class="cell"
     }}
   </div>
@@ -29,6 +31,7 @@
       options=locations
       selected=flight.startLocation
       onChange=(action 'updateFlight' 'startLocation')
+      disabled=locked
       class="cell"
       as |location|}}
      {{location.name}}
@@ -42,6 +45,7 @@
       placeholder='flight.landing.time.placeholder'
       missing=(t 'flight.landing.time.missing')
       invalid=(t 'flight.landing.time.invalid')
+      disabled=locked
       class="cell"
     }}
   </div>
@@ -52,6 +56,7 @@
       options=locations
       selected=flight.landingLocation
       onChange=(action 'updateFlight' 'landingLocation')
+      disabled=locked
       class="cell"
       as |location|}}
       {{location.name}}
@@ -66,6 +71,7 @@
       searchEnabled=true
       searchField='name'
       onChange=(action 'updateFlight' 'pilot1')
+      disabled=locked
       class="cell"
       as |pilot|}}
       {{pilot.name}}
@@ -78,6 +84,7 @@
       options=pilotRoles
       selected=flight.pilot1Role
       onChange=(action 'updateFlight' 'pilot1Role')
+      disabled=locked
       class="cell"
       as |pilotRole|}}
      {{t pilotRole.i18n}}
@@ -94,6 +101,7 @@
       searchEnabled=true
       searchField='name'
       onChange=(action 'updateFlight' 'pilot2')
+      disabled=locked
       class="cell"
       as |pilot|}}
       {{pilot.name}}
@@ -106,6 +114,7 @@
       options=pilotRoles
       selected=flight.pilot2Role
       onChange=(action 'updateFlight' 'pilot2Role')
+      disabled=locked
       class="cell"
       as |pilotRole|}}
      {{t pilotRole.i18n}}
@@ -127,6 +136,7 @@
       options=towPlanes
       selected=flight.towPlane
       onChange=(action 'updateFlight' 'towPlane')
+      disabled=locked
       class="cell"
       as |aircraft|}}
       {{aircraft.callSign}}
@@ -141,6 +151,7 @@
       searchEnabled=true
       searchField='name'
       onChange=(action 'updateFlight' 'towPilot')
+      disabled=locked
       class="cell"
       as |towPilot|}}
       {{towPilot.name}}
@@ -154,6 +165,7 @@
       placeholder='flight.landing.time.placeholder'
       missing=(t 'flight.landing.time.missing')
       invalid=(t 'flight.landing.time.invalid')
+      disabled=locked
       class="cell"
     }}
   </div>
@@ -167,7 +179,7 @@
   {{/if}}
 
   <div class="flex-5">
-    {{flight-button-bar locked=flight.locked onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
+    {{flight-button-bar locked=flight.locked today=today onExpand=(action 'setExpanded') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
   </div>
 </div>
 
@@ -179,6 +191,7 @@
       options=costSharings
       selected=flight.costSharing
       onChange=(action 'updateFlight' 'costSharing')
+      disabled=locked
       class="cell"
       as |costSharing|}}
       {{t costSharing.i18n}}
@@ -188,7 +201,7 @@
 <div class="layout-row expandable-row">
   <div class="flex">
     {{paper-input textarea=true block=true placeholder=(t 'flight.comment.placeholder') maxlength=300
-                  value=comment onChange=(action (mut comment)) onBlur=(action 'updateComment') class="cell"}}
+                  value=comment onChange=(action (mut comment)) onBlur=(action 'updateComment') disabled=locked class="cell"}}
   </div>
 </div>
 {{/if}}

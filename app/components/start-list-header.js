@@ -49,6 +49,11 @@ console.log('logged out');
     },
     downloadCSV() {
       this.download('text/csv');
+    },
+    logoff() {
+      if (!this.get('session').get('rememberMe')) {
+        window.localStorage.removeItem('yaasl_token');
+      }
     }
   },
   navigate: function(location, date, route) {

@@ -2,17 +2,17 @@
   <div class="hide-gt-sm">
     {{flight-sm flight=flight location=model.location locations=model.locations aircraft=model.aircraft pilots=model.pilots pilotRoles=model.pilotRoles
                 towPlanes=towPlanes towPilots=towPilots costSharings=model.costSharings
-                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
+                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight') today=today}}
   </div>
   <div class="hide-xs hide-sm hide-gt-md">
     {{flight-md flight=flight location=model.location locations=model.locations aircraft=model.aircraft pilots=model.pilots pilotRoles=model.pilotRoles
                 towPlanes=towPlanes towPilots=towPilots costSharings=model.costSharings
-                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
+                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight') today=today}}
   </div>
   <div class="hide-xs hide-sm hide-md">
     {{flight-lg flight=flight location=model.location locations=model.locations aircraft=model.aircraft pilots=model.pilots pilotRoles=model.pilotRoles
                 towPlanes=towPlanes towPilots=towPilots costSharings=model.costSharings
-                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
+                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight') today=today}}
   </div>
 {{/each}}
 
