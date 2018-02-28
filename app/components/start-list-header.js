@@ -49,7 +49,6 @@ export default Component.extend({
     logoff() {
       window.localStorage.removeItem('yaasl_token');
       this.get('messageBus').publish('loggedOff');
-      this.transitionTo('logged-off');
     }
   },
   navigate: function(location, date, route) {
