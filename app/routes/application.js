@@ -9,7 +9,7 @@ export default Ember.Route.extend(AuthenticationChecker, {
   init() {
     this._super(...arguments);
     this.get('messageBus').subscribe('loggedIn', this, this.loggedIn);
-    this.get('messageBus').subscribe('loggedOut', this, this.loggedOut);
+    this.get('messageBus').subscribe('loggedOff', this, this.loggedOut);
   },
   loggedIn() {
     RSVP.hash({
@@ -30,8 +30,7 @@ export default Ember.Route.extend(AuthenticationChecker, {
     });
   },
   loggedOut() {
-    this.get('session').set('transition', undefined);
-console.log('logged out');
+    this.transitionTo('logged-off');
   },
   beforeModel(transition) {
     if (this.isAuthenticated(transition)) {

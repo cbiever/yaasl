@@ -15,6 +15,7 @@ Router.map(function() {
   this.route('aircraft');
   this.route('loading');
   this.route('invalid-url', { path: '/*path'});
+  this.route('logged-off');
 });
 
 export default Router;

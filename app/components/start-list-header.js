@@ -12,7 +12,6 @@ export default Component.extend({
     this.get('messageBus').subscribe('storeInitialized', this, this.update);
     this.get('messageBus').subscribe('location', this, this.updateLocation);
     this.get('messageBus').subscribe('date', this, this.updateDate);
-    this.get('messageBus').subscribe('loggedOut', this, this.loggedOut);
   },
   update() {
     let locations = this.get('store').peekAll('location');
@@ -23,9 +22,6 @@ export default Component.extend({
   },
   updateDate(date) {
     this.set('date', date);
-  },
-  loggedOut() {
-console.log('logged out');
   },
   actions: {
     setLocale(locale) {
@@ -51,9 +47,9 @@ console.log('logged out');
       this.download('text/csv');
     },
     logoff() {
-      if (!this.get('session').get('rememberMe')) {
-        window.localStorage.removeItem('yaasl_token');
-      }
+      window.localStorage.removeItem('yaasl_token');
+      this.get('messageBus').publish('loggedOff');
+      this.transitionTo('logged-off');
     }
   },
   navigate: function(location, date, route) {

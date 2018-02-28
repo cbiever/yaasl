@@ -17,7 +17,7 @@ export default Controller.extend({
     login() {
       Ember.$.post({
           url: '/api/v1/login',
-          data: 'username=' + this.get('username') + '&password=' + this.get('password'),
+          data: 'username=' + this.get('username') + '&password=' + this.get('password') + '&rememberMe=' + this.get('session').get('rememberMe'),
           mimeType: "text"
         })
         .then((response, status, xhr) => {
@@ -35,10 +35,7 @@ export default Controller.extend({
           }
           session.set('transition', undefined);
           session.set('roles', jwtDecode(session.get('authorization')).roles);
-          if (session.get('rememberMe')) {
-            window.localStorage.setItem('yaasl_token', session.get('authorization'));
-          }
-console.log('token: ', jwtDecode(session.get('authorization')));
+          window.localStorage.setItem('yaasl_token', session.get('authorization'));
         })
         .catch((message) => {
            console.log('error: ', message);
