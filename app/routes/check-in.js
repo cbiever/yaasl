@@ -6,7 +6,12 @@ import AuthenticationChecker from '../mixins/authentication-checker'
 export default Route.extend(AuthenticationChecker, {
   store: Ember.inject.service(),
   beforeModel(transition) {
-    this.isAuthenticated(transition);
+    return this.checkAuthenticated(transition).then(() => {
+      console.info('logged in check in');
+    },
+    () => {
+      this.transitionTo('login');
+    });
   },
   model(parameters) {
     return RSVP.hash({
@@ -17,7 +22,7 @@ export default Route.extend(AuthenticationChecker, {
       }).then(function(aircraft) {
         return aircraft.get('firstObject');
       }),
-      location: new RSVP.Promise(function(resolve) {
+      location: new RSVP.Promise((resolve) => {
         if ("geolocation" in navigator) {
           navigator.geolocation.getCurrentPosition(function(position) {
               resolve(position);

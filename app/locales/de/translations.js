@@ -1,12 +1,16 @@
 export default {
 
+  'location': 'Ort',
+  'date': 'Datum',
+
   'login': {
-      'username': 'Benutzername',
-      'password': 'Passwort',
-      'remember.me': 'erinnere mich',
-      'login': 'Einloggen',
-      'logoff': 'Ausloggen',
-      'error': 'Schade, Einloggen hat nicht geklappt'
+    'username': 'Benutzername',
+    'password': 'Passwort',
+    'remember.me': 'erinnere mich',
+    'login': 'Einloggen',
+    'logoff': 'Ausloggen',
+    'logoff.thankyou': 'Danke das sie Yaasl verwendet haben',
+    'error': 'Schade, Einloggen hat nicht geklappt'
   },
 
   'flight': {
@@ -57,7 +61,7 @@ export default {
     'aircraft': 'Flugzeuge',
     'pilots': 'Piloten',
     'ktrax': 'Ktrax',
-    'logbook': 'Logbook'
+    'logbook': 'Startliste'
   },
 
   'pilot.role': {

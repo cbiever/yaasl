@@ -5,7 +5,12 @@ import AuthenticationChecker from '../mixins/authentication-checker'
 export default Route.extend(AuthenticationChecker, {
   store: Ember.inject.service(),
   beforeModel(transition) {
-    this.isAuthenticated(transition);
+    return this.checkAuthenticated(transition).then(() => {
+      console.info('logged in pilots');
+    },
+    () => {
+      this.transitionTo('login');
+    });
   },
   model() {
     return this.get('store').findAll('pilot');

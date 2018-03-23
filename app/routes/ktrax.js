@@ -8,7 +8,12 @@ export default Route.extend(AuthenticationChecker, {
   store: Ember.inject.service(),
   messageBus: Ember.inject.service(),
   beforeModel(transition) {
-    this.isAuthenticated(transition);
+    return this.checkAuthenticated(transition).then(() => {
+      console.info('logged in ktrax');
+    },
+    () => {
+      this.transitionTo('login');
+    });
   },
   model(parameters) {
     return RSVP.hash({

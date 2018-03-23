@@ -1,11 +1,15 @@
 export default {
 
+  'location': 'Location',
+  'date': 'Date',
+
   'login': {
       'username': 'Username',
       'password': 'Password',
       'remember.me': 'remember me',
       'login': 'Login',
       'logoff': 'Logoff',
+      'logoff.thankyou': 'Thank you for using Yaasl',
       'error': 'Unfortunately, login was unsuccessful'
   },
 
@@ -42,7 +46,14 @@ export default {
     'pilot.2': 'Pilot 2',
     'pilot.role': 'Role',
 
-    'call.sign.tow.plane': 'Tug'
+    'call.sign.tow.plane': 'Tug',
+    'tow.pilot': 'Tug pilot',
+
+    'cost.sharing': {
+      'placeholder': 'Cost sharing'
+    },
+
+    'comment.placeholder': 'Comment'
   },
 
   'menu': {
@@ -72,6 +83,11 @@ export default {
       'name': 'Name',
       'standard.role': 'Standard role'
     }
+  },
+
+  'cost.sharing': {
+    'student': 'Student',
+    'fifty.fifty': '50/50'
   }
 
 };

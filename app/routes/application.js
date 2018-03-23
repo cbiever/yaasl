@@ -21,7 +21,7 @@ export default Ember.Route.extend(AuthenticationChecker, {
     }).then(() => {
       this.get('messageBus').publish('storeInitialized');
       if (!this.get('socket')) {
-        let socket = this.get('websockets').socketFor('ws://' + location.host + '/api/v1/ws/updates', [ this.get('session').get('authorization').substring(7), 'Yaasl' ]);
+        let socket = this.get('websockets').socketFor('wss://' + location.host + '/api/v1/ws/updates', [ this.get('session').get('authorization').substring(7), 'Yaasl' ]);
         socket.on('open', this.updateChannelOpened, this);
         socket.on('message', this.updateMessage, this);
         socket.on('close', this.updateChannelClosed, this);
@@ -30,15 +30,22 @@ export default Ember.Route.extend(AuthenticationChecker, {
     });
   },
   loggedOut() {
+    this.get('session').clearAuthorization();
+    if (this.get('socket')) {
+      this.get('socket').close();
+    }
     this.transitionTo('logged-off');
   },
   beforeModel(transition) {
-    if (this.isAuthenticated(transition)) {
+    return this.checkAuthenticated(transition).then(() => {
       if (transition.intent.url == '/') {
         let today = new Date();
         this.replaceWith('start-list', 'lszb', today.getFullYear() + '-' + (today.getMonth() < 9 ? '0' : '') + (today.getMonth() + 1) + '-' + (today.getDate() < 10 ? '0' : '') + today.getDate());
       }
-    }
+    },
+    () => {
+      this.transitionTo('login');
+    });
   },
   updateChannelOpened() {
     console.log(`Infochannel opened at: ${new Date().toJSON()}`);
@@ -75,5 +82,12 @@ export default Ember.Route.extend(AuthenticationChecker, {
   updateChannelClosed() {
     this.set('socket', null);
     console.log(`Infochannel closed at: ${new Date().toJSON()}`);
+  },
+  actions: {
+    error(error, transition) {
+      if (!this.handleAuthenticationError(error)) {
+        console.log('error: ', error);
+      }
+    }
   }
 });

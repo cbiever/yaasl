@@ -1,11 +1,15 @@
 export default {
 
+  'location': 'Lokatie',
+  'date': 'Datum',
+
   'login': {
       'username': 'Gebruikersnaam',
       'password': 'Wachwoord',
       'remember.me': 'onthoud mij',
       'login': 'Aanmelden',
       'logoff': 'Afmelden',
+      'logoff.thankyou': 'Bedankt dat u Yaasl gebruikt heeft',
       'error': 'Aanmelden is helaas niet gelukt'
   },
 
@@ -42,7 +46,14 @@ export default {
     'pilot.2': 'Piloot 2',
     'pilot.role': 'Rol',
 
-    'call.sign.tow.plane': 'Sleepvliegtuig'
+    'call.sign.tow.plane': 'Sleepvliegtuig',
+    'tow.pilot': 'Sleeppiloot',
+
+    'cost.sharing': {
+      'placeholder': 'Kostenverdeling'
+    },
+
+    'comment.placeholder': 'Kommentaar'
   },
 
   'menu': {
@@ -72,6 +83,11 @@ export default {
       'name': 'Naam',
       'standard.role': 'Standaard rol'
     }
+  },
+
+  'cost.sharing': {
+    'student': 'Leerling',
+    'fifty.fifty': '50/50'
   }
 
 };
