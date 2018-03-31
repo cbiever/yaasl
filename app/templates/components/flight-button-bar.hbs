@@ -11,18 +11,24 @@
     {{/if}}
   </div>
   <div class="flex-33">
-    {{#if (not locked)}}
-      {{#paper-button iconButton=true onClick=(action 'setLocked' true)}}
-        {{paper-icon "lock open"}}
-      {{/paper-button}}
-    {{else}}
-      {{#paper-button iconButton=true disabled=(not today) onClick=(action 'setLocked' false)}}
+    {{#if locked}}
+      {{#paper-button iconButton=true disabled=true}}
         {{paper-icon "lock outline"}}
       {{/paper-button}}
+    {{else}}
+      {{#if editable}}
+        {{#paper-button iconButton=true onClick=(action 'setEditable' false)}}
+          {{paper-icon "done"}}
+        {{/paper-button}}
+      {{else}}
+        {{#paper-button iconButton=true disabled=(not today) onClick=(action 'setEditable' true)}}
+          {{paper-icon "mode edit"}}
+        {{/paper-button}}
+      {{/if}}
     {{/if}}
   </div>
   <div class="flex-33">
-    {{#paper-button iconButton=true disabled=locked onClick=(action 'deleteFlight')}}
+    {{#paper-button iconButton=true disabled=(not editable) onClick=(action 'deleteFlight')}}
       {{paper-icon "delete"}}
     {{/paper-button}}
   </div>

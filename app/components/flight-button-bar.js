@@ -1,16 +1,26 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-  expanded: false,
-  locked: false,
+  didUpdateAttrs() {
+    this._super(...arguments);
+    if (this.get('locked')) {
+      this.set('editable', false);
+    }
+  },
   actions: {
     setExpanded(expanded) {
       this.set('expanded', expanded);
       this.get('onExpand')(expanded);
     },
-    setLocked(locked) {
-      this.set('locked', locked);
-      this.get('onLock')(locked);
+    setEditable(editable) {
+      if (this.get('locked')) {
+        this.set('editable', false)
+        this.get('onEditable')(false);
+      }
+      else {
+        this.set('editable', editable);
+        this.get('onEditable')(editable);
+      }
     },
     deleteFlight() {
       this.get('onDeleteFlight')();

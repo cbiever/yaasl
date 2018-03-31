@@ -1,11 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  expanded: false,
-  locked: false,
   init() {
     this._super(...arguments);
     this.set('comment', this.get('flight').get('comment'));
+    this.set('editable', this.get('flight').get('editable'));
     this.set('locked', this.get('flight').get('locked'));
   },
   actions: {
@@ -21,8 +20,16 @@ export default Ember.Mixin.create({
     setExpanded(expanded) {
       this.set('expanded', expanded);
     },
-    setLocked(locked) {
-      this.set('locked', locked);
+    setEditable(editable) {
+      let flight = this.get('flight');
+      if (!flight.get('locked')) {
+        this.set('editable', editable);
+        flight.set('editable', editable);
+        flight.save();
+      }
+      else {
+        this.set('editable', false);
+      }
     }
   }
 });

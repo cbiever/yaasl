@@ -17,5 +17,6 @@ export default Model.extend({
   towPlaneLandingTime: attr('date'),
   costSharing: belongsTo('costSharing'),
   comment: attr('string'),
+  editable: attr('boolean'),
   locked: attr('boolean')
 });

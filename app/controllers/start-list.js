@@ -59,7 +59,7 @@ export default Controller.extend({
   },
   actions: {
     addFlight() {
-      let flight = this.get('store').createRecord('flight', { 'startLocation': this.get('model').location });
+      let flight = this.get('store').createRecord('flight', { 'startLocation': this.get('model').location, 'editable': true });
       flight.save().then(flight => {
         this.addFlight(flight);
       });

@@ -1,5 +1,9 @@
 @import 'ember-paper';
 
+md-menu-content {
+  max-height: none;
+}
+
 .row {
   @media all and (max-width: 959px) {
     height: 30px;

@@ -36,6 +36,11 @@
           <span>CSV</span>
         {{/content.menu-item}}
         {{paper-divider}}
+        {{#content.menu-item disabled=(not session.authorization) onClick=(action 'downloadPDF')}}
+          {{paper-icon "thumbs up down"}}
+          <span>Feedback</span>
+        {{/content.menu-item}}
+        {{paper-divider}}
         {{#content.menu-item disabled=(not session.authorization) onClick=(action 'logoff')}}
           {{paper-icon "get app"}}
           <span>{{t 'login.logoff'}}</span>
