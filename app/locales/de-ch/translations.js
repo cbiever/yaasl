@@ -72,6 +72,10 @@ export default {
       'name': 'Name',
       'standard.role': 'Standard Rolle'
     }
+  },
+
+  'error': {
+    'backend': 'Fehler'
   }
 
 };

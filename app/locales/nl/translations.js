@@ -88,6 +88,10 @@ export default {
   'cost.sharing': {
     'student': 'Leerling',
     'fifty.fifty': '50/50'
+  },
+
+  'error': {
+    'backend': 'Fouten'
   }
 
 };

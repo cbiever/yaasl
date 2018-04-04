@@ -13,9 +13,9 @@ Router.map(function() {
   this.route('check-in', { path: '/check-in/:call_sign'});
   this.route('pilots');
   this.route('aircraft');
-  this.route('loading');
-  this.route('invalid-url', { path: '/*path'});
   this.route('logged-off');
+  this.route('invalid-url', { path: '/*path'});
+  this.route('feedback');
 });
 
 export default Router;

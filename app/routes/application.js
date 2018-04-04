@@ -85,11 +85,7 @@ export default Ember.Route.extend(AuthenticationChecker, {
   },
   actions: {
     error(error, transition) {
-      if (!this.handleAuthenticationError(error)) {
-        this.set('errors', error);
-        console.log('error: ', error);
-      }
-      return false;
+      return !this.handleAuthenticationError(error);
     }
   }
 });

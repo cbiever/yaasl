@@ -23,34 +23,6 @@ export default Component.extend({
   updateDate(date) {
     this.set('date', date);
   },
-  actions: {
-    setLocale(locale) {
-      this.set('i18n.locale', locale);
-    },
-    setLocation(location) {
-      this.navigate(location, this.get('date'));
-    },
-    setDate(date) {
-      this.set('showDatepicker', false);
-      this.navigate(this.get('location'), date);
-    },
-    showStartList() {
-      this.navigate(this.get('location'), this.get('date'), 'start-list');
-    },
-    showKtrax() {
-      this.navigate(this.get('location'), this.get('date'), 'ktrax');
-    },
-    downloadPDF() {
-      this.download('application/pdf');
-    },
-    downloadCSV() {
-      this.download('text/csv');
-    },
-    logoff() {
-      this.get('session').clearAuthorization();
-      this.get('messageBus').publish('loggedOff');
-    }
-  },
   navigate: function(location, date, route) {
     if (!route) {
       route = this.get('router').get('currentRouteName');
@@ -123,5 +95,42 @@ export default Component.extend({
       f(base64js.fromByteArray(new Uint8Array(event.target.result)));
     };
     reader.readAsArrayBuffer(new Blob([JSON.stringify(translations)]));
+  },
+  actions: {
+    setLocale(locale) {
+      this.set('i18n.locale', locale);
+    },
+    setLocation(location) {
+      this.navigate(location, this.get('date'));
+    },
+    setDate(date) {
+      this.set('showDatepicker', false);
+      this.navigate(this.get('location'), date);
+    },
+    showStartList() {
+      this.navigate(this.get('location'), this.get('date'), 'start-list');
+    },
+    showKtrax() {
+      this.navigate(this.get('location'), this.get('date'), 'ktrax');
+    },
+    showFeedbackDialog() {
+      this.set('feedbackComment', '');
+      this.set('showFeedbackDialog', true);
+    },
+    closeFeedbackDialog(action) {
+      this.set('showFeedbackDialog', false);
+      let feedback = this.get('store').createRecord('feedback', { 'feedback': this.get('feedback'), 'comment': this.get('feedbackComment') });
+      feedback.save();
+    },
+    downloadPDF() {
+      this.download('application/pdf');
+    },
+    downloadCSV() {
+      this.download('text/csv');
+    },
+    logoff() {
+      this.get('session').clearAuthorization();
+      this.get('messageBus').publish('loggedOff');
+    }
   }
 });
