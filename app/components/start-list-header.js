@@ -114,13 +114,7 @@ export default Component.extend({
       this.navigate(this.get('location'), this.get('date'), 'ktrax');
     },
     showFeedbackDialog() {
-      this.set('feedbackComment', '');
-      this.set('showFeedbackDialog', true);
-    },
-    closeFeedbackDialog(action) {
-      this.set('showFeedbackDialog', false);
-      let feedback = this.get('store').createRecord('feedback', { 'feedback': this.get('feedback'), 'comment': this.get('feedbackComment') });
-      feedback.save();
+      this.get('messageBus').publish('showFeedbackDialog');
     },
     downloadPDF() {
       this.download('application/pdf');

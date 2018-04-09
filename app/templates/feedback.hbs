@@ -1,0 +1,12 @@
+<div class="layout-row layout-align-center-start" style="margin-top: 20px">
+  {{#paper-list}}
+    {{#each feedback as |feedback|}}
+      {{#paper-item class="md-1-line"}}
+        {{paper-icon feedback.icon}}
+        <p>
+          {{feedback.comment}}
+        </p>
+     {{/paper-item}}
+    {{/each}}
+  {{/paper-list}}
+</div>

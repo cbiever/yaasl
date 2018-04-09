@@ -1,0 +1,23 @@
+{{#if show}}
+  {{#paper-dialog class="flex-70" onClose=(action "closeFeedbackDialog" "cancel") clickOutsideToClose=true}}
+    {{#paper-toolbar}}
+      {{#paper-toolbar-tools}}
+        <h2>Feedback</h2>
+        <span class="flex"/>
+        {{#paper-button iconButton=true onClick=(action "closeFeedbackDialog" "cancel")}}{{paper-icon icon="close"}}{{/paper-button}}
+      {{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#paper-dialog-content}}
+      <div class="flex layout-row layout-align-space-around-center">
+        {{#paper-button iconButton=true onClick=(action (mut feedback) 'positive')}}{{paper-icon "thumb up"}}{{/paper-button}}
+        {{#paper-button iconButton=true onClick=(action (mut feedback) 'neutral')}}{{paper-icon "thumbs up down"}}{{/paper-button}}
+        {{#paper-button iconButton=true onClick=(action (mut feedback) 'negative')}}{{paper-icon "thumb down"}}{{/paper-button}}
+      </div>
+      {{paper-input textarea=true block=true maxlength=300 value=feedbackComment onChange=(action (mut feedbackComment))}}
+    {{/paper-dialog-content}}
+    {{#paper-dialog-actions class="layout-row layout-align-end-center"}}
+      {{#paper-button onClick=(action "closeFeedbackDialog" "cancel")}}Cancel{{/paper-button}}
+      {{#paper-button onClick=(action "closeFeedbackDialog" "ok")}}OK{{/paper-button}}
+    {{/paper-dialog-actions}}
+  {{/paper-dialog}}
+{{/if}}

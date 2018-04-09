@@ -84,7 +84,7 @@ export default Ember.Route.extend(AuthenticationChecker, {
     console.log(`Infochannel closed at: ${new Date().toJSON()}`);
   },
   actions: {
-    error(error, transition) {
+    error(error) {
       return !this.handleAuthenticationError(error);
     }
   }
