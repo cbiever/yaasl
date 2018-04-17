@@ -41,7 +41,7 @@ export default Mixin.create({
     });
   },
   handleAuthenticationError(error) {
-    if (error.errors[0].status === '403') {
+    if (error && error.errors && error.errors.length > 0 && error.errors[0].status === '403') {
       let session = this.get('session');
       if (session.hasAuthorization()) {
         console.info('Tried with token from localStorage, but backend responded with 403. Redirecting to login.');
@@ -49,9 +49,7 @@ export default Mixin.create({
         this.replaceWith('login');
         return true;
       }
-      else {
-        return false;
-      }
     }
+    return false;
   }
 });

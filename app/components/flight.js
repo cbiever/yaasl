@@ -21,15 +21,10 @@ export default Ember.Mixin.create({
       this.set('expanded', expanded);
     },
     setEditable(editable) {
-      let flight = this.get('flight');
-      if (!flight.get('locked')) {
-        this.set('editable', editable);
-        flight.set('editable', editable);
-        flight.save();
-      }
-      else {
-        this.set('editable', false);
-      }
+      this.get('onFlightChanged')(this.get('flight'), 'editable', editable);
+    },
+    setLocked(locked) {
+      this.get('onFlightChanged')(this.get('flight'), 'locked', locked);
     }
   }
 });

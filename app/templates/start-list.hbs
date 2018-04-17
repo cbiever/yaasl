@@ -16,8 +16,23 @@
   </div>
 {{/each}}
 
-<div class="layout-row add-flight layout-align-end-center">
-  {{#paper-button iconButton=true raised=true fab=true primary=true mini=true disabled=(not today) onClick=(action 'addFlight')}}
-    {{paper-icon "add"}}
-  {{/paper-button}}
-</div>
+{{#if today}}
+  <div class="layout-row add-flight layout-align-begin-center">
+    <div class="flex"/>
+    {{#paper-button primary="true" onClick=(action 'lockAllFlights')}}
+      Abschliessen
+    {{/paper-button}}
+    <div class="flex"/>
+    {{#paper-button iconButton=true raised=true fab=true primary=true mini=true disabled=locked onClick=(action 'addFlight')}}
+      {{paper-icon "add"}}
+    {{/paper-button}}
+  </div>
+{{/if}}
+
+{{#if showError}}
+  {{#paper-toast class="md-warn" position="bottom left" swipeToClose=true onClose=(action "closeError") as |toast|}}
+    {{#toast.text}}
+      {{t 'error.backend'}}: {{errorMessage}}
+    {{/toast.text}}
+  {{/paper-toast}}
+{{/if}}

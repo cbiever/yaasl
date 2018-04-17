@@ -1,9 +1,11 @@
 import Ember from 'ember';
 import Controller from '@ember/controller';
+import ErrorHandler from '../mixins/error-handler';
 
-export default Controller.extend({
+export default Controller.extend(ErrorHandler, {
   store: Ember.inject.service(),
   messageBus: Ember.inject.service(),
+  i18n: Ember.inject.service(),
   towPlanes: Ember.computed(function() {
     return this.get('model').aircraft.filterBy('canTow', true);
   }),
@@ -33,8 +35,12 @@ export default Controller.extend({
       }
     });
   }),
-  locked: Ember.computed(function() {
-    return this.get('today');
+  locked: Ember.computed('model.flights.@each.locked', function() {
+    let locked = !this.get('today');
+    if (!locked) {
+      locked = this.get('model').flights.length == this.get('model').flights.filterBy('locked', true).length;
+    }
+    return locked;
   }),
   init() {
     this._super(...arguments);
@@ -76,12 +82,37 @@ export default Controller.extend({
           flight.set('pilot2Role', propertyValue.get('standardRole'));
         }
       }
-      flight.save();
+      flight.save()
+        .then((flight) => {
+          if (flight.get('revision') <= 0) {
+            flight.set('revision', -flight.get('revision'));
+            this.set('errorMessage', this.get('i18n').t('error.revision'))
+            this.set('showError', true);
+          }
+        })
+        .catch(error => {
+          this.handleError(error);
+        });
     },
     deleteFlight(flight) {
-      flight.destroyRecord().then(() => {
-        this.deleteFlight(flight);
+      flight.destroyRecord()
+        .then(() => {
+          this.deleteFlight(flight);
+        })
+        .catch(error => {
+          this.handleError(error)
+        });
+    },
+    lockAllFlights() {
+      this.get('model').flights.forEach(flight => {
+        if (!flight.get('locked')) {
+          flight.set('locked', true);
+          flight.save().catch(error => this.handleError(error));
+        }
       });
+    },
+    closeError() {
+      this.set('showError', false);
     }
   }
 });

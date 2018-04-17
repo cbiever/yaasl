@@ -5,7 +5,7 @@
       options=aircraft
       selected=flight.aircraft
       onChange=(action 'updateFlight' 'aircraft')
-      disabled=(not editable)
+      disabled=(not flight.editable)
       class="cell"
       as |aircraft|}}
       {{aircraft.callSign}}
@@ -23,7 +23,7 @@
       searchEnabled=true
       searchField='name'
       onChange=(action 'updateFlight' 'pilot1')
-      disabled=(not editable)
+      disabled=(not flight.editable)
       class="cell"
       as |pilot|}}
       {{pilot.name}}
@@ -35,7 +35,7 @@
       options=pilotRoles
       selected=flight.pilot1Role
       onChange=(action 'updateFlight' 'pilot1Role')
-      disabled=(not editable)
+      disabled=(not flight.editable)
       class="cell"
       as |pilotRole|}}
      {{t pilotRole.i18n}}
@@ -53,7 +53,7 @@
       searchEnabled=true
       searchField='name'
       onChange=(action 'updateFlight' 'pilot2')
-      disabled=(not editable)
+      disabled=(not flight.editable)
       class="cell"
       as |pilot|}}
       {{pilot.name}}
@@ -65,7 +65,7 @@
       options=pilotRoles
       selected=flight.pilot2Role
       onChange=(action 'updateFlight' 'pilot2Role')
-      disabled=(not editable)
+      disabled=(not flight.editable)
       class="cell"
       as |pilotRole|}}
      {{t pilotRole.i18n}}
@@ -82,7 +82,7 @@
       placeholder='flight.start.time.placeholder'
       missing=(t 'flight.start.time.missing')
       invalid=(t 'flight.start.time.invalid')
-      disabled=(not editable)
+      disabled=(not flight.editable)
       class="cell"
     }}
   </div>
@@ -92,7 +92,7 @@
       options=locations
       selected=flight.startLocation
       onChange=(action 'updateFlight' 'startLocation')
-      disabled=(not editable)
+      disabled=(not flight.editable)
       class="cell"
       as |location|}}
       {{location.name}}
@@ -108,7 +108,7 @@
       placeholder='flight.landing.time.placeholder'
       missing=(t 'flight.landing.time.missing')
       invalid=(t 'flight.landing.time.invalid')
-      disabled=(not editable)
+      disabled=(not flight.editable)
       class="cell"
     }}
   </div>
@@ -118,7 +118,7 @@
       options=locations
       selected=flight.landingLocation
       onChange=(action 'updateFlight' 'landingLocation')
-      disabled=(not editable)
+      disabled=(not flight.editable)
       class="cell"
       as |location|}}
       {{location.name}}
@@ -134,7 +134,7 @@
       options=towPlanes
       selected=flight.towPlane
       onChange=(action 'updateFlight' 'towPlane')
-      disabled=(not editable)
+      disabled=(not flight.editable)
       class="cell"
       as |aircraft|}}
       {{aircraft.callSign}}
@@ -148,7 +148,7 @@
       searchEnabled=true
       searchField='name'
       onChange=(action 'updateFlight' 'towPilot')
-      disabled=(not editable)
+      disabled=(not flight.editable)
       class="cell"
       as |towPilot|}}
       {{towPilot.name}}
@@ -163,20 +163,22 @@
       placeholder='flight.landing.time.placeholder'
       missing=(t 'flight.landing.time.missing')
       invalid=(t 'flight.landing.time.invalid')
-      disabled=(not editable)
+      disabled=(not flight.editable)
       class="cell"
     }}
   </div>
   <div class="flex-25"/>
   <div class="flex-25">
-    {{flight-button-bar editable=flight.editable locked=flight.locked today=today onExpand=(action 'setExpanded') onEditable=(action 'setEditable') onDeleteFlight=(action 'deleteFlight')}}
+    {{flight-button-bar editable=flight.editable locked=flight.locked today=today
+                        onExpand=(action 'setExpanded') onEditable=(action 'setEditable') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
   </div>
 </div>
 {{else}}
 <div class="layout-row row">
   <div class="flex-75"/>
   <div class="flex-25">
-    {{flight-button-bar editable=flight.editable locked=flight.locked today=today onExpand=(action 'setExpanded') onEditable=(action 'setEditable') onDeleteFlight=(action 'deleteFlight')}}
+    {{flight-button-bar editable=flight.editable locked=flight.locked today=today
+                        onExpand=(action 'setExpanded') onEditable=(action 'setEditable') onLock=(action 'setLocked') onDeleteFlight=(action 'deleteFlight')}}
   </div>
 </div>
 {{/if}}
@@ -188,7 +190,7 @@
     options=costSharings
     selected=flight.costSharing
     onChange=(action 'updateFlight' 'costSharing')
-    disabled=(not editable)
+    disabled=(not flight.editable)
     class="cell"
     as |costSharing|}}
     {{t costSharing.i18n}}
@@ -197,7 +199,7 @@
 <div class="layout-row expandable-row">
   <div class="flex">
     {{paper-input textarea=true block=true placeholder=(t 'flight.comment.placeholder') maxlength=300
-                  value=comment onChange=(action (mut comment)) onBlur=(action 'updateComment') class="cell" disabled=(not editable)}}
+                  value=comment onChange=(action (mut comment)) onBlur=(action 'updateComment') class="cell" disabled=(not flight.editable)}}
   </div>
 </div>
 {{/if}}

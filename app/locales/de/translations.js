@@ -14,7 +14,6 @@ export default {
   },
 
   'flight': {
-
     'start': {
       'time': {
         'placeholder': 'Startzeit',
@@ -25,7 +24,6 @@ export default {
         'placeholder': 'Startort'
       }
     },
-
     'landing': {
       'time': {
         'placeholder': 'Landezeit',
@@ -36,23 +34,18 @@ export default {
         'placeholder': 'Landeort'
       }
     },
-
     'call.sign': {
       'placeholder': 'Rufzeichen',
       'error': 'Rufzeichen ist benötigt'
     },
-
     'pilot.1': 'Pilot 1',
     'pilot.2': 'Pilot 2',
     'pilot.role': 'Rolle',
-
     'call.sign.tow.plane': 'Schleppflugzeug',
     'tow.pilot': 'Schlepppilot',
-
     'cost.sharing': {
       'placeholder': 'Kostenverteilung'
     },
-
     'comment.placeholder': 'Kommentar'
   },
 
@@ -91,7 +84,8 @@ export default {
   },
 
   'error': {
-    'backend': 'Fehler'
+    'backend': 'Fehler',
+    'revision': 'Die Version auf dem Server war nicht die gleiche. Bitte versuchen Sie es noch einmal.'
   }
 
 };

@@ -18,5 +18,6 @@ export default Model.extend({
   costSharing: belongsTo('costSharing'),
   comment: attr('string'),
   editable: attr('boolean'),
-  locked: attr('boolean')
+  locked: attr('boolean'),
+  revision: attr('number')
 });
