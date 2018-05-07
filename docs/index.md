@@ -1,7 +1,5 @@
 # Welcome to Yaasl
 
-Yet another automatic sortie list.
-
 The idea behind Yaasl is cooperation, that means everyone can modify a sortie list at any time as long as it is open and
 from any device (desk-/laptop, tablet, phone). Changes are immediately visible to all.
 
@@ -13,7 +11,7 @@ automatically provided when the flight actually takes place.
 This project is the frontend only, it needs [Yaasl backend](http://cbiever.github.io/yaasl-server) as a provider of so
 called REST services.
 
-![Yaasl](https://raw.githubusercontent.com/cbiever/yaasl/master/docs/Yaasl.png)
+[![Yaasl](https://raw.githubusercontent.com/cbiever/yaasl/master/docs/Yaasl.png)](https://raw.githubusercontent.com/cbiever/yaasl/master/docs/Yaasl.png)
 
 Try it [here](https://yaasl.duckdns.org) (the certificate is self signed, you need to except it as an exception).
 At the moment 2 roles are defined: test and admin. The password is equal to the username.
