@@ -19,9 +19,11 @@
 {{#if today}}
   <div class="layout-row add-flight layout-align-begin-center">
     <div class="flex"/>
-    {{#paper-button primary="true" onClick=(action 'lockAllFlights')}}
-      Abschliessen
-    {{/paper-button}}
+    {{#if (is-in-role 'fdl' 'admin')}}
+      {{#paper-button primary="true" onClick=(action 'lockAllFlights')}}
+        Abschliessen
+      {{/paper-button}}
+    {{/if}}
     <div class="flex"/>
     {{#paper-button iconButton=true raised=true fab=true primary=true mini=true disabled=locked onClick=(action 'addFlight')}}
       {{paper-icon "add"}}

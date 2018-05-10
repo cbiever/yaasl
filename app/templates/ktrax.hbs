@@ -1,25 +1,39 @@
 <div class="hide-gt-sm" style="margin-top: 20px">
-  {{#each  model.ktrax.sorties as |sortie|}}
+  {{#each  model.flights as |flight|}}
   <div class="layout-row row">
     <div class="flex cell">
-      {{sortie.cs}}
-    </div>
-    <div class="flex cell"/>
-  </div>
-  <div class="layout-row row">
-    <div class="flex cell">
-      {{sortie.tkof.time}}
+      {{flight.aircraft.callSign}}
     </div>
     <div class="flex cell">
-      {{sortie.tkof.loc}}
+      {{flight.aircraft.competitionNumber}}
     </div>
   </div>
   <div class="layout-row row">
     <div class="flex cell">
-      {{sortie.ldg.time}}
+      {{moment-format flight.startTime 'HH:mm'}}
     </div>
     <div class="flex cell">
-      {{sortie.ldg.loc}}
+      {{flight.startLocation.name}}
+    </div>
+  </div>
+  <div class="layout-row row">
+    <div class="flex cell">
+      {{#if flight.landingTime}}
+        {{moment-format flight.landingTime 'HH:mm'}}
+      {{/if}}
+    </div>
+    <div class="flex cell">
+      {{flight.landingLocation.name}}
+    </div>
+  </div>
+  <div class="layout-row row">
+    <div class="flex cell">
+      {{flight.towPlane.callSign}}
+    </div>
+    <div class="flex cell">
+      {{#if flight.towPlaneLandingTime}}
+        {{moment-format flight.towPlaneLandingTime 'HH:mm'}}
+      {{/if}}
     </div>
   </div>
   <div class="layout-row divider-row">
@@ -47,23 +61,39 @@
     <div class="flex cell">
       <strong>{{t 'flight.landing.location.placeholder'}}</strong>
     </div>
+    <div class="flex cell">
+      <strong>{{t 'flight.call.sign.tow.plane'}}</strong>
+    </div>
+    <div class="flex cell">
+      <strong>{{t 'flight.landing.time.placeholder'}}</strong>
+    </div>
   </div>
-  {{#each  model.ktrax.sorties as |sortie|}}
+  {{#each  model.flights as |flight|}}
   <div class="layout-row row">
     <div class="flex cell">
-      {{sortie.cs}}
+      {{flight.aircraft.callSign}}{{#if flight.aircraft.competitionNumber}} ({{flight.aircraft.competitionNumber}}){{/if}}
     </div>
     <div class="flex cell">
-      {{sortie.tkof.time}}
+      {{moment-format flight.startTime 'HH:mm'}}
     </div>
     <div class="flex cell">
-      {{sortie.tkof.loc}}
+      {{flight.startLocation.name}}
     </div>
     <div class="flex cell">
-      {{sortie.ldg.time}}
+      {{#if flight.landingTime}}
+        {{moment-format flight.landingTime 'HH:mm'}}
+      {{/if}}
     </div>
     <div class="flex cell">
-      {{sortie.ldg.loc}}
+      {{flight.landingLocation.name}}
+    </div>
+    <div class="flex cell">
+      {{flight.towPlane.callSign}}
+    </div>
+    <div class="flex cell">
+      {{#if flight.towPlaneLandingTime}}
+        {{moment-format flight.towPlaneLandingTime 'HH:mm'}}
+      {{/if}}
     </div>
   </div>
   {{/each}}
@@ -72,7 +102,15 @@
 <div class="hide-xs hide-sm hide-md" style="margin-top: 20px">
   <div class="layout-row row">
     <div class="flex"/>
-    <div class="flex-10 cell">
+    <div class="flex-10 cell">    <div class="flex-10 cell">
+          {{flight.towPlane.callSign}}
+        </div>
+        <div class="flex-10 cell">
+          {{#if flight.towPlaneLandingTime}}
+            {{moment-format flight.towPlaneLandingTime 'HH:mm'}}
+          {{/if}}
+        </div>
+
       <strong>{{t 'flight.call.sign.placeholder'}}</strong>
     </div>
     <div class="flex-10 cell">
@@ -87,25 +125,41 @@
     <div class="flex-10 cell">
       <strong>{{t 'flight.landing.location.placeholder'}}</strong>
     </div>
+    <div class="flex-10 cell">
+      <strong>{{t 'flight.call.sign.tow.plane'}}</strong>
+    </div>
+    <div class="flex-10 cell">
+      <strong>{{t 'flight.landing.time.placeholder'}}</strong>
+    </div>
     <div class="flex"/>
   </div>
-  {{#each  model.ktrax.sorties as |sortie|}}
+  {{#each  model.flights as |flight|}}
   <div class="layout-row row">
     <div class="flex"/>
     <div class="flex-10 cell">
-      {{sortie.cs}}
+      {{flight.aircraft.callSign}}{{#if flight.aircraft.competitionNumber}} ({{flight.aircraft.competitionNumber}}){{/if}}
     </div>
     <div class="flex-10 cell">
-      {{sortie.tkof.time}}
+      {{moment-format flight.startTime 'HH:mm'}}
     </div>
     <div class="flex-10 cell">
-      {{sortie.tkof.loc}}
+      {{flight.startLocation.name}}
     </div>
     <div class="flex-10 cell">
-      {{sortie.ldg.time}}
+      {{#if flight.landingTime}}
+        {{moment-format flight.landingTime 'HH:mm'}}
+      {{/if}}
     </div>
     <div class="flex-10 cell">
-      {{sortie.ldg.loc}}
+      {{flight.landingLocation.name}}
+    </div>
+    <div class="flex-10 cell">
+      {{flight.towPlane.callSign}}
+    </div>
+    <div class="flex-10 cell">
+      {{#if flight.towPlaneLandingTime}}
+        {{moment-format flight.towPlaneLandingTime 'HH:mm'}}
+      {{/if}}
     </div>
     <div class="flex"/>
   </div>

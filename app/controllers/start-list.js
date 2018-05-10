@@ -38,7 +38,7 @@ export default Controller.extend(ErrorHandler, {
   locked: Ember.computed('model.flights.@each.locked', function() {
     let locked = !this.get('today');
     if (!locked) {
-      locked = this.get('model').flights.length == this.get('model').flights.filterBy('locked', true).length;
+      locked = this.get('model').flights.length > 0 && (this.get('model').flights.length == this.get('model').flights.filterBy('locked', true).length);
     }
     return locked;
   }),

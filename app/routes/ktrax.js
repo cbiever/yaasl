@@ -8,12 +8,14 @@ export default Route.extend(AuthenticationChecker, {
   store: Ember.inject.service(),
   messageBus: Ember.inject.service(),
   beforeModel(transition) {
-    return this.checkAuthenticated(transition).then(() => {
-      console.info('logged in ktrax');
-    },
-    () => {
-      this.transitionTo('login');
-    });
+    return this.checkAuthenticated(transition).then(
+      () => {
+        console.info('logged in ktrax');
+      },
+      () => {
+        this.transitionTo('login');
+      }
+    );
   },
   model(parameters) {
     return RSVP.hash({
@@ -25,7 +27,7 @@ export default Route.extend(AuthenticationChecker, {
         return locations.get('firstObject');
       }),
       date: new Date(parameters.date),
-      ktrax: new RSVP.Promise((resolve, reject) => {
+      flights: new RSVP.Promise((resolve, reject) => {
         Ember.$.get({
           url: '/api/v1/rs/flights/ktrax',
           data: 'location=' + parameters.location + '&date=' + parameters.date,
@@ -33,8 +35,8 @@ export default Route.extend(AuthenticationChecker, {
             xhr.setRequestHeader('Authorization', this.get('session').get('authorization'));
           }
         })
-        .then((response) => resolve(response))
-        .catch((msg) => { console.log('error: ', msg); reject(msg) });
+        .then(response => resolve(response))
+        .catch(msg => { console.log('error: ', msg); reject(msg) });
       })
     });
   },

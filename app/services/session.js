@@ -13,7 +13,7 @@ export default Service.extend({
   restoreAuthorization() {
     let authorization = window.localStorage.getItem('yaasl_token');
     if (authorization) {
-      this.set('authorization', authorization);
+      this.setAuthorization(authorization);
       return true;
     }
     else {
@@ -24,10 +24,10 @@ export default Service.extend({
     this.set('authorization', undefined);
     window.localStorage.removeItem('yaasl_token');
   },
-  idInRole(role) {
+  isInRole(role) {
     let isInRole = false;
     if (this.get('roles')) {
-      this.get('roles').forEach((r) => {
+      this.get('roles').forEach(r => {
         if (r === role) {
           isInRole = true;
         }
