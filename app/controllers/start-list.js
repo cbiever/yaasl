@@ -3,6 +3,7 @@ import Controller from '@ember/controller';
 import ErrorHandler from '../mixins/error-handler';
 
 export default Controller.extend(ErrorHandler, {
+  session: Ember.inject.service(),
   store: Ember.inject.service(),
   messageBus: Ember.inject.service(),
   i18n: Ember.inject.service(),
@@ -104,12 +105,19 @@ export default Controller.extend(ErrorHandler, {
         });
     },
     lockAllFlights() {
-      this.get('model').flights.forEach(flight => {
-        if (!flight.get('locked')) {
-          flight.set('locked', true);
-          flight.save().catch(error => this.handleError(error));
-        }
-      });
+      Ember.$.post({
+          url: '/api/v1/rs/flights/lock?location=' + this.get('model').location.get('name'),
+          beforeSend: (xhr) => {
+            xhr.setRequestHeader('Authorization', this.get('session').get('authorization'));
+          },
+          mimeType: "text"
+        })
+        .then(() => {
+          console.log('flights succesfully locked');
+        })
+        .catch((error) => {
+          this.handleError(error);
+        });
     },
     closeError() {
       this.set('showError', false);

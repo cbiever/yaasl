@@ -3,7 +3,7 @@ import Helper from '@ember/component/helper';
 
 export default Helper.extend({
   session: Ember.inject.service(),
-  compute([value, ...rest], hash) {
+  compute([value, ...rest]) {
     let isInRole = false;
     rest.push(value);
     rest.forEach(role => {

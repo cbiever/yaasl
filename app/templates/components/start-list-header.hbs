@@ -54,20 +54,20 @@
     {{#paper-menu as |menu|}}
       {{#menu.trigger}}
         {{#paper-button disabled=(not session.authorization)}}
-          {{location.name}}
+          {{location.icao}}
         {{/paper-button}}
       {{/menu.trigger}}
       {{#menu.content as |content|}}
         {{#each locations as |location|}}
         {{#content.menu-item onClick=(action 'setLocation' location)}}
-          {{location.name}}
+          {{location.icao}} ({{location.name}})
         {{/content.menu-item}}
         {{/each}}
       {{/menu.content}}
     {{/paper-menu}}
     {{#paper-button disabled=(not session.authorization) onClick=(action (mut showDatepicker))}}{{moment-format date 'DD-MM-YYYY'}}{{/paper-button}}
     {{#if showDatepicker}}
-      {{pikaday-inputless value=date options=(hash postion='bottom' reposition=false) onSelection=(action 'setDate')}}
+      {{pikaday-inputless value=date onSelection=(action 'setDate')}}
     {{/if}}
     {{#paper-menu as |menu|}}
       {{#menu.trigger}}

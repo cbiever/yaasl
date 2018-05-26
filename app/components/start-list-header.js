@@ -3,10 +3,10 @@ import Component from '@ember/component';
 
 export default Component.extend({
   session: Ember.inject.service(),
-  i18n: Ember.inject.service(),
   store: Ember.inject.service(),
   router: Ember.inject.service(),
   messageBus: Ember.inject.service(),
+  i18n: Ember.inject.service(),
   init() {
     this._super(...arguments);
     this.get('messageBus').subscribe('storeInitialized', this, this.update);
@@ -27,7 +27,7 @@ export default Component.extend({
     if (!route) {
       route = this.get('router').get('currentRouteName');
     }
-    this.get('router').transitionTo(route, location ? location.get('name') : 'LSZB', date ? this.formatDate(date) : this.formatDate(new Date()));
+    this.get('router').transitionTo(route, location ? location.get('icao') : 'LSZB', date ? this.formatDate(date) : this.formatDate(new Date()));
   },
   download: function(mimeType) {
     this.translations(translations => {
@@ -35,7 +35,7 @@ export default Component.extend({
       let filename = this.downloadFilename(filenameExtension);
       let url = '/api/v1/rs/flights?format=' + filenameExtension;
       if (this.get('location')) {
-        url += '&filter[location]=' + this.get('location').get('name');
+        url += '&filter[location]=' + this.get('location').get('icao');
       }
       if (this.get('date')) {
         url += '&filter[date]=' + this.formatDate(this.get('date'));

@@ -30,11 +30,13 @@
       placeholder=(t 'flight.start.location.placeholder')
       options=locations
       selected=flight.startLocation
+      searchEnabled=true
+      searchField='name'
       onChange=(action 'updateFlight' 'startLocation')
       disabled=(not flight.editable)
       class="cell"
       as |location|}}
-     {{location.name}}
+     {{location.icao}}
     {{/paper-select}}
   </div>
   <div class="flex">
@@ -53,11 +55,13 @@
       placeholder=(t 'flight.landing.location.placeholder')
       options=locations
       selected=flight.landingLocation
+      searchEnabled=true
+      searchField='name'
       onChange=(action 'updateFlight' 'landingLocation')
       disabled=(not flight.editable)
       class="cell"
       as |location|}}
-      {{location.name}}
+      {{location.icao}}
     {{/paper-select}}
   </div>
 </div>
