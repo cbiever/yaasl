@@ -36,8 +36,8 @@ export default Controller.extend({
           session.set('transition', undefined);
         })
         .catch((message) => {
-           console.log('error: ', message);
            this.set('error', true);
+           console.log('error: ', message);
         });
     }
   }

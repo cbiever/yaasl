@@ -54,11 +54,11 @@ export default Controller.extend(ErrorHandler, {
     this.set('today', date.getDate() == now.getDate() && date.getMonth() == now.getMonth() && date.getFullYear() == now.getFullYear());
   },
   addFlight(flight) {
-    if (flight.belongsTo('startLocation').value() == this.get('model').location) {
+    if (flight.belongsTo('startLocation').value() == this.get('model').location || flight.belongsTo('landingLocation').value() == this.get('model').location) {
       this.get('model').flights.addObject(flight);
     }
     else {
-      console.log('flight of different location ignored: ', flight.belongsTo('startLocation').value().get('name'), this.get('model').location.get('name'));
+      console.log('flight of different location ignored: ', flight.belongsTo('startLocation').value().get('icao'), this.get('model').location.get('icao'));
     }
   },
   deleteFlight(flight) {
@@ -90,6 +90,7 @@ export default Controller.extend(ErrorHandler, {
             this.set('errorMessage', this.get('i18n').t('error.revision'))
             this.set('showError', true);
           }
+          flight.notifyPropertyChange(propertyName); // not clear why this is needed, but sortedFlights doesn't get recalculated otherwise
         })
         .catch(error => {
           this.handleError(error);
@@ -106,7 +107,7 @@ export default Controller.extend(ErrorHandler, {
     },
     lockAllFlights() {
       Ember.$.post({
-          url: '/api/v1/rs/flights/lock?location=' + this.get('model').location.get('name'),
+          url: '/api/v1/rs/flights/lock?location=' + this.get('model').location.get('icao'),
           beforeSend: (xhr) => {
             xhr.setRequestHeader('Authorization', this.get('session').get('authorization'));
           },

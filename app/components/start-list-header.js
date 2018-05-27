@@ -64,7 +64,7 @@ export default Component.extend({
       filename = this.formatDate(this.get('date'), '');
     }
     if (this.get('location')) {
-      filename = (this.get('date') ? filename + ' ' : '') + this.get('location').get('name');
+      filename = (this.get('date') ? filename + ' ' : '') + this.get('location').get('icao');
     }
     return filename + '.' + filenameExtension;
   },

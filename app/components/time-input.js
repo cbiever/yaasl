@@ -1,12 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  time: undefined,
-  placeholder: undefined,
-  missing: undefined,
-  invalid: undefined,
   timeRegexp: /(\d{1,2}):{0,1}(\d{2})/,
-  editBuffer: undefined,
   init() {
     this._super(...arguments);
     this.updateEditBuffer();
@@ -29,15 +24,12 @@ export default Ember.Component.extend({
         if (0 <= hours && hours <= 24 && 0 <= minutes && minutes <= 60) {
           this.set('errors', null);
           let time = this.get('time');
-          if (time) {
-            time.setHours(hours, minutes);
+          if (!time) {
+            time = new Date();
           }
-          else {
-            let now = new Date();
-            now.setHours(hours, minutes);
-            this.set('time', now);
-            time = this.get('time');
-          }
+          time.setHours(hours, minutes);
+          this.set('time', time);
+          this.updateEditBuffer();
           this.get('onValid')(time);
         }
       }

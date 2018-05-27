@@ -67,8 +67,8 @@ export default Ember.Route.extend(AuthenticationChecker, {
       if (object) {
         if (!object.get('isDeleted')) {
           object.unloadRecord();
-          console.log('unloaded object of type: ' + update.payload.data.type + ' with id: ' + update.payload.data.id);
           this.get('messageBus').publish('delete', object);
+          console.log('unloaded object of type: ' + update.payload.data.type + ' with id: ' + update.payload.data.id);
         }
         else {
           console.log('object of type: ' + update.payload.data.type + ' with id: ' + update.payload.data.id + ' already deleted');
