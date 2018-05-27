@@ -1,5 +1,5 @@
-<div class="hide-gt-sm" style="margin-top: 20px">
-  <div class="layout-row row">
+{{#if (media 'isXs')}}
+  <div class="layout-row row" style="margin-top: 20px">
     <div class="flex cell">
       <strong>{{t 'aircraft.overview.title.call.sign'}}</strong>
     </div>
@@ -8,19 +8,19 @@
     </div>
   </div>
   {{#each model as |aircraft|}}
-  <div class="layout-row row">
-    <div class="flex cell">
-      {{aircraft.callSign}}
+    <div class="layout-row row">
+      <div class="flex cell">
+        {{aircraft.callSign}}
+      </div>
+      <div class="flex cell">
+        {{aircraft.numberOfSeats}}
+      </div>
     </div>
-    <div class="flex cell">
-      {{aircraft.numberOfSeats}}
-    </div>
-  </div>
   {{/each}}
-</div>
+{{/if}}
 
-<div class="hide-xs hide-sm hide-gt-md" style="margin-top: 20px">
-  <div class="layout-row row">
+{{#if (media 'isMd')}}
+  <div class="layout-row row" style="margin-top: 20px">
     <div class="flex"/>
     <div class="flex-20 cell">
       <strong>{{t 'aircraft.overview.title.call.sign'}}</strong>
@@ -31,21 +31,21 @@
     <div class="flex"/>
   </div>
   {{#each model as |aircraft|}}
-  <div class="layout-row row">
-    <div class="flex"/>
-    <div class="flex-20 cell">
-      {{aircraft.callSign}}
+    <div class="layout-row row">
+      <div class="flex"/>
+      <div class="flex-20 cell">
+        {{aircraft.callSign}}
+      </div>
+      <div class="flex-20 cell">
+        {{aircraft.numberOfSeats}}
+      </div>
+      <div class="flex"/>
     </div>
-    <div class="flex-20 cell">
-      {{aircraft.numberOfSeats}}
-    </div>
-    <div class="flex"/>
-  </div>
   {{/each}}
-</div>
+{{/if}}
 
-<div class="hide-xs hide-sm hide-md" style="margin-top: 20px">
-  <div class="layout-row row">
+{{#if (media 'isLg')}}
+  <div class="layout-row row" style="margin-top: 20px">
     <div class="flex"/>
     <div class="flex-10 cell">
       <strong>{{t 'aircraft.overview.title.call.sign'}}</strong>
@@ -56,15 +56,15 @@
     <div class="flex"/>
   </div>
   {{#each model as |aircraft|}}
-  <div class="layout-row row">
-    <div class="flex"/>
-    <div class="flex-10 cell">
-      {{aircraft.callSign}}
+    <div class="layout-row row">
+      <div class="flex"/>
+      <div class="flex-10 cell">
+        {{aircraft.callSign}}
+      </div>
+      <div class="flex-10 cell">
+        {{aircraft.numberOfSeats}}
+      </div>
+      <div class="flex"/>
     </div>
-    <div class="flex-10 cell">
-      {{aircraft.numberOfSeats}}
-    </div>
-    <div class="flex"/>
-  </div>
   {{/each}}
-</div>
+{{/if}}

@@ -1,159 +1,161 @@
-<div class="hide-gt-sm" style="margin-top: 20px">
-  {{#each  model.flights as |flight|}}
-  <div class="layout-row row">
-    <div class="flex cell">
-      {{flight.aircraft.callSign}}
-    </div>
-    <div class="flex cell">
-      {{flight.aircraft.competitionNumber}}
-    </div>
-  </div>
-  <div class="layout-row row">
-    <div class="flex cell">
-      {{moment-format flight.startTime 'HH:mm'}}
-    </div>
-    <div class="flex cell">
-      {{flight.startLocation.icao}}
-    </div>
-  </div>
-  <div class="layout-row row">
-    <div class="flex cell">
-      {{#if flight.landingTime}}
-        {{moment-format flight.landingTime 'HH:mm'}}
-      {{/if}}
-    </div>
-    <div class="flex cell">
-      {{flight.landingLocation.icao}}
-    </div>
-  </div>
-  <div class="layout-row row">
-    <div class="flex cell">
-      {{flight.towPlane.callSign}}
-    </div>
-    <div class="flex cell">
-      {{#if flight.towPlaneLandingTime}}
-        {{moment-format flight.towPlaneLandingTime 'HH:mm'}}
-      {{/if}}
-    </div>
-  </div>
-  <div class="layout-row divider-row">
-    <div class="flex">
-      {{paper-divider}}
-    </div>
-  </div>
-  {{/each}}
-</div>
+<div style="margin-top: 20px">
+  {{#if (media 'isXs')}}
+    {{#each  model.flights as |flight|}}
+      <div class="layout-row row">
+        <div class="flex cell">
+          {{flight.aircraft.callSign}}
+        </div>
+        <div class="flex cell">
+          {{flight.aircraft.competitionNumber}}
+        </div>
+      </div>
+      <div class="layout-row row">
+        <div class="flex cell">
+          {{moment-format flight.startTime 'HH:mm'}}
+        </div>
+        <div class="flex cell">
+          {{flight.startLocation.icao}}
+        </div>
+      </div>
+      <div class="layout-row row">
+        <div class="flex cell">
+          {{#if flight.landingTime}}
+            {{moment-format flight.landingTime 'HH:mm'}}
+          {{/if}}
+        </div>
+        <div class="flex cell">
+          {{flight.landingLocation.icao}}
+        </div>
+      </div>
+      <div class="layout-row row">
+        <div class="flex cell">
+          {{flight.towPlane.callSign}}
+        </div>
+        <div class="flex cell">
+          {{#if flight.towPlaneLandingTime}}
+            {{moment-format flight.towPlaneLandingTime 'HH:mm'}}
+          {{/if}}
+        </div>
+      </div>
+      <div class="layout-row divider-row">
+        <div class="flex">
+          {{paper-divider}}
+        </div>
+      </div>
+    {{/each}}
+  {{/if}}
 
-<div class="hide-xs hide-sm hide-gt-md" style="margin-top: 20px">
-  <div class="layout-row row">
-    <div class="flex cell">
-      <strong>{{t 'flight.call.sign.placeholder'}}</strong>
+  {{#if (media 'isMd')}}
+    <div class="layout-row row">
+      <div class="flex cell">
+        <strong>{{t 'flight.call.sign.placeholder'}}</strong>
+      </div>
+      <div class="flex cell">
+        <strong>{{t 'flight.start.time.placeholder'}}</strong>
+      </div>
+      <div class="flex cell">
+        <strong>{{t 'flight.start.location.placeholder'}}</strong>
+      </div>
+      <div class="flex cell">
+        <strong>{{t 'flight.landing.time.placeholder'}}</strong>
+      </div>
+      <div class="flex cell">
+        <strong>{{t 'flight.landing.location.placeholder'}}</strong>
+      </div>
+      <div class="flex cell">
+        <strong>{{t 'flight.call.sign.tow.plane'}}</strong>
+      </div>
+      <div class="flex cell">
+        <strong>{{t 'flight.landing.time.placeholder'}}</strong>
+      </div>
     </div>
-    <div class="flex cell">
-      <strong>{{t 'flight.start.time.placeholder'}}</strong>
-    </div>
-    <div class="flex cell">
-      <strong>{{t 'flight.start.location.placeholder'}}</strong>
-    </div>
-    <div class="flex cell">
-      <strong>{{t 'flight.landing.time.placeholder'}}</strong>
-    </div>
-    <div class="flex cell">
-      <strong>{{t 'flight.landing.location.placeholder'}}</strong>
-    </div>
-    <div class="flex cell">
-      <strong>{{t 'flight.call.sign.tow.plane'}}</strong>
-    </div>
-    <div class="flex cell">
-      <strong>{{t 'flight.landing.time.placeholder'}}</strong>
-    </div>
-  </div>
-  {{#each  model.flights as |flight|}}
-  <div class="layout-row row">
-    <div class="flex cell">
-      {{flight.aircraft.callSign}}{{#if flight.aircraft.competitionNumber}} ({{flight.aircraft.competitionNumber}}){{/if}}
-    </div>
-    <div class="flex cell">
-      {{moment-format flight.startTime 'HH:mm'}}
-    </div>
-    <div class="flex cell">
-      {{flight.startLocation.icao}}
-    </div>
-    <div class="flex cell">
-      {{#if flight.landingTime}}
-        {{moment-format flight.landingTime 'HH:mm'}}
-      {{/if}}
-    </div>
-    <div class="flex cell">
-      {{flight.landingLocation.icao}}
-    </div>
-    <div class="flex cell">
-      {{flight.towPlane.callSign}}
-    </div>
-    <div class="flex cell">
-      {{#if flight.towPlaneLandingTime}}
-        {{moment-format flight.towPlaneLandingTime 'HH:mm'}}
-      {{/if}}
-    </div>
-  </div>
-  {{/each}}
-</div>
+    {{#each  model.flights as |flight|}}
+      <div class="layout-row row">
+        <div class="flex cell">
+          {{flight.aircraft.callSign}}{{#if flight.aircraft.competitionNumber}} ({{flight.aircraft.competitionNumber}}){{/if}}
+        </div>
+        <div class="flex cell">
+          {{moment-format flight.startTime 'HH:mm'}}
+        </div>
+        <div class="flex cell">
+          {{flight.startLocation.icao}}
+        </div>
+        <div class="flex cell">
+          {{#if flight.landingTime}}
+            {{moment-format flight.landingTime 'HH:mm'}}
+          {{/if}}
+        </div>
+        <div class="flex cell">
+          {{flight.landingLocation.icao}}
+        </div>
+        <div class="flex cell">
+          {{flight.towPlane.callSign}}
+        </div>
+        <div class="flex cell">
+          {{#if flight.towPlaneLandingTime}}
+            {{moment-format flight.towPlaneLandingTime 'HH:mm'}}
+          {{/if}}
+        </div>
+      </div>
+    {{/each}}
+  {{/if}}
 
-<div class="hide-xs hide-sm hide-md" style="margin-top: 20px">
-  <div class="layout-row row">
-    <div class="flex"/>
-    <div class="flex-10 cell">
-      <strong>{{t 'flight.call.sign.placeholder'}}</strong>
+  {{#if (media 'isLg')}}
+    <div class="layout-row row">
+      <div class="flex"/>
+      <div class="flex-10 cell">
+        <strong>{{t 'flight.call.sign.placeholder'}}</strong>
+      </div>
+      <div class="flex-10 cell">
+        <strong>{{t 'flight.start.time.placeholder'}}</strong>
+      </div>
+      <div class="flex-10 cell">
+        <strong>{{t 'flight.start.location.placeholder'}}</strong>
+      </div>
+      <div class="flex-10 cell">
+        <strong>{{t 'flight.landing.time.placeholder'}}</strong>
+      </div>
+      <div class="flex-10 cell">
+        <strong>{{t 'flight.landing.location.placeholder'}}</strong>
+      </div>
+      <div class="flex-10 cell">
+        <strong>{{t 'flight.call.sign.tow.plane'}}</strong>
+      </div>
+      <div class="flex-10 cell">
+        <strong>{{t 'flight.landing.time.placeholder'}}</strong>
+      </div>
+      <div class="flex"/>
     </div>
-    <div class="flex-10 cell">
-      <strong>{{t 'flight.start.time.placeholder'}}</strong>
-    </div>
-    <div class="flex-10 cell">
-      <strong>{{t 'flight.start.location.placeholder'}}</strong>
-    </div>
-    <div class="flex-10 cell">
-      <strong>{{t 'flight.landing.time.placeholder'}}</strong>
-    </div>
-    <div class="flex-10 cell">
-      <strong>{{t 'flight.landing.location.placeholder'}}</strong>
-    </div>
-    <div class="flex-10 cell">
-      <strong>{{t 'flight.call.sign.tow.plane'}}</strong>
-    </div>
-    <div class="flex-10 cell">
-      <strong>{{t 'flight.landing.time.placeholder'}}</strong>
-    </div>
-    <div class="flex"/>
-  </div>
-  {{#each  model.flights as |flight|}}
-  <div class="layout-row row">
-    <div class="flex"/>
-    <div class="flex-10 cell">
-      {{flight.aircraft.callSign}}{{#if flight.aircraft.competitionNumber}} ({{flight.aircraft.competitionNumber}}){{/if}}
-    </div>
-    <div class="flex-10 cell">
-      {{moment-format flight.startTime 'HH:mm'}}
-    </div>
-    <div class="flex-10 cell">
-      {{flight.startLocation.icao}}
-    </div>
-    <div class="flex-10 cell">
-      {{#if flight.landingTime}}
-        {{moment-format flight.landingTime 'HH:mm'}}
-      {{/if}}
-    </div>
-    <div class="flex-10 cell">
-      {{flight.landingLocation.icao}}
-    </div>
-    <div class="flex-10 cell">
-      {{flight.towPlane.callSign}}
-    </div>
-    <div class="flex-10 cell">
-      {{#if flight.towPlaneLandingTime}}
-        {{moment-format flight.towPlaneLandingTime 'HH:mm'}}
-      {{/if}}
-    </div>
-    <div class="flex"/>
-  </div>
-  {{/each}}
+    {{#each  model.flights as |flight|}}
+      <div class="layout-row row">
+        <div class="flex"/>
+        <div class="flex-10 cell">
+          {{flight.aircraft.callSign}}{{#if flight.aircraft.competitionNumber}} ({{flight.aircraft.competitionNumber}}){{/if}}
+        </div>
+        <div class="flex-10 cell">
+          {{moment-format flight.startTime 'HH:mm'}}
+        </div>
+        <div class="flex-10 cell">
+          {{flight.startLocation.icao}}
+        </div>
+        <div class="flex-10 cell">
+          {{#if flight.landingTime}}
+            {{moment-format flight.landingTime 'HH:mm'}}
+          {{/if}}
+        </div>
+        <div class="flex-10 cell">
+          {{flight.landingLocation.icao}}
+        </div>
+        <div class="flex-10 cell">
+          {{flight.towPlane.callSign}}
+        </div>
+        <div class="flex-10 cell">
+          {{#if flight.towPlaneLandingTime}}
+            {{moment-format flight.towPlaneLandingTime 'HH:mm'}}
+          {{/if}}
+        </div>
+        <div class="flex"/>
+      </div>
+    {{/each}}
+  {{/if}}
 </div>

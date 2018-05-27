@@ -1,5 +1,5 @@
-<div class="hide-gt-sm" style="margin-top: 20px">
-  <div class="layout-row row">
+{{#if (media 'isXs')}}
+  <div class="layout-row row" style="margin-top: 20px">
     <div class="flex cell">
       <strong>{{t 'pilots.overview.title.name'}}</strong>
     </div>
@@ -8,19 +8,19 @@
     </div>
   </div>
   {{#each model as |pilot|}}
-  <div class="layout-row row">
-    <div class="flex cell">
-      {{pilot.name}}
+    <div class="layout-row row">
+      <div class="flex cell">
+        {{pilot.name}}
+      </div>
+      <div class="flex cell">
+        {{t pilot.standardRole.i18n}}
+      </div>
     </div>
-    <div class="flex cell">
-      {{t pilot.standardRole.i18n}}
-    </div>
-  </div>
   {{/each}}
-</div>
+{{/if}}
 
-<div class="hide-xs hide-sm hide-gt-md" style="margin-top: 20px">
-  <div class="layout-row row">
+{{#if (media 'isMd')}}
+  <div class="layout-row row" style="margin-top: 20px">
     <div class="flex"/>
     <div class="flex-20 cell">
       <strong>{{t 'pilots.overview.title.name'}}</strong>
@@ -31,21 +31,21 @@
     <div class="flex"/>
   </div>
   {{#each model as |pilot|}}
-  <div class="layout-row row">
-    <div class="flex"/>
-    <div class="flex-20 cell">
-      {{pilot.name}}
+    <div class="layout-row row">
+      <div class="flex"/>
+      <div class="flex-20 cell">
+        {{pilot.name}}
+      </div>
+      <div class="flex-20 cell">
+        {{t pilot.standardRole.i18n}}
+      </div>
+      <div class="flex"/>
     </div>
-    <div class="flex-20 cell">
-      {{t pilot.standardRole.i18n}}
-    </div>
-    <div class="flex"/>
-  </div>
   {{/each}}
-</div>
+{{/if}}
 
-<div class="hide-xs hide-sm hide-md" style="margin-top: 20px">
-  <div class="layout-row row">
+{{#if (media 'isLg')}}
+  <div class="layout-row row" style="margin-top: 20px">
     <div class="flex"/>
     <div class="flex-10 cell">
       <strong>{{t 'pilots.overview.title.name'}}</strong>
@@ -56,15 +56,15 @@
     <div class="flex"/>
   </div>
   {{#each model as |pilot|}}
-  <div class="layout-row row">
-    <div class="flex"/>
-    <div class="flex-10 cell">
-      {{pilot.name}}
+    <div class="layout-row row">
+      <div class="flex"/>
+      <div class="flex-10 cell">
+        {{pilot.name}}
+      </div>
+      <div class="flex-10 cell">
+        {{t pilot.standardRole.i18n}}
+      </div>
+      <div class="flex"/>
     </div>
-    <div class="flex-10 cell">
-      {{t pilot.standardRole.i18n}}
-    </div>
-    <div class="flex"/>
-  </div>
   {{/each}}
-</div>
+{{/if}}

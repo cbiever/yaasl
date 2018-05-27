@@ -1,0 +1,11 @@
+{
+"liveReloadPort": 7020,
+
+ "liveReloadOptions": {
+   "port": 7021,
+   "https": true,
+   "host": "localhost"
+ },
+
+  "liveReloadJsUrl": "https://localhost/livereload/livereload.js"
+}
