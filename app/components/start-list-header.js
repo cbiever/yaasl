@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Component from '@ember/component';
+import fetch from 'fetch';
 
 export default Component.extend({
   session: Ember.inject.service(),
@@ -41,18 +42,17 @@ export default Component.extend({
         url += '&filter[date]=' + this.formatDate(this.get('date'));
       }
       url += '&i18n=' + translations;
-      Ember.$.get({
-        url: url,
-        beforeSend: (xhr) => {
-          xhr.setRequestHeader('Authorization', this.get('session').get('authorization'));
-        }
-      })
-      .then(function(data) {
-        if (mimeType == 'application/pdf') {
-          data = base64js.toByteArray(data);
-        }
-        window.saveAs(new Blob([data], { type: mimeType }), filename);
-      });
+      fetch(encodeURI(url), {
+          headers: { 'Authorization': this.get('session').get('authorization') }
+        })
+        .then(response => {
+          if (mimeType == 'application/pdf') {
+            response.text().then(text => window.saveAs(new Blob([base64js.toByteArray(text)]), filename));
+          }
+          else {
+            response.text().then(text => { console.log(text, mimeType); window.saveAs(new Blob([text], { encoding: 'UTF-8' }), filename)});
+          }
+        });
     });
   },
   formatDate(date, separator = '-') {

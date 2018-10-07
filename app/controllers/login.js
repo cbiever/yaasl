@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Controller from '@ember/controller';
+import fetch from 'fetch';
 
 export default Controller.extend({
   session: Ember.inject.service(),
@@ -14,16 +15,18 @@ export default Controller.extend({
       this.set('error', false);
     },
     login() {
-      Ember.$.post({
-          url: '/api/v1/login',
-          data: 'username=' + this.get('username') + '&password=' + this.get('password') + '&rememberMe=' + this.get('rememberMe'),
-          mimeType: "text"
-        })
-        .then((response, status, xhr) => {
+      let formData = new FormData();
+      formData.append('username', this.get('username'));
+      formData.append('password', this.get('password'));
+      formData.append('rememberMe', this.get('rememberMe'));
+      fetch('/api/v1/login', {
+         method: "post",
+         body: formData
+      }).then(response => {
           this.set('password', undefined);
           this.set('rememberMe', false);
           let session = this.get('session');
-          session.setAuthorization(xhr.getResponseHeader('Authorization'));
+          session.setAuthorization(response.headers.get('authorization'));
           this.get('messageBus').publish('loggedIn');
           let transition = session.get('transition');
           if (!transition || (transition.intent.url && (transition.intent.url == '/' || transition.intent.url.startsWith('/log'))) || (transition.name && transition.name.startsWith('log'))) {

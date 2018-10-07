@@ -1,6 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import Ember from 'ember';
 import RSVP from 'rsvp';
+import fetch from 'fetch';
 
 export default Mixin.create({
   session: Ember.inject.service(),
@@ -19,11 +20,9 @@ export default Mixin.create({
         resolve();
       }
       else {
-        Ember.$.post({
-            url: '/api/v1/login'
-          })
-          .then((response, status, xhr) => {
-            let authorization = xhr.getResponseHeader('Authorization');
+        fetch('/api/v1/login', { method: 'post' })
+          .then(response => {
+            let authorization = response.headers.get('authorization');
             if (authorization) {
               session.setAuthorization(authorization);
               this.get('messageBus').publish('loggedIn');

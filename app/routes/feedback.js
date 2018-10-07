@@ -6,12 +6,8 @@ export default Route.extend(AuthenticationChecker, {
   store: Ember.inject.service(),
   beforeModel(transition) {
     return this.checkAuthenticated(transition).then(
-      () => {
-        console.info('logged in feedback');
-      },
-      () => {
-        this.transitionTo('login');
-      });
+      () => console.info('logged in feedback'),
+      () => this.transitionTo('login'));
   },
   model() {
     return this.get('store').findAll('feedback');

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Controller from '@ember/controller';
 import ErrorHandler from '../mixins/error-handler';
+import fetch from 'fetch';
 
 export default Controller.extend(ErrorHandler, {
   session: Ember.inject.service(),
@@ -67,9 +68,7 @@ export default Controller.extend(ErrorHandler, {
   actions: {
     addFlight() {
       let flight = this.get('store').createRecord('flight', { 'startLocation': this.get('model').location, 'editable': true });
-      flight.save().then(flight => {
-        this.addFlight(flight);
-      });
+      flight.save().then(flight => this.addFlight(flight));
     },
     updateFlight(flight, propertyName, propertyValue) {
       flight.set(propertyName, propertyValue);
@@ -84,7 +83,7 @@ export default Controller.extend(ErrorHandler, {
         }
       }
       flight.save()
-        .then((flight) => {
+        .then(flight => {
           if (flight.get('revision') <= 0) {
             flight.set('revision', -flight.get('revision'));
             this.set('errorMessage', this.get('i18n').t('error.revision'))
@@ -92,33 +91,19 @@ export default Controller.extend(ErrorHandler, {
           }
           flight.notifyPropertyChange(propertyName); // not clear why this is needed, but sortedFlights doesn't get recalculated otherwise
         })
-        .catch(error => {
-          this.handleError(error);
-        });
+        .catch(error => this.handleError(error));
     },
     deleteFlight(flight) {
       flight.destroyRecord()
-        .then(() => {
-          this.deleteFlight(flight);
-        })
-        .catch(error => {
-          this.handleError(error)
-        });
+        .then(() => this.deleteFlight(flight))
+        .catch(error => this.handleError(error));
     },
     lockAllFlights() {
-      Ember.$.post({
-          url: '/api/v1/rs/flights/lock?location=' + this.get('model').location.get('icao'),
-          beforeSend: (xhr) => {
-            xhr.setRequestHeader('Authorization', this.get('session').get('authorization'));
-          },
-          mimeType: "text"
-        })
-        .then(() => {
-          console.log('flights succesfully locked');
-        })
-        .catch((error) => {
-          this.handleError(error);
-        });
+      fetch('/api/v1/rs/flights/lock?location=' + this.get('model').location.get('icao'), {
+        method: 'post',
+        headers: { 'Authorization': this.get('session').get('authorization') }
+      }).then(() => console.log('flights succesfully locked'))
+        .catch((error) => this.handleError(error));
     },
     closeError() {
       this.set('showError', false);

@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import { computed } from '@ember/object';
+import AdapterFetch from 'ember-fetch/mixins/adapter-fetch';
 
-export default DS.JSONAPIAdapter.extend({
+export default DS.JSONAPIAdapter.extend(AdapterFetch, {
   session: Ember.inject.service(),
   store: Ember.inject.service('store'),
   namespace: 'api/v1/rs',
