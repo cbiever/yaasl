@@ -1,9 +1,9 @@
-import Ember from 'ember';
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import AuthenticationChecker from '../mixins/authentication-checker'
 
 export default Route.extend(AuthenticationChecker, {
-  store: Ember.inject.service(),
+  store: service(),
   beforeModel(transition) {
     return this.checkAuthenticated(transition).then(
       () => console.info('logged in aircraft'),

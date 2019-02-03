@@ -1,13 +1,13 @@
-import Ember from 'ember';
 import Component from '@ember/component';
+import { inject as service } from '@ember/service';
 import fetch from 'fetch';
 
 export default Component.extend({
-  session: Ember.inject.service(),
-  store: Ember.inject.service(),
-  router: Ember.inject.service(),
-  messageBus: Ember.inject.service(),
-  i18n: Ember.inject.service(),
+  session: service(),
+  store: service(),
+  router: service(),
+  messageBus: service(),
+  intl: service(),
   init() {
     this._super(...arguments);
     this.get('messageBus').subscribe('storeInitialized', this, this.update);
@@ -69,27 +69,27 @@ export default Component.extend({
     return filename + '.' + filenameExtension;
   },
   translations(f) {
-    let i18n = this.get('i18n');
+    let intl = this.get('intl');
     let translations = {};
-    translations['location'] = i18n.t('location').string;
-    translations['date'] = i18n.t('date').string;
-    translations['call.sign'] = i18n.t('flight.call.sign.placeholder').string;
-    translations['start.location'] = i18n.t('flight.start.location.placeholder').string;
-    translations['start.time'] = i18n.t('flight.start.time.placeholder').string;
-    translations['landing.location'] = i18n.t('flight.landing.location.placeholder').string;
-    translations['landing.time'] = i18n.t('flight.landing.time.placeholder').string;
-    translations['pilot.1'] = i18n.t('flight.pilot.1').string;
-    translations['pilot.2'] = i18n.t('flight.pilot.2').string;
-    translations['pilot.role'] = i18n.t('flight.pilot.role').string;
-    translations['pilot.role.fi'] = i18n.t('pilot.role.fi').string;
-    translations['pilot.role.pilot'] = i18n.t('pilot.role.pilot').string;
-    translations['pilot.role.student'] = i18n.t('pilot.role.student').string;
-    translations['pilot.role.passenger'] = i18n.t('pilot.role.passenger').string;
-    translations['call.sign.tow.plane'] = i18n.t('flight.call.sign.tow.plane').string;
-    translations['tow.pilot'] = i18n.t('flight.tow.pilot').string;
-    translations['cost.sharing'] = i18n.t('flight.cost.sharing.placeholder').string;
-    translations['cost.sharing.student'] = i18n.t('cost.sharing.student').string;
-    translations['cost.sharing.fifty.fifty'] = i18n.t('cost.sharing.fifty.fifty').string;
+    translations['location'] = intl.t('location').string;
+    translations['date'] = intl.t('date').string;
+    translations['call.sign'] = intl.t('flight.call.sign.placeholder').string;
+    translations['start.location'] = intl.t('flight.start.location.placeholder').string;
+    translations['start.time'] = intl.t('flight.start.time.placeholder').string;
+    translations['landing.location'] = intl.t('flight.landing.location.placeholder').string;
+    translations['landing.time'] = intl.t('flight.landing.time.placeholder').string;
+    translations['pilot.1'] = intl.t('flight.pilot.1').string;
+    translations['pilot.2'] = intl.t('flight.pilot.2').string;
+    translations['pilot.role'] = intl.t('flight.pilot.role').string;
+    translations['pilot.role.fi'] = intl.t('pilot.role.fi').string;
+    translations['pilot.role.pilot'] = intl.t('pilot.role.pilot').string;
+    translations['pilot.role.student'] = intl.t('pilot.role.student').string;
+    translations['pilot.role.passenger'] = intl.t('pilot.role.passenger').string;
+    translations['call.sign.tow.plane'] = intl.t('flight.call.sign.tow.plane').string;
+    translations['tow.pilot'] = intl.t('flight.tow.pilot').string;
+    translations['cost.sharing'] = intl.t('flight.cost.sharing.placeholder').string;
+    translations['cost.sharing.student'] = intl.t('cost.sharing.student').string;
+    translations['cost.sharing.fifty.fifty'] = intl.t('cost.sharing.fifty.fifty').string;
     let reader = new FileReader();
     reader.onload = function(event) {
       f(base64js.fromByteArray(new Uint8Array(event.target.result)));
@@ -98,7 +98,7 @@ export default Component.extend({
   },
   actions: {
     setLocale(locale) {
-      this.set('i18n.locale', locale);
+      this.set('intl.locale', locale);
     },
     setLocation(location) {
       this.navigate(location, this.get('date'));
@@ -106,6 +106,12 @@ export default Component.extend({
     setDate(date) {
       this.set('showDatepicker', false);
       this.navigate(this.get('location'), date);
+    },
+    showAircraft() {
+      this.get('router').transitionTo('aircraft');
+    },
+    showPilots() {
+      this.get('router').transitionTo('pilots');
     },
     showStartList() {
       this.navigate(this.get('location'), this.get('date'), 'start-list');

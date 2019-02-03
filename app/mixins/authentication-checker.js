@@ -1,11 +1,11 @@
 import Mixin from '@ember/object/mixin';
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 import fetch from 'fetch';
 
 export default Mixin.create({
-  session: Ember.inject.service(),
-  messageBus: Ember.inject.service(),
+  session: service(),
+  messageBus: service(),
   checkAuthenticated(transition) {
     return new RSVP.Promise((resolve, reject) => {
       let session = this.get('session');

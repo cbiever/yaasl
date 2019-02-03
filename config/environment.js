@@ -7,7 +7,7 @@ module.exports = function(environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
-    i18n: {
+    intl: {
       defaultLocale: 'de'
     },
     EmberENV: {
@@ -25,6 +25,10 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
+  };
+
+  ENV['ember-paper'] = {
+    insertFontLinks: false
   };
 
   if (environment === 'development') {

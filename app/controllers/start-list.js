@@ -1,20 +1,21 @@
-import Ember from 'ember';
 import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
 import ErrorHandler from '../mixins/error-handler';
 import fetch from 'fetch';
 
 export default Controller.extend(ErrorHandler, {
-  session: Ember.inject.service(),
-  store: Ember.inject.service(),
-  messageBus: Ember.inject.service(),
-  i18n: Ember.inject.service(),
-  towPlanes: Ember.computed(function() {
+  session: service(),
+  store: service(),
+  messageBus: service(),
+  intl: service(),
+  towPlanes: computed(function() {
     return this.get('model').aircraft.filterBy('canTow', true);
   }),
-  towPilots: Ember.computed(function() {
+  towPilots: computed(function() {
     return this.get('model').pilots.filterBy('canTow', true);
   }),
-  sortedFlights: Ember.computed('model.flights.@each.startTime', function() {
+  sortedFlights: computed('model.flights.@each.startTime', function() {
     return this.get('model').flights.sort(function(flight1, flight2) {
       let startTime1 = flight1.get('startTime');
       let startTime2 = flight2.get('startTime');
@@ -37,7 +38,7 @@ export default Controller.extend(ErrorHandler, {
       }
     });
   }),
-  locked: Ember.computed('model.flights.@each.locked', function() {
+  locked: computed('model.flights.@each.locked', function() {
     let locked = !this.get('today');
     if (!locked) {
       locked = this.get('model').flights.length > 0 && (this.get('model').flights.length == this.get('model').flights.filterBy('locked', true).length);
@@ -86,7 +87,7 @@ export default Controller.extend(ErrorHandler, {
         .then(flight => {
           if (flight.get('revision') <= 0) {
             flight.set('revision', -flight.get('revision'));
-            this.set('errorMessage', this.get('i18n').t('error.revision'))
+            this.set('errorMessage', this.get('intl').t('error.revision'))
             this.set('showError', true);
           }
           flight.notifyPropertyChange(propertyName); // not clear why this is needed, but sortedFlights doesn't get recalculated otherwise

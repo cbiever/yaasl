@@ -1,12 +1,12 @@
-import Ember from 'ember';
 import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
 import fetch from 'fetch';
 
 export default Controller.extend({
-  session: Ember.inject.service(),
-  store: Ember.inject.service(),
-  router: Ember.inject.service(),
-  messageBus: Ember.inject.service(),
+  session: service(),
+  store: service(),
+  router: service(),
+  messageBus: service(),
   canLogin: false,
   error: false,
   actions: {

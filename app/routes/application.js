@@ -1,38 +1,41 @@
 import Ember from 'ember';
 import RSVP from 'rsvp';
+import { inject as service } from '@ember/service';
 import AuthenticationChecker from '../mixins/authentication-checker'
 
 export default Ember.Route.extend(AuthenticationChecker, {
-  store: Ember.inject.service(),
-  websockets: Ember.inject.service(),
-  messageBus: Ember.inject.service(),
+  store: service(),
+  websockets: service(),
+  messageBus: service(),
+  intl: service(),
   init() {
     this._super(...arguments);
-    this.get('messageBus').subscribe('loggedIn', this, this.loggedIn);
-    this.get('messageBus').subscribe('loggedOff', this, this.loggedOut);
+    this.messageBus.subscribe('loggedIn', this, this.loggedIn);
+    this.messageBus.subscribe('loggedOff', this, this.loggedOut);
+    this.intl.setLocale(navigator.languages[0]);
   },
   loggedIn() {
     RSVP.hash({
-      locations: this.get('store').findAll('location'),
-      aircraft: this.get('store').findAll('aircraft'),
-      pilots: this.get('store').findAll('pilot'),
-      pilotRoles: this.get('store').findAll('pilotRole'),
-      costSharings: this.get('store').findAll('costSharing')
+      locations: this.store.findAll('location'),
+      aircraft: this.store.findAll('aircraft'),
+      pilots: this.store.findAll('pilot'),
+      pilotRoles: this.store.findAll('pilotRole'),
+      costSharings: this.store.findAll('costSharing')
     }).then(() => {
-      this.get('messageBus').publish('storeInitialized');
-      if (!this.get('socket')) {
+      this.messageBus.publish('storeInitialized');
+      if (!this.socket) {
         let socket = this.get('websockets').socketFor('wss://' + location.host + '/api/v1/ws/updates', [ this.get('session').get('authorization').substring(7), 'Yaasl' ]);
         socket.on('open', this.updateChannelOpened, this);
         socket.on('message', this.updateMessage, this);
         socket.on('close', this.updateChannelClosed, this);
-        this.set('socket', socket);
+        this.socket = socket;
       }
     });
   },
   loggedOut() {
-    this.get('session').clearAuthorization();
-    if (this.get('socket')) {
-      this.get('socket').close();
+    this.session.clearAuthorization();
+    if (this.socket) {
+      this.socket.close();
     }
     this.transitionTo('logged-off');
   },
@@ -53,21 +56,21 @@ export default Ember.Route.extend(AuthenticationChecker, {
   updateMessage: function(message) {
     let update = JSON.parse(message.data);
     if (update.action == "set session id") {
-      this.get('session').set('originatorID', update.payload.data.attributes.originatorID);
+      this.session.set('originatorID', update.payload.data.attributes.originatorID);
     }
     else if (update.action == 'add' || update.action == 'update') {
-      this.get('store').pushPayload(update.payload);
+      this.store.pushPayload(update.payload);
       if (update.action == 'add') {
-        let object = this.get('store').peekRecord(update.payload.data.type, update.payload.data.id);
-        this.get('messageBus').publish('add', object);
+        let object = this.store.peekRecord(update.payload.data.type, update.payload.data.id);
+        this.messageBus.publish('add', object);
       }
     }
     else if (update.action == 'delete') {
-      let object = this.get('store').peekRecord(update.payload.data.type, update.payload.data.id);
+      let object = this.store.peekRecord(update.payload.data.type, update.payload.data.id);
       if (object) {
-        if (!object.get('isDeleted')) {
+        if (!object.isDeleted) {
           object.unloadRecord();
-          this.get('messageBus').publish('delete', object);
+          this.messageBus.publish('delete', object);
           console.log('unloaded object of type: ' + update.payload.data.type + ' with id: ' + update.payload.data.id);
         }
         else {
@@ -80,7 +83,7 @@ export default Ember.Route.extend(AuthenticationChecker, {
     }
   },
   updateChannelClosed() {
-    this.set('socket', null);
+    this.socket = null;
     console.log(`Infochannel closed at: ${new Date().toJSON()}`);
   },
   actions: {

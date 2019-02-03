@@ -7,11 +7,11 @@
         {{/paper-button}}
       {{/menu.trigger}}
       {{#menu.content width=3 as |content|}}
-        {{#content.menu-item disabled=(not session.authorization) onClick=(transition-to 'aircraft')}}
+        {{#content.menu-item disabled=(not session.authorization) onClick=(action 'showAircraft')}}
           {{paper-icon "airplanemode active"}}
           <span>{{t 'menu.aircraft'}}</span>
         {{/content.menu-item}}
-        {{#content.menu-item disabled=(not session.authorization) onClick=(transition-to 'pilots')}}
+        {{#content.menu-item disabled=(not session.authorization) onClick=(action 'showPilots')}}
           {{paper-icon "perm identity"}}
           <span>{{t 'menu.pilots'}}</span>
         {{/content.menu-item}}
@@ -72,11 +72,11 @@
     {{#paper-menu as |menu|}}
       {{#menu.trigger}}
         {{#paper-button}}
-          {{i18n.locale}}
+          {{intl.locale}}
         {{/paper-button}}
       {{/menu.trigger}}
       {{#menu.content as |content|}}
-        {{#each i18n.locales as |locale|}}
+        {{#each intl.locales as |locale|}}
         {{#content.menu-item onClick=(action 'setLocale' locale)}}
           {{locale}}
         {{/content.menu-item}}

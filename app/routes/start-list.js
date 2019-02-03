@@ -1,12 +1,12 @@
-import Ember from 'ember';
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 import AuthenticationChecker from '../mixins/authentication-checker'
 
 export default Route.extend(AuthenticationChecker, {
-  session: Ember.inject.service(),
-  store: Ember.inject.service(),
-  messageBus: Ember.inject.service(),
+  session: service(),
+  store: service(),
+  messageBus: service(),
   beforeModel(transition) {
     return this.checkAuthenticated(transition).then(
       () => {

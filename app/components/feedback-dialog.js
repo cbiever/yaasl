@@ -1,9 +1,9 @@
-import Ember from 'ember';
 import Component from '@ember/component';
+import { inject as service } from '@ember/service';
 
 export default Component.extend({
-  messageBus: Ember.inject.service(),
-  store: Ember.inject.service(),
+  messageBus: service(),
+  store: service(),
   init() {
     this._super(...arguments);
     this.get('messageBus').subscribe('showFeedbackDialog', this, this.showFeedbackDialog);
