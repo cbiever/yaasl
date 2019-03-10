@@ -1,18 +1,19 @@
-import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import BaseRoute from "./baseRoute";
+import { inject as service } from '@ember-decorators/service';
 import RSVP from 'rsvp';
-import AuthenticationChecker from '../mixins/authentication-checker'
 
-export default Route.extend(AuthenticationChecker, {
-  session: service(),
-  store: service(),
-  messageBus: service(),
+export default class extends BaseRoute {
+
+  @service session
+  @service store
+  @service messageBus
+
   beforeModel(transition) {
     return this.checkAuthenticated(transition).then(
       () => {
         console.info('logged in start list');
         // remove all flights, unloadAll('flight') is asynchronous and can unfortunately not be used here
-        let flights = this.get('store').peekAll('flight').toArray();
+        let flights = this.store.peekAll('flight').toArray();
         for (let i = 0; i < flights.length; i++) {
           flights.get(i).unloadRecord();
         }
@@ -20,34 +21,37 @@ export default Route.extend(AuthenticationChecker, {
       () => {
         this.transitionTo('login');
       });
-  },
+  }
+
   model(parameters) {
     return RSVP.hash({
-      location: this.get('store').query('location', {
+      location: this.store.query('location', {
         filter: {
           location: parameters.location
         }
-      }).then(function(locations) {
-        return locations.get('firstObject');
+      }).then(locations => {
+        return locations.firstObject;
       }),
       date: new Date(parameters.date),
-      aircraft: this.get('store').peekAll('aircraft'),
-      locations: this.get('store').peekAll('location'),
-      pilots: this.get('store').peekAll('pilot'),
-      pilotRoles: this.get('store').peekAll('pilotRole'),
-      flights: this.get('store').query('flight', {
+      aircraft: this.store.peekAll('aircraft'),
+      locations: this.store.peekAll('location'),
+      pilots: this.store.peekAll('pilot'),
+      pilotRoles: this.store.peekAll('pilotRole'),
+      flights: this.store.query('flight', {
         filter: {
           location: parameters.location,
           date: parameters.date
         }
-      }).then(function(flights) {
+      }).then(flights => {
         return flights.toArray();
       }),
-      costSharings: this.get('store').peekAll('costSharing')
+      costSharings: this.store.peekAll('costSharing')
     });
-  },
-  afterModel(model) {
-    this.get('messageBus').publish('location', model.location);
-    this.get('messageBus').publish('date', model.date);
   }
-});
+
+  afterModel(model) {
+    this.messageBus.publish('location', model.location);
+    this.messageBus.publish('date', model.date);
+  }
+
+}

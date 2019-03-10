@@ -1,7 +1,9 @@
 import ApplicationAdapter from './application';
 
-export default ApplicationAdapter.extend({
-  buildURL: function() {
+export default class extends ApplicationAdapter {
+
+  buildURL() {
      return '/api/v1/rs/flights/costSharings';
    }
-});
+
+}

@@ -1,19 +1,27 @@
 import Component from '@ember/component';
+import { action } from '@ember-decorators/object';
 
-export default Component.extend({
-  actions: {
-    setExpanded(expanded) {
-      this.set('expanded', expanded);
-      this.get('onExpand')(expanded);
-    },
-    setEditable(editable) {
-      this.get('onEditable')(editable);
-    },
-    setLocked(locked) {
-      this.get('onLock')(locked);
-    },
-    deleteFlight() {
-      this.get('onDeleteFlight')();
-    }
+export default class extends Component {
+
+  @action
+  setExpanded(expanded) {
+    this.set('expanded', expanded);
+    this.get('onExpand')(expanded);
   }
-});
+
+  @action
+  setEditable(editable) {
+    this.get('onEditable')(editable);
+  }
+
+  @action
+  setLocked(locked) {
+    this.get('onLock')(locked);
+  }
+
+  @action
+  deleteFlight() {
+    this.get('onDeleteFlight')();
+  }
+
+}

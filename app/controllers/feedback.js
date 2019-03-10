@@ -1,14 +1,16 @@
-import Ember from 'ember';
 import Controller from '@ember/controller';
+import { computed } from '@ember-decorators/object';
 
-export default Controller.extend({
-  feedback: Ember.computed(function() {
-    let feedback = this.get('model');
-    feedback.forEach(function(feedback) {
-      if (feedback.get('feedback') == 'positive') {
+export default class extends Controller {
+
+  @computed
+  get feedback() {
+    let feedback = this.model;
+    feedback.forEach(feedback => {
+      if (feedback.feedback == 'positive') {
         feedback.icon = 'thumb up'
       }
-      else if (feedback.get('feedback') == 'negative') {
+      else if (feedback.feedback == 'negative') {
         feedback.icon = 'thumb down'
       }
       else {
@@ -16,5 +18,6 @@ export default Controller.extend({
       }
     });
     return feedback;
-  }),
-});
+  }
+
+}

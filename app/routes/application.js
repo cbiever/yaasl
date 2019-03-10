@@ -1,19 +1,22 @@
-import Ember from 'ember';
+import BaseRoute from "./baseRoute";
 import RSVP from 'rsvp';
-import { inject as service } from '@ember/service';
-import AuthenticationChecker from '../mixins/authentication-checker'
+import { inject as service } from '@ember-decorators/service';
+import { action } from '@ember-decorators/object';
 
-export default Ember.Route.extend(AuthenticationChecker, {
-  store: service(),
-  websockets: service(),
-  messageBus: service(),
-  intl: service(),
+export default class extends BaseRoute {
+
+  @service store
+  @service websockets
+  @service messageBus
+  @service intl
+
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     this.messageBus.subscribe('loggedIn', this, this.loggedIn);
     this.messageBus.subscribe('loggedOff', this, this.loggedOut);
     this.intl.setLocale(navigator.languages[0]);
-  },
+  }
+
   loggedIn() {
     RSVP.hash({
       locations: this.store.findAll('location'),
@@ -24,21 +27,23 @@ export default Ember.Route.extend(AuthenticationChecker, {
     }).then(() => {
       this.messageBus.publish('storeInitialized');
       if (!this.socket) {
-        let socket = this.get('websockets').socketFor('wss://' + location.host + '/api/v1/ws/updates', [ this.get('session').get('authorization').substring(7), 'Yaasl' ]);
+        let socket = this.websockets.socketFor('wss://' + location.host + '/api/v1/ws/updates', [ this.session.authorization.substring(7), 'Yaasl' ]);
         socket.on('open', this.updateChannelOpened, this);
         socket.on('message', this.updateMessage, this);
         socket.on('close', this.updateChannelClosed, this);
         this.socket = socket;
       }
     });
-  },
+  }
+
   loggedOut() {
     this.session.clearAuthorization();
     if (this.socket) {
       this.socket.close();
     }
     this.transitionTo('logged-off');
-  },
+  }
+
   beforeModel(transition) {
     return this.checkAuthenticated(transition).then(() => {
       if (transition.intent.url == '/') {
@@ -49,11 +54,13 @@ export default Ember.Route.extend(AuthenticationChecker, {
     () => {
       this.transitionTo('login');
     });
-  },
+  }
+
   updateChannelOpened() {
     console.log(`Infochannel opened at: ${new Date().toJSON()}`);
-  },
-  updateMessage: function(message) {
+  }
+
+  updateMessage(message) {
     let update = JSON.parse(message.data);
     if (update.action == "set session id") {
       this.session.set('originatorID', update.payload.data.attributes.originatorID);
@@ -81,14 +88,16 @@ export default Ember.Route.extend(AuthenticationChecker, {
         console.log('object of type: ' + update.payload.data.type + ' with id: ' + update.payload.data.id + ' not found in store');
       }
     }
-  },
+  }
+
   updateChannelClosed() {
     this.socket = null;
     console.log(`Infochannel closed at: ${new Date().toJSON()}`);
-  },
-  actions: {
-    error(error) {
-      return !this.handleAuthenticationError(error);
-    }
   }
-});
+
+  @action
+  error(error) {
+    return !this.handleAuthenticationError(error);
+  }
+
+}

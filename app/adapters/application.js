@@ -1,13 +1,17 @@
 import DS from 'ember-data';
-import { computed } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { computed } from '@ember-decorators/object';
+import { inject as service } from '@ember-decorators/service';
 import AdapterFetch from 'ember-fetch/mixins/adapter-fetch';
 
-export default DS.JSONAPIAdapter.extend(AdapterFetch, {
-  session: service(),
-  store: service(),
-  namespace: 'api/v1/rs',
-  headers: computed(function() {
+export default class extends DS.JSONAPIAdapter.extend(AdapterFetch) {
+
+  @service session
+  @service store
+
+  namespace = 'api/v1/rs'
+
+  @(computed().volatile())
+  get headers() {
     let session = this.get('session');
     let originatorID = session ? session.get('originatorID') : -1;
     let authorization = session ? session.get('authorization') : null;
@@ -15,5 +19,7 @@ export default DS.JSONAPIAdapter.extend(AdapterFetch, {
       'X-Originator-ID': originatorID,
       'Authorization': authorization
     }
-  }).volatile()
-});
+  }
+
+}
+

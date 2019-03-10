@@ -1,6 +1,7 @@
-import Mixin from '@ember/object/mixin';
+import Controller from '@ember/controller';
 
-export default Mixin.create({
+export default class BaseController extends Controller {
+
   handleError(error) {
     if (error.errors && error.errors.length > 0) {
       this.set('errorMessage', 'status: ' + error.errors[0].status + ' message: ' + error.errors[0].title);
@@ -13,4 +14,5 @@ export default Mixin.create({
     }
     this.set('showError', true);
   }
-});
+
+}

@@ -3,22 +3,38 @@
     "target": "es2017",
     "allowJs": true,
     "moduleResolution": "node",
-    "noEmitOnError": false,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noEmitOnError": true,
     "noEmit": true,
-    "sourceMap": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "baseUrl": ".",
     "module": "es6",
     "paths": {
-      "yaasl/tests/*": ["tests/*"],
+      "yaasl/tests/*": [
+        "tests/*"
+      ],
       "yaasl/*": [
         "app/*"
+      ],
+      "*": [
+        "types/*"
       ]
-    }
+    },
+    "experimentalDecorators": true
   },
-  "exclude": [
-    "tmp",
-    "dist",
-    "node_modules",
-    "bower_components"
+  "include": [
+    "app/**/*",
+    "tests/**/*",
+    "types/**/*"
   ]
 }

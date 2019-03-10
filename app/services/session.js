@@ -1,15 +1,23 @@
 import Service from '@ember/service';
 import jwtDecode from 'ember-cli-jwt-decode';
 
-export default Service.extend({
-  setAuthorization(authorization) {
+export default class extends Service {
+
+  setAuthorization(authorization, roles) {
     this.set('authorization', authorization);
-    this.set('roles', jwtDecode(authorization).roles);
+    if (roles) {
+      this.set('roles', roles);
+    }
+    else {
+      this.set('roles', jwtDecode(authorization).roles);
+    }
     window.localStorage.setItem('yaasl_token', authorization);
-  },
+  }
+
   hasAuthorization() {
-    return this.get('authorization') != undefined;
-  },
+    return this.roles != undefined;
+  }
+
   restoreAuthorization() {
     let authorization = window.localStorage.getItem('yaasl_token');
     if (authorization) {
@@ -19,15 +27,18 @@ export default Service.extend({
     else {
       return false;
     }
-  },
+  }
+
   clearAuthorization() {
-    this.set('authorization', undefined);
+    this.set('authorization', null);
+    this.set('roles', null);
     window.localStorage.removeItem('yaasl_token');
-  },
+  }
+
   isInRole(role) {
     let isInRole = false;
-    if (this.get('roles')) {
-      this.get('roles').forEach(r => {
+    if (this.roles) {
+      this.roles.forEach(r => {
         if (r === role) {
           isInRole = true;
         }
@@ -35,4 +46,5 @@ export default Service.extend({
     }
     return isInRole;
   }
-});
+
+}

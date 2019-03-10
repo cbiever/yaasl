@@ -1,24 +1,29 @@
 import Component from '@ember/component';
-import { inject as service } from '@ember/service';
+import { inject as service } from '@ember-decorators/service';
+import { action } from '@ember-decorators/object';
 
-export default Component.extend({
-  messageBus: service(),
-  store: service(),
+export default class extends Component {
+
+  @service messageBus
+  @service store
+
   init() {
-    this._super(...arguments);
-    this.get('messageBus').subscribe('showFeedbackDialog', this, this.showFeedbackDialog);
-  },
-  showFeedbackDialog() {
+    super.init(...arguments);
+    this.messageBus.subscribe('showFeedbackDialog', this, this.showFeedbackDialogListener);
+  }
+
+  showFeedbackDialogListener() {
     this.set('feedbackComment', '');
     this.set('show', true);
-  },
-  actions: {
-    closeFeedbackDialog(action) {
-      this.set('show', false);
-      if (action == 'ok') {
-        let feedback = this.get('store').createRecord('feedback', { 'feedback': this.get('feedback'), 'comment': this.get('feedbackComment') });
-        feedback.save();
-      }
+  }
+
+  @action
+  closeFeedbackDialog(action) {
+    this.set('show', false);
+    if (action == 'ok') {
+      let feedback = this.store.createRecord('feedback', { 'feedback': this.feedback, 'comment': this.feedbackComment });
+      feedback.save();
     }
   }
-});
+
+}

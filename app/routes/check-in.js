@@ -1,15 +1,17 @@
-import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import BaseRoute from "./baseRoute";
+import { inject as service } from '@ember-decorators/service';
 import RSVP from 'rsvp';
-import AuthenticationChecker from '../mixins/authentication-checker'
 
-export default Route.extend(AuthenticationChecker, {
-  store: service(),
+export default class extends BaseRoute {
+
+  @service store
+
   beforeModel(transition) {
     return this.checkAuthenticated(transition).then(
       () => console.info('logged in check in'),
       () => this.transitionTo('login'));
-  },
+  }
+
   model(parameters) {
     return RSVP.hash({
       aircraft: this.get('store').query('aircraft', {
@@ -22,10 +24,10 @@ export default Route.extend(AuthenticationChecker, {
       location: new RSVP.Promise(resolve => {
         if ("geolocation" in navigator) {
           navigator.geolocation.getCurrentPosition(
-            function(position) {
+            position => {
               resolve(position);
             },
-            function(error) {
+            error => {
               console.log('no position: ', error);
               resolve(null);
             },
@@ -41,4 +43,5 @@ export default Route.extend(AuthenticationChecker, {
       })
     });
   }
-});
+
+}

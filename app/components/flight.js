@@ -1,30 +1,43 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { action } from '@ember-decorators/object';
 
-export default Ember.Mixin.create({
+export default class extends Component {
+
   init() {
-    this._super(...arguments);
-    this.set('comment', this.get('flight').get('comment'));
-    this.set('editable', this.get('flight').get('editable'));
-    this.set('locked', this.get('flight').get('locked'));
-  },
-  actions: {
-    updateComment() {
-      this.get('onFlightChanged')(this.get('flight'), 'comment', this.get('comment'));
-    },
-    updateFlight(propertyName, propertyValue) {
-      this.get('onFlightChanged')(this.get('flight'), propertyName, propertyValue);
-    },
-    deleteFlight() {
-      this.get('onDeleteFlight')(this.get('flight'));
-    },
-    setExpanded(expanded) {
-      this.set('expanded', expanded);
-    },
-    setEditable(editable) {
-      this.get('onFlightChanged')(this.get('flight'), 'editable', editable);
-    },
-    setLocked(locked) {
-      this.get('onFlightChanged')(this.get('flight'), 'locked', locked);
-    }
+    super.init(...arguments);
+    this.set('comment', this.flight.comment);
+    this.set('editable', this.flight.editable);
+    this.set('locked', this.flight.locked);
   }
-});
+
+  @action
+  updateComment() {
+    this.onFlightChanged(this.flight, 'comment', this.comment);
+  }
+
+  @action
+  updateFlight(propertyName, propertyValue) {
+    this.onFlightChanged(this.flight, propertyName, propertyValue);
+  }
+
+  @action
+  deleteFlight() {
+    this.onDeleteFlight(this.flight);
+  }
+
+  @action
+  setExpanded(expanded) {
+    this.set('expanded', expanded);
+  }
+
+  @action
+  setEditable(editable) {
+    this.onFlightChanged(this.flight, 'editable', editable);
+  }
+
+  @action
+  setLocked(locked) {
+    this.onFlightChanged(this.flight, 'locked', locked);
+  }
+
+}
