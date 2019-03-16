@@ -3,16 +3,22 @@ import { inject as service } from '@ember-decorators/service';
 import { computed } from '@ember-decorators/object';
 import { action } from '@ember-decorators/object';
 import fetch from 'fetch';
+import DS from "ember-data";
+import Session from "../services/session";
+import Flight from "../models/flight";
+import Location from "../models/location";
 
 export default class extends BaseController {
 
-  @service session
-  @service store
-  @service messageBus
-  @service intl
+  today: boolean = false;
+
+  @service session!: Session;
+  @service store!: DS.Store;
+  @service messageBus: any;
+  @service intl: any;
 
   init() {
-    super.init(...arguments);
+    super.init();
     this.messageBus.subscribe('date', this, this.updateDateListener);
     this.messageBus.subscribe('add', this, this.addFlightListener);
     this.messageBus.subscribe('delete', this, this.deleteFlightListener);
@@ -30,7 +36,7 @@ export default class extends BaseController {
 
   @computed('model.flights.@each.startTime')
   get sortedFlights() {
-    return this.model.flights.sort((flight1, flight2) => {
+    return this.model.flights.sort((flight1: Flight, flight2: Flight) => {
       let startTime1 = flight1.startTime;
       let startTime2 = flight2.startTime;
       if (startTime1 && !startTime2) {
@@ -62,32 +68,32 @@ export default class extends BaseController {
     return locked;
   }
 
-  updateDateListener(date) {
+  updateDateListener(date: Date) {
     let now = new Date();
     this.set('today', date.getDate() == now.getDate() && date.getMonth() == now.getMonth() && date.getFullYear() == now.getFullYear());
   }
 
-  addFlightListener(flight) {
+  addFlightListener(flight: Flight) {
     if (flight.belongsTo('startLocation').value() == this.model.location || flight.belongsTo('landingLocation').value() == this.model.location) {
       this.model.flights.addObject(flight);
     }
     else {
-      console.log('flight of different location ignored: ', flight.belongsTo('startLocation').value().icao, this.model.location.icao);
+      console.log('flight of different location ignored: ', (flight.belongsTo('startLocation').value() as Location).icao, this.model.location.icao);
     }
   }
 
-  deleteFlightListener(flight) {
+  deleteFlightListener(flight: Flight) {
     this.model.flights.removeObject(flight);
   }
 
   @action
   addFlight() {
     let flight = this.store.createRecord('flight', { 'startLocation': this.model.location, 'editable': true });
-    flight.save().then(flight => this.addFlightListener(flight));
+    flight.save().then((flight: Flight) => this.addFlightListener(flight));
   }
 
   @action
-  updateFlight(flight, propertyName, propertyValue) {
+  updateFlight(flight: any, propertyName: string, propertyValue: any) {
     flight.set(propertyName, propertyValue);
     if (propertyName == 'pilot1') {
       if (!flight.belongsTo('pilot1Role').value() && propertyValue.belongsTo('standardRole').value()) {
@@ -100,22 +106,22 @@ export default class extends BaseController {
       }
     }
     flight.save()
-      .then(flight => {
-        if (flight.revision <= 0) {
-          flight.set('revision', -flight.revision);
+      .then((flight: Flight) => {
+        if (flight.get('revision') <= 0) {
+          flight.set('revision', -flight.get('revision'));
           this.set('errorMessage', this.intl.t('error.revision'))
           this.set('showError', true);
         }
         flight.notifyPropertyChange(propertyName); // not clear why this is needed, but sortedFlights doesn't get recalculated otherwise
       })
-      .catch(error => this.handleError(error));
+      .catch((error: any) => this.handleError(error));
   }
 
   @action
-  deleteFlight(flight) {
+  deleteFlight(flight: Flight) {
     flight.destroyRecord()
       .then(() => this.deleteFlightListener(flight))
-      .catch(error => this.handleError(error));
+      .catch((error: any) => this.handleError(error));
   }
 
   @action
@@ -124,7 +130,7 @@ export default class extends BaseController {
       method: 'post',
       headers: { 'Authorization': this.session.authorization }
     }).then(() => console.log('flights succesfully locked'))
-      .catch((error) => this.handleError(error));
+      .catch((error: any) => this.handleError(error));
   }
 
   @action

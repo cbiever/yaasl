@@ -22,7 +22,7 @@ export default class extends BaseRoute {
       date: new Date(parameters.date),
       flights: new RSVP.Promise((resolve, reject) => {
         fetch('/api/v1/rs/flights/ktrax?location=' + parameters.location + '&date=' + parameters.date, {
-          headers: { 'Authorization': this.session!.authorization }
+          headers: { 'Authorization': this.session.authorization }
         })
         .then((response: Response) => resolve(response.json()))
         .catch((msg: string) => { console.log('error: ', msg); reject(msg) });

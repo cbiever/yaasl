@@ -1,8 +1,8 @@
 import ApplicationAdapter from './application';
 
-export default class extends ApplicationAdapter {
+export default class PilotRole extends ApplicationAdapter {
 
-  buildURL() {
+  buildURL(): string {
      return '/api/v1/rs/pilots/roles';
    }
 

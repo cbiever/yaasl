@@ -2,7 +2,10 @@ import Controller from '@ember/controller';
 
 export default class BaseController extends Controller {
 
-  handleError(error) {
+  errorMessage: string = '';
+  showError: boolean = false;
+
+  handleError(error: any) {
     if (error.errors && error.errors.length > 0) {
       this.set('errorMessage', 'status: ' + error.errors[0].status + ' message: ' + error.errors[0].title);
     }

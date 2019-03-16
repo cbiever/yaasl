@@ -1,4 +1,4 @@
-import BaseRoute from "yaasl/routes/baseRoute";
+import BaseRoute from "../routes/baseRoute";
 
 export default class Aircraft extends BaseRoute {
 

@@ -3,9 +3,9 @@ import { attribute } from "@ember-decorators/component";
 import { action } from '@ember-decorators/object';
 import Location from '../models/location';
 import Pilot from '../models/pilot';
-import PilotRole from "yaasl/models/pilot-role";
-import Aircraft from "yaasl/models/aircraft";
-import CostSharing from "yaasl/models/cost-sharing";
+import PilotRole from "../models/pilot-role";
+import Aircraft from "../models/aircraft";
+import CostSharing from "../models/cost-sharing";
 
 export default class Flight extends Component {
 

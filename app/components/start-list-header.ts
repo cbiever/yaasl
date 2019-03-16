@@ -13,8 +13,8 @@ export default class StartListHeader extends Component {
   locations?: Location[];
   location?: Location;
 
-  @service session?: Session;
-  @service store?: DS.Store;
+  @service session!: Session;
+  @service store!: DS.Store;
   @service router: any;
   @service messageBus: any;
   @service intl: any;
@@ -27,7 +27,7 @@ export default class StartListHeader extends Component {
   }
 
   updateListener() {
-    let locations = this.store!.peekAll('location');
+    let locations = this.store.peekAll('location');
     this.set('locations', locations);
   }
 
@@ -174,11 +174,11 @@ console.log('event: ', event);
 
   @action
   logoff() {
-    this.session!.clearAuthorization();
+    this.session.clearAuthorization();
     this.messageBus.publish('loggedOff');
     fetch('/api/v1/rs/authorizations/logoff', {
       method: 'post',
-      headers: { 'Authorization': this.session!.authorization }
+      headers: { 'Authorization': this.session.authorization }
     }).then(() => console.log('logged off'))
       .catch((error: any) => console.error('Error logging off: ', error));
   }

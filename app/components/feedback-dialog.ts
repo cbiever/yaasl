@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember-decorators/service';
 import { action } from '@ember-decorators/object';
-import Feedback from "yaasl/models/feedback";
+import Feedback from "../models/feedback";
 import DS from "ember-data";
 
 export default class FeedbackDialog extends Component {
@@ -11,7 +11,7 @@ export default class FeedbackDialog extends Component {
   show: boolean = false;
 
   @service messageBus: any;
-  @service store?: DS.Store;
+  @service store!: DS.Store;
 
   init() {
     super.init();
@@ -27,7 +27,7 @@ export default class FeedbackDialog extends Component {
   closeFeedbackDialog(dialogAction: string) {
     this.set('show', false);
     if (dialogAction == 'ok') {
-      let feedback = this.store!.createRecord('feedback', { 'feedback': this.feedback, 'comment': this.feedbackComment });
+      let feedback = this.store.createRecord('feedback', { 'feedback': this.feedback, 'comment': this.feedbackComment });
       feedback.save();
     }
   }
