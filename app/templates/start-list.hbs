@@ -1,18 +1,18 @@
 {{#each sortedFlights as |flight|}}
   {{#if (media 'isXs')}}
     {{flight-sm flight=flight location=model.location locations=model.locations aircraft=model.aircraft pilots=model.pilots pilotRoles=model.pilotRoles
-                towPlanes=towPlanes towPilots=towPilots costSharings=model.costSharings
-                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight') today=today}}
+                towPlanes=towPlanes towPilots=towPilots costSharings=model.costSharings today=today
+                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
   {{/if}}
   {{#if (media 'isMd')}}
     {{flight-md flight=flight location=model.location locations=model.locations aircraft=model.aircraft pilots=model.pilots pilotRoles=model.pilotRoles
-                towPlanes=towPlanes towPilots=towPilots costSharings=model.costSharings
-                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight') today=today}}
+                towPlanes=towPlanes towPilots=towPilots costSharings=model.costSharings today=today
+                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
   {{/if}}
   {{#if (media 'isLg')}}
     {{flight-lg flight=flight location=model.location locations=model.locations aircraft=model.aircraft pilots=model.pilots pilotRoles=model.pilotRoles
-                towPlanes=towPlanes towPilots=towPilots costSharings=model.costSharings
-                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight') today=today}}
+                towPlanes=towPlanes towPilots=towPilots costSharings=model.costSharings today=today
+                onFlightChanged=(action 'updateFlight') onDeleteFlight=(action 'deleteFlight')}}
   {{/if}}
 {{/each}}
 

@@ -1,18 +1,15 @@
 import BaseRoute from "./baseRoute";
-import { inject as service } from '@ember-decorators/service';
 import RSVP from 'rsvp';
 
 export default class extends BaseRoute {
 
-  @service store
-
-  beforeModel(transition) {
+  beforeModel(transition: any) {
     return this.checkAuthenticated(transition).then(
       () => console.info('logged in check in'),
       () => this.transitionTo('login'));
   }
 
-  model(parameters) {
+  model(parameters: any) {
     return RSVP.hash({
       aircraft: this.get('store').query('aircraft', {
         filter: {
@@ -29,7 +26,7 @@ export default class extends BaseRoute {
             },
             error => {
               console.log('no position: ', error);
-              resolve(null);
+              resolve();
             },
             {
                timeout:10000,
@@ -38,7 +35,7 @@ export default class extends BaseRoute {
           );
         }
         else {
-          resolve(null);
+          resolve();
         }
       })
     });

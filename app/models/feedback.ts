@@ -1,13 +1,7 @@
-import DS from 'ember-data';
+import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 
-export default class Feedback extends DS.Model.extend({
+export default class Feedback extends Model.extend({
   feedback: attr('string'),
   comment: attr('string')
 }) { }
-
-declare module "ember-data" {
-  interface ModelRegistry {
-    feedback: Feedback;
-  }
-}

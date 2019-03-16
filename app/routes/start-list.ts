@@ -1,14 +1,9 @@
 import BaseRoute from "./baseRoute";
-import { inject as service } from '@ember-decorators/service';
 import RSVP from 'rsvp';
 
 export default class extends BaseRoute {
 
-  @service session
-  @service store
-  @service messageBus
-
-  beforeModel(transition) {
+  beforeModel(transition: any) {
     return this.checkAuthenticated(transition).then(
       () => {
         console.info('logged in start list');
@@ -23,7 +18,7 @@ export default class extends BaseRoute {
       });
   }
 
-  model(parameters) {
+  model(parameters: any) {
     return RSVP.hash({
       location: this.store.query('location', {
         filter: {
@@ -49,7 +44,7 @@ export default class extends BaseRoute {
     });
   }
 
-  afterModel(model) {
+  afterModel(model: any) {
     this.messageBus.publish('location', model.location);
     this.messageBus.publish('date', model.date);
   }

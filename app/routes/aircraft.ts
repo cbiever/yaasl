@@ -1,11 +1,8 @@
-import BaseRoute from "./baseRoute";
-import { inject as service } from '@ember-decorators/service';
+import BaseRoute from "yaasl/routes/baseRoute";
 
-export default class extends BaseRoute {
+export default class Aircraft extends BaseRoute {
 
-  @service store
-
-  beforeModel(transition) {
+  beforeModel(transition: any) {
     return this.checkAuthenticated(transition).then(
       () => console.info('logged in aircraft'),
       () => this.transitionTo('login'));

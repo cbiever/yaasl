@@ -1,21 +1,16 @@
 import BaseRoute from "./baseRoute";
-import { inject as service } from '@ember-decorators/service';
 import RSVP from 'rsvp';
 import fetch from 'fetch';
 
 export default class extends BaseRoute {
 
-  @service session
-  @service store
-  @service messageBus
-
-  beforeModel(transition) {
+  beforeModel(transition: any) {
     return this.checkAuthenticated(transition).then(
       () => console.info('logged in ktrax'),
       () => this.transitionTo('login'));
   }
 
-  model(parameters) {
+  model(parameters: any) {
     return RSVP.hash({
       location: this.store.query('location', {
         filter: {
@@ -27,15 +22,15 @@ export default class extends BaseRoute {
       date: new Date(parameters.date),
       flights: new RSVP.Promise((resolve, reject) => {
         fetch('/api/v1/rs/flights/ktrax?location=' + parameters.location + '&date=' + parameters.date, {
-          headers: { 'Authorization': this.session.authorization }
+          headers: { 'Authorization': this.session!.authorization }
         })
-        .then(response => resolve(response.json()))
-        .catch(msg => { console.log('error: ', msg); reject(msg) });
+        .then((response: Response) => resolve(response.json()))
+        .catch((msg: string) => { console.log('error: ', msg); reject(msg) });
       })
     });
   }
 
-  afterModel(model) {
+  afterModel(model: any) {
     this.messageBus.publish('location', model.location);
     this.messageBus.publish('date', model.date);
   }

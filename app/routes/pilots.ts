@@ -1,11 +1,8 @@
 import BaseRoute from "./baseRoute";
-import { inject as service } from '@ember-decorators/service';
 
 export default class extends BaseRoute {
 
-  @service store
-
-  beforeModel(transition) {
+  beforeModel(transition: any) {
     return this.checkAuthenticated(transition).then(
       () => console.info('logged in pilots'),
       () => this.transitionTo('login'));

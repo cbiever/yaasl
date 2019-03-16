@@ -5,13 +5,13 @@ import { action } from '@ember-decorators/object';
 
 export default class extends BaseRoute {
 
-  @service store
-  @service websockets
-  @service messageBus
-  @service intl
+  socket: any;
+
+  @service websockets: any;
+  @service intl: any;
 
   init() {
-    super.init(...arguments);
+    super.init();
     this.messageBus.subscribe('loggedIn', this, this.loggedIn);
     this.messageBus.subscribe('loggedOff', this, this.loggedOut);
     this.intl.setLocale(navigator.languages[0]);
@@ -27,7 +27,7 @@ export default class extends BaseRoute {
     }).then(() => {
       this.messageBus.publish('storeInitialized');
       if (!this.socket) {
-        let socket = this.websockets.socketFor('wss://' + location.host + '/api/v1/ws/updates', [ this.session.authorization.substring(7), 'Yaasl' ]);
+        let socket = this.websockets.socketFor('wss://' + location.host + '/api/v1/ws/updates', [ this.session!.authorization!.substring(7), 'Yaasl' ]);
         socket.on('open', this.updateChannelOpened, this);
         socket.on('message', this.updateMessage, this);
         socket.on('close', this.updateChannelClosed, this);
@@ -37,14 +37,14 @@ export default class extends BaseRoute {
   }
 
   loggedOut() {
-    this.session.clearAuthorization();
+    this.session!.clearAuthorization();
     if (this.socket) {
       this.socket.close();
     }
     this.transitionTo('logged-off');
   }
 
-  beforeModel(transition) {
+  beforeModel(transition: any) {
     return this.checkAuthenticated(transition).then(() => {
       if (transition.intent.url == '/') {
         let today = new Date();
@@ -60,10 +60,10 @@ export default class extends BaseRoute {
     console.log(`Infochannel opened at: ${new Date().toJSON()}`);
   }
 
-  updateMessage(message) {
+  updateMessage(message: any) {
     let update = JSON.parse(message.data);
     if (update.action == "set session id") {
-      this.session.set('originatorID', update.payload.data.attributes.originatorID);
+      this.session!.set('originatorID', update.payload.data.attributes.originatorID);
     }
     else if (update.action == 'add' || update.action == 'update') {
       this.store.pushPayload(update.payload);
@@ -96,7 +96,7 @@ export default class extends BaseRoute {
   }
 
   @action
-  error(error) {
+  error(error: any) {
     return !this.handleAuthenticationError(error);
   }
 

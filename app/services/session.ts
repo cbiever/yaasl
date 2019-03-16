@@ -1,15 +1,20 @@
 import Service from '@ember/service';
-import jwtDecode from 'ember-cli-jwt-decode';
+import jwt_decode from 'ember-cli-jwt-decode';
 
-export default class extends Service {
+export default class Session extends Service {
 
-  setAuthorization(authorization, roles) {
+  transition?: any;
+  authorization?: string;
+  roles?: string[];
+  originatorID?: string;
+
+  setAuthorization(authorization: string, roles?: string[]) {
     this.set('authorization', authorization);
     if (roles) {
       this.set('roles', roles);
     }
     else {
-      this.set('roles', jwtDecode(authorization).roles);
+      this.set('roles', jwt_decode(authorization));
     }
     window.localStorage.setItem('yaasl_token', authorization);
   }
@@ -35,7 +40,7 @@ export default class extends Service {
     window.localStorage.removeItem('yaasl_token');
   }
 
-  isInRole(role) {
+  isInRole(role: string) {
     let isInRole = false;
     if (this.roles) {
       this.roles.forEach(r => {

@@ -2,7 +2,7 @@ import BaseRoute from "./baseRoute";
 
 export default class extends BaseRoute {
 
-  beforeModel(transition) {
+  beforeModel(transition: any) {
     return this.checkAuthenticated(transition).then(
       () => {
         let today = new Date();

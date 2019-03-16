@@ -2,7 +2,7 @@ import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import { belongsTo } from 'ember-data/relationships';
 
-export default Model.extend({
+export default class Flight extends Model.extend({
   startTime: attr('date'),
   startLocation: belongsTo('location'),
   landingTime: attr('date'),
@@ -20,4 +20,4 @@ export default Model.extend({
   editable: attr('boolean'),
   locked: attr('boolean'),
   revision: attr('number')
-});
+}) { }
