@@ -21,7 +21,6 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
 
   app.import('node_modules/file-saver/FileSaver.min.js');
-  app.import('node_modules/base64-js/base64js.min.js');
 
   return app.toTree();
 };

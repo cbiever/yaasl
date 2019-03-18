@@ -63,12 +63,11 @@ export default class StartListHeader extends Component {
           headers: { 'Authorization': this.session.authorization }
         })
         .then((response: Response) => {
-console.log('response: ', response, ' filename: ', filename);
           if (mimeType == 'application/pdf') {
-//            response.text().then((text: string) => window.saveAs(new Blob([base64js.toByteArray(text)]), filename));
+            response.blob().then((blob: any) => saveAs(blob, filename));
           }
           else {
-//            response.text().then((text: string) => { window.saveAs(new Blob([text], { encoding: 'UTF-8' }), filename)});
+            response.text().then((text: string) => saveAs(new Blob([text]), filename));
           }
         });
       }
@@ -91,34 +90,27 @@ console.log('response: ', response, ' filename: ', filename);
   }
 
   translations(f: any) {
-console.log('f: ', f);
-    let intl = this.intl;
     let translations = new Map<string, string>();
-    translations.set('location', intl.t('location').string);
-    translations.set('date', intl.t('date').string);
-    translations.set('call.sign', intl.t('flight.call.sign.placeholder').string);
-    translations.set('start.location', intl.t('flight.start.location.placeholder').string);
-    translations.set('start.time', intl.t('flight.start.time.placeholder').string);
-    translations.set('landing.location', intl.t('flight.landing.location.placeholder').string);
-    translations.set('landing.time', intl.t('flight.landing.time.placeholder').string);
-    translations.set('pilot.1', intl.t('flight.pilot.1').string);
-    translations.set('pilot.2', intl.t('flight.pilot.2').string);
-    translations.set('pilot.role', intl.t('flight.pilot.role').string);
-    translations.set('pilot.role.fi', intl.t('pilot.role.fi').string);
-    translations.set('pilot.role.pilot', intl.t('pilot.role.pilot').string);
-    translations.set('pilot.role.student', intl.t('pilot.role.student').string);
-    translations.set('pilot.role.passenger', intl.t('pilot.role.passenger').string);
-    translations.set('call.sign.tow.plane', intl.t('flight.call.sign.tow.plane').string);
-    translations.set('tow.pilot', intl.t('flight.tow.pilot').string);
-    translations.set('cost.sharing', intl.t('flight.cost.sharing.placeholder').string);
-    translations.set('cost.sharing.student', intl.t('cost.sharing.student').string);
-    translations.set('cost.sharing.fifty.fifty', intl.t('cost.sharing.fifty.fifty').string);
-    let reader = new FileReader();
-    reader.onload = function(event: any) {
-console.log('event: ', event);
-//      f(base64js.fromByteArray(new Uint8Array(event.target.result)));
-    };
-    reader.readAsArrayBuffer(new Blob([JSON.stringify(translations)]));
+    translations.set('location', this.intl.t('location'));
+    translations.set('date', this.intl.t('date'));
+    translations.set('call.sign', this.intl.t('flight.call.sign.placeholder'));
+    translations.set('start.location', this.intl.t('flight.start.location.placeholder'));
+    translations.set('start.time', this.intl.t('flight.start.time.placeholder'));
+    translations.set('landing.location', this.intl.t('flight.landing.location.placeholder'));
+    translations.set('landing.time', this.intl.t('flight.landing.time.placeholder'));
+    translations.set('pilot.1', this.intl.t('flight.pilot.1'));
+    translations.set('pilot.2', this.intl.t('flight.pilot.2'));
+    translations.set('pilot.role', this.intl.t('flight.pilot.role'));
+    translations.set('pilot.role.fi', this.intl.t('pilot.role.fi'));
+    translations.set('pilot.role.pilot', this.intl.t('pilot.role.pilot'));
+    translations.set('pilot.role.student', this.intl.t('pilot.role.student'));
+    translations.set('pilot.role.passenger', this.intl.t('pilot.role.passenger'));
+    translations.set('call.sign.tow.plane', this.intl.t('flight.call.sign.tow.plane'));
+    translations.set('tow.pilot', this.intl.t('flight.tow.pilot'));
+    translations.set('cost.sharing', this.intl.t('flight.cost.sharing.placeholder'));
+    translations.set('cost.sharing.student', this.intl.t('cost.sharing.student'));
+    translations.set('cost.sharing.fifty.fifty', this.intl.t('cost.sharing.fifty.fifty'));
+    f(JSON.stringify([...translations].reduce((acc: any, val: any) => { acc[val[0]] = val[1]; return acc; }, {})));
   }
 
   @action
