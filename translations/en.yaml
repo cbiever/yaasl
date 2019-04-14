@@ -8,6 +8,8 @@ login:
   logoff: Logoff
   logoff.thankyou: Thank you for using Yaasl
   error: Unfortunately login was unsuccessful
+sortieList:
+  complete: Close
 flight:
   start:
     time:

@@ -8,6 +8,8 @@ login:
   logoff: Afmelden
   logoff.thankyou: Bedankt dat u Yaasl gebruikt heeft
   error: Aanmelden is helaas niet gelukt
+sortieList:
+  complete: Afsluiten
 flight:
   start:
     time:

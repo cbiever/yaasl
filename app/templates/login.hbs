@@ -4,12 +4,12 @@
         {{paper-input value=username label=(t 'login.username') onChange=(action (pipe (action (mut username)) (action 'update')))}}
       </div>
       <div class="flex">
-        {{paper-input value=password label=(t 'login.password') type="password" onChange=(action (pipe (action (mut password)) (action 'update')))}}
+        {{paper-input value=password label=(t 'login.password') type="password" onChange=(action (pipe (action (mut password)) (action 'update'))) onKeyDown=(action 'keyDown')}}
       </div>
       <div class="flex">
         {{paper-checkbox value=rememberMe label=(t 'login.remember.me') onChange=(action (mut rememberMe))}}
       </div>
-      {{#paper-button primary=true disabled=(not canLogin) onClick=(action "login")}}{{t 'login.login'}}{{/paper-button}}
+      {{#paper-button primary=true disabled=(not canLogin) onClick=(action 'login')}}{{t 'login.login'}}{{/paper-button}}
       {{#if error}}
         <div class="layout-row layout-align-center-end" style="margin-top:30px">
           <div style="color:#d50000">{{t 'login.error'}}</div>

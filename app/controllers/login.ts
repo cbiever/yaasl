@@ -26,6 +26,13 @@ export default class extends Controller {
   }
 
   @action
+  keyDown(key: any) {
+    if (key.keyCode == 13) {
+      this.login();
+    }
+  }
+
+  @action
   login() {
     let formData = new FormData();
     formData.append('username', this.username);

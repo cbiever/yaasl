@@ -8,6 +8,8 @@ login:
   logoff: Ausloggen
   logoff.thankyou: Danke das sie Yaasl verwendet haben
   error: Schade Iloggen hat nicht geklappt
+sortieList:
+  complete: Abschliessen
 flight:
   start:
     time:

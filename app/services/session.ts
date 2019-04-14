@@ -5,8 +5,8 @@ export default class Session extends Service {
 
   transition?: any;
   authorization?: string;
+  originatorID?: string = '-1';
   roles?: string[];
-  originatorID?: string;
 
   setAuthorization(authorization: string, roles?: string[]) {
     this.set('authorization', authorization);

@@ -21,9 +21,11 @@ export default class Flight extends Component {
   @attribute onFlightChanged: any;
   @attribute onDeleteFlight: any;
 
+//  @tracked expanded: boolean = false;
+expanded: boolean = false;
+
   comment: String = '';
   editable: boolean = false;
-  expanded: boolean = false;
   locked: boolean = false;
 
   init() {
@@ -38,7 +40,6 @@ export default class Flight extends Component {
   @action
   updateComment() {
     this.onFlightChanged(this.flight, 'comment', this.comment);
-
   }
 
   @action
@@ -54,6 +55,7 @@ export default class Flight extends Component {
   @action
   setExpanded(expanded: boolean) {
     this.set('expanded', expanded);
+//    this.expanded = expanded;
   }
 
   @action
